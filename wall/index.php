@@ -38,8 +38,9 @@ $feedUrl = getFeed();
 				<!-- Here come the data from wall.js... -->
 			</div>
 		</div>
-		<p id="infrafooter"><a href="http://www.b2bweb.fr/molokoloco/scroll-wall-jquery-mobile-masonry/" target="_blank" title="Plus d'infos sur le code source du prototype...">Source code</a> | <a href="mailto:molokoloco@gmail.com" id="a_0" title="Aka Julien Gu&eacute;zennec o_O">molokoloco</a> <img src="http://www.b2bweb.fr/images/copyleft.png" alt="Copyleft" width="12" height="12" border="0" align="baseline"/> <a href="http://www.b2bweb.fr/" title="b2bweb.fr" target="_blank">b2bweb.fr</a><br />
-		Want a fast home page ? <a href="http://home.b2bweb.fr" title="Start Page" target="_blank">http://home.b2bweb.fr</a></p>		
+		<p id="infrafooter"><a href="http://www.b2bweb.fr/molokoloco/scroll-wall-jquery-mobile-masonry/" target="_blank">Source code</a> | <a href="mailto:molokoloco@gmail.com" id="a_0" title="Aka Julien Gu&eacute;zennec o_O">molokoloco</a> <img src="http://www.b2bweb.fr/images/copyleft.png" alt="Copyleft" width="12" height="12" border="0" align="baseline"/> <a href="http://www.b2bweb.fr/" title="b2bweb.fr" target="_blank">b2bweb.fr</a><br />
+		Want a fast home page ? <a href="http://home.b2bweb.fr" title="Start Page" target="_blank">http://home.b2bweb.fr</a></p>
+		<a href="https://github.com/molokoloco/FRAMEWORK/" title="See source code on GITHUB..." target="_blank"><img style="position:absolute;top:0;right:0;border:0;z-index:999;" src="img/github-ribbon.png" width="100" height="100" alt="Fork me on GitHub"></a>
 	</div>
 
 	<footer>
