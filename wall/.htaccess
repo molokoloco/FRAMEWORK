@@ -1,0 +1,48 @@
+<IfModule mod_deflate.c>
+	<IfModule mod_setenvif.c>
+		BrowserMatch ^Mozilla/4 gzip-only-text/html
+		BrowserMatch ^Mozilla/4\.0[678] no-gzip
+		BrowserMatch \bMSIE !no-gzip !gzip-only-text/html
+		BrowserMatch \bMSI[E] !no-gzip !gzip-only-text/html
+	</IfModule>
+	<IfModule mod_headers.c>
+		Header append Vary User-Agent env=!dont-vary
+	</IfModule>
+	AddOutputFilterByType DEFLATE text/css application/x-javascript text/html text/richtext image/svg+xml text/plain text/xsd text/xsl text/xml image/x-icon
+</IfModule>
+
+<IfModule mod_headers.c>
+	Header set Pragma "public"
+	Header set Cache-Control "public, must-revalidate, proxy-revalidate"
+</IfModule>
+
+<IfModule mod_mime.c>
+	AddType text/css .css
+	AddType application/x-javascript .js
+	AddType text/html .html .htm
+	AddType text/plain .txt
+	AddType image/gif .gif
+	AddType application/x-gzip .gz .gzip
+	AddType image/x-icon .ico
+	AddType image/jpeg .jpg .jpeg .jpe
+	AddType image/png .png
+	AddType application/zip .zip
+</IfModule>
+
+<IfModule mod_expires.c>
+	ExpiresActive On
+	ExpiresByType image/png A604800
+	ExpiresByType image/jpeg A604800
+	ExpiresByType image/vnd.microsoft.icon A604800
+	ExpiresByType text/css A604800
+	ExpiresByType text/html A604800
+	ExpiresByType text/css A604800
+	ExpiresByType application/x-javascript A604800
+</IfModule>
+
+<IfModule mod_rewrite.c>
+	RewriteCond %{QUERY_STRING} (\<|%3C).*script.*(\>|%3E) [NC,OR]
+	RewriteCond %{QUERY_STRING} GLOBALS(=|\[|\%[0-9A-Z]{0,2}) [OR]
+	RewriteCond %{QUERY_STRING} _REQUEST(=|\[|\%[0-9A-Z]{0,2})
+	RewriteRule ^(.*)$ index.php [F,L]
+</IfModule>
