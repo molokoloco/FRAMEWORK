@@ -19,7 +19,7 @@ $feedUrl = getFeed();
 	<link rel="icon" type="image/x-icon" href="<?=$WWW;?>favicon.ico" />
 	<link rel="shortcut icon" type="image/x-icon" href="<?=$WWW;?>favicon.ico" />
 	<link rel="apple-touch-icon" href="<?=$WWW;?>img/apple-touch-icon.png"/>
-	<link rel="image_src" href="<?=$WWW;?>img/preview.jpg"/>
+	<link rel="image_src" href="<?=$WWW;?>img/wallify-jquery-plugin.jpg"/>
 	<link rel="alternate" type="application/rss+xml" title="RSS 2.0" href="http://feeds.feedburner.com/b2bweb" />
 	<!--link rel="stylesheet" href="<?=$WWW;?>css/jquery.mobile-1.0a2.min.css" />-->
 	<link rel="stylesheet" href="<?=$WWW;?>css/wall.css" />
