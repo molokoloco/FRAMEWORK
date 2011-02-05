@@ -1,7 +1,7 @@
 <?
 $local = (strpos($_SERVER['SERVER_ADDR'], '127.0.0.1') !== FALSE ? TRUE : FALSE);
 
-$WWW = ( $local ? 'http://localhost/www.b2bweb.fr/b2bweb/wall/' : 'http://www.b2bweb.fr/wall/' );
+$WWW = ( $local ? 'http://localhost/FRAMEWORK/wall/' : 'http://www.b2bweb.fr/wall/' );
 $FEED = 'http://feeds.feedburner.com/b2bweb'; // http://www.google.com/reader/public/atom/user%2F11601043898330304613%2Fstate%2Fcom.google%2Fbroadcast
 
 function getFeed() {

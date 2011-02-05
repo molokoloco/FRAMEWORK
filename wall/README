@@ -1,12 +1,9 @@
-<<<<<<< HEAD
 Framework and sample code by molokoloco - 2011
 
-wall/
+The Wall
 Demo : http://www.b2bweb.fr/wall/
 More info : http://www.b2bweb.fr/molokoloco/scroll-wall-jquery-mobile-masonry/
-=======
-Framework and sample code by molokoloco 2011
->>>>>>> 676d50cc2c5d74d30c20cb6b00df6af683afe037
+Main Script : https://github.com/molokoloco/FRAMEWORK/blob/master/wall/js/jquery.wall.js
 
 More infos for the wall : http://www.b2bweb.fr/molokoloco/scroll-wall-jquery-mobile-masonry/
 Demo : http://www.b2bweb.fr/wall/
