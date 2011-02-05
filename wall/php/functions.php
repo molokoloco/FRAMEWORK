@@ -131,9 +131,10 @@ function jsonClean($string) {
 	$string = str_replace($bad, $better, $string);
 	$string = stripslashes(make_iso($string));
 	$string = str_replace($bad, $better, $string); // twice...
-	$string = clean(stripTags(html_entity_decode($string, ENT_QUOTES, 'ISO-8859-1')));
-	$string = str_replace(chr(10), ' ',$string);
-	$string = str_replace(chr(13), '',$string);
+	$string = clean(stripTags(html_entity_decode(make_iso($string), ENT_QUOTES, 'ISO-8859-1')));
+	$string = str_replace(chr(10), ' ',$string); // \n
+	$string = str_replace(chr(13), '',$string); // \r
+	$string = str_replace(chr(9), '',$string); // \t
 	$string = str_replace('"', '\"',stripslashes($string));
 	return $string;
 }

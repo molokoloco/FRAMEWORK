@@ -179,7 +179,8 @@ $currentItem = ($page - 1) * $pageOffset;
 $cacheBase = dirname(__FILE__).'/cache/';
 $cache = $cacheBase.'json-'.$page.'-'.cleanName($feedUrl);
 // if (!is_dir($cacheBase)) mkdir($cache, 0777);
-### @unlink($cache);
+### 
+@unlink($cache);
 
 $feedData = '';
 if (!is_file($cache) || filemtime($cache) < (time() - (3600*12))) { // Re-cache every 12 hours

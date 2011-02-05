@@ -1,4 +1,11 @@
 <?
+/*
+
+HAVE TO PUT THIS FILE IN YOU WORDPRESS DIRECTORY 
+... and change PATH in feed2json.php
+
+*/
+
 
 require('./wp-blog-header.php');
 

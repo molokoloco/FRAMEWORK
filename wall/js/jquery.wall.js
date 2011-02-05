@@ -52,7 +52,7 @@ var escapeURI = function(url) { if (encodeURIComponent) return encodeURIComponen
 
 			// Private
 			var _wallified		= false,
-				_intWaitLoad			= null,
+				_intWaitLoad	= null,
 				_ajax			= null,
 				_ajaxWork		= false,
 				_globalId		= 0,
@@ -400,7 +400,7 @@ var escapeURI = function(url) { if (encodeURIComponent) return encodeURIComponen
 					data 		: {url: feedUrl, page: options.currentPage},
 					url			: options.provider, 
 					success		: buildWall, // Yeah
-					error		: function(request, status, error) { cancel(); popUp('Feed loading error :( '+request+', '+status+', '+error+'):', 6000); }
+					error		: function(request, status, error) { cancel(); popUp('Feed loading error '+feedUrl+' :( '+request+', '+status+', '+error+'):', 6000); }
 				}); 
 			};
 			
