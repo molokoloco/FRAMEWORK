@@ -6,6 +6,7 @@
 	// A function to get browser specific CSS style name properties... eg. "MozBorderRadius" or "WebkitTransform" ...
 	// Source here :
 	// Playground here : http://jsfiddle.net/molokoloco/f6Z3D/
+	// Source here : https://github.com/molokoloco/FRAMEWORK/blob/master/jquery.plugins/jquery.browsercssprefix.mlklc.js
 	
 	// Usages examples
 	
