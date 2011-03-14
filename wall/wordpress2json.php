@@ -1,13 +1,14 @@
 <?
 /*
 
-HAVE TO PUT THIS FILE IN YOU WORDPRESS DIRECTORY 
+HAVE TO PUT THIS FILE IN YOUR WORDPRESS DIRECTORY (./)
 ... and change PATH in feed2json.php
 
 */
 
-
 require('./wp-blog-header.php');
+
+remove_action('loop_end', 'dsq_loop_end'); // DISQUS plugin.......
 
 require_once(dirname(__FILE__).'/wall/php/phpthumb/ThumbLib.inc.php');
 
