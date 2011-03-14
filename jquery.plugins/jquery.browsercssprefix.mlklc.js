@@ -4,8 +4,9 @@
 /*
 	// Get browser CSS style name properties (-Moz -Webkit, ... CSS support)
 	// A function to get browser specific CSS style name properties... eg. "MozBorderRadius" or "WebkitTransform" ...
-	// Source here :
+
 	// Playground here : http://jsfiddle.net/molokoloco/f6Z3D/
+	// Source here : https://github.com/molokoloco/FRAMEWORK/blob/master/jquery.plugins/jquery.browsercssprefix.mlklc.js
 	
 	// Usages examples
 	
@@ -14,7 +15,7 @@
 		var cssProp = {};
 		cssProp['border'] = '1px solid rgba(0, 0, 0, .5)';
 		cssProp[cssTransform] = 'rotate(20deg)';
-		cssProp[cssPrefix('BorderRadius')] = '5px'; // Keep the CamelCaze
+		cssProp[cssPrefix('borderRadius')] = '5px'; // Keep the camelCaze
 		$('#myDiv').css(cssProp);
 	}
 */
