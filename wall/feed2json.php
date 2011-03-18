@@ -1,5 +1,7 @@
 <?php
 
+//ini_set('display_errors','On');
+
 require_once(dirname(__FILE__).'/php/functions.php');
 
 ///////////// URLificator ///////////////////////////////////////////////////
@@ -11,7 +13,7 @@ function getFinalUrl($url, $timeout=5) { // Get Real URL (Keep out FeedBurner re
 	$url = str_replace('&amp;', '&', clean(urldecode($url)) );
 
 	$ch = curl_init();
-	curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0 (Windows; U; Windows NT 5.1; rv:1.7.3) Gecko/20041001 Firefox/0.10.1');
+	curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.9.0.10) Gecko/2009042523 Ubuntu/8.10 (intrepid) Firefox/3.0.11');
 	curl_setopt($ch, CURLOPT_URL, $url);
 	curl_setopt($ch, CURLOPT_COOKIEJAR, tempnam('/tmp', 'CURLCOOKIE'));
 	curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true); // ini_set('safe_mode', 0) or comment with a @
@@ -135,7 +137,7 @@ function getJsonFromFeed($feedUrl, $start=0, $offset=15, $size=800) {
 		}
 		
 		if ($enclosureLink) {
-			$enclosureLinkName = makeName($enclosureLink, 50);
+			$enclosureLinkName = makeNameUrl($enclosureLink, 50);
 			$ext = getExt($enclosureLink); //  Have to deal with a lot of image without extension...
 			if (file_exists($cacheBase.$enclosureLinkName)) 			$enclosureLink = $WWW.'cache/'.$enclosureLinkName;
 			elseif (file_exists($cacheBase.$enclosureLinkName.'.jpg')) 	$enclosureLink = $WWW.'cache/'.$enclosureLinkName.'.jpg'; // Renamed with PhpThumbFactory Ext ?
@@ -161,8 +163,33 @@ function getJsonFromFeed($feedUrl, $start=0, $offset=15, $size=800) {
 }
 
 function getJsonFromWordpress($page) {
-	return utf8_decode(file_get_contents('http://www.b2bweb.fr/wordpress2json/page/'.$page.'/'));
+
+	if (!function_exists('curl_init')) return utf8_decode(file_get_contents('http://www.b2bweb.fr/wordpress2json/page/'.$page.'/'));
+	
+	$ch = curl_init();
+	curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.9.0.10) Gecko/2009042523 Ubuntu/8.10 (intrepid) Firefox/3.0.11');
+	curl_setopt($ch, CURLOPT_URL, 'http://www.b2bweb.fr/wordpress2json/page/'.$page.'/');
+	curl_setopt($ch, CURLOPT_COOKIEJAR, tempnam('/tmp', 'CURLCOOKIE'));
+	curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true); // ini_set('safe_mode', 0) or comment with a @
+	curl_setopt($ch, CURLOPT_MAXREDIRS, 2);
+	curl_setopt($ch, CURLOPT_ENCODING, '');
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+	curl_setopt($ch, CURLOPT_AUTOREFERER, true);
+	curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false ); // required for https urls
+	curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 12);
+	curl_setopt($ch, CURLOPT_TIMEOUT, 12);
+	//curl_setopt($ch, CURLOPT_HEADER, true);
+
+	$content = curl_exec($ch);
+	$response = curl_getinfo($ch);
+	curl_close($ch);
+
+	if ($response['http_code'] == 200 && !empty($content)) return utf8_decode($content);
+	return '[{"message":"Erreur URL interne"}]';
 }
+
+
+
 
 // LET'S GO AND FETCH FEED ! /////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -181,7 +208,7 @@ $cache = $cacheBase.'json-'.$page.'-'.cleanName($feedUrl);
 ### @unlink($cache);
 
 $feedData = '';
-if (!is_file($cache) || filemtime($cache) < (time() - (3600*12))) { // Re-cache every 12 hours
+if (!is_file($cache) || filemtime($cache) < (time() - (3600*6))) { // Re-cache every 6 hours
 	@ignore_user_abort(true);
 	if ($feedUrl == $FEED) $feedData = getJsonFromWordpress($page);
 	else $feedData = getJsonFromFeed($feedUrl, $currentItem, $pageOffset, $size);

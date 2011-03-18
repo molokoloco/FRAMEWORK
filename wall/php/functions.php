@@ -60,6 +60,14 @@ function makeName($path, $nb='60', $noExt=false) { // 070220155402_las-vegas-blv
 	$filename = substr(cleanName(preg_replace('|.'.$ext.'|si', '', $filename)), 0, $nb);
 	return date(ymdHis).'_'.$filename.($noExt || empty($ext) ? '' : '.'.$ext);
 }
+
+function makeNameUrl($path, $nb='60', $noExt=false) { // XXXUrlHashXXX_las-vegas-blvd.jpg
+	list($filename) = explode('?', basename($path)); // some url param ?
+	$ext = getExt($filename);
+	$filename = substr(cleanName(preg_replace('|.'.$ext.'|si', '', $filename)), 0, $nb);
+	return $filename.'_'.md5($path).($noExt || empty($ext) ? '' : '.'.$ext);
+}
+
 function unHtmlEntities($string) {
 	//return  html_entity_decode(aff($string),ENT_COMPAT,'ISO-8859-15');
 	$trans_tbl = get_html_translation_table(HTML_ENTITIES);

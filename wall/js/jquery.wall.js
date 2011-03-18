@@ -156,15 +156,20 @@ var escapeURI = function(url) { if (encodeURIComponent) return encodeURIComponen
 				_ajaxWork = false;
 				_wallified = false;
 			};
-
+			
 			// onResize callback
-			var centerWall = function() {
+			var updateSizes = function() {
 				options.boxWidth = $wall.width();
 				options.boxHeight = $wall.height();
 				options.W = $(window).width();
 				options.H = $(window).height();
 				options.dW = $(document).width();
 				options.dH = $(document).height();
+			};
+			
+			// onResize callback
+			var centerWall = function() {
+				updateSizes();
 				var Wwid = Math.floor(options.W / options.colWidth) * options.colWidth, // Largeur avec nombre maximal de colonnes possibles
 					Wleft = (options.boxWidth - Wwid) / 2; // Centrage
 				$wall.css({left: Wleft+'px'});
@@ -286,8 +291,10 @@ var escapeURI = function(url) { if (encodeURIComponent) return encodeURIComponen
 				if (_wallified) { // Update wall
 					for (var i in _stockedBox) $wall.masonry({appendedContent:_stockedBox[i]});
 					_stockedBox = [];
+					updateSizes();
 					return;
 				}
+				
 				// INIT WALL ! once loaded...
 				_wallified = true;
 				$(options.divLoading).fadeOut(1600);
@@ -299,7 +306,8 @@ var escapeURI = function(url) { if (encodeURIComponent) return encodeURIComponen
 							$(window).bind('smartresize', centerWall); // cf. masonry
 							$(window).bind('scroll', isNearBottom); // Call next page when user scroll down
 							//$('body').bind('mousemove', checkMouseIfTopBottom);
-							if ($wall.height()+300 < $(document).height()) setTimeout(function() { callNextFeed(); }, 5000); // Il reste de la place ?
+							updateSizes();
+							if ($wall.height()+300 < options.dH) setTimeout(function() { callNextFeed(); }, 5000); // Il reste de la place ?
 							$wall.masonry({animate:false});
 						}, 1200);
 					}
