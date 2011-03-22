@@ -13,7 +13,7 @@ $feedUrl = getFeed();
 	<title>Wall [<?=(isset($feedUrl) ? htmlentities($feedUrl) : 'Work Wild Web @ b2bWeb.fr');?>]</title> 
 	<meta http-equiv="WebDev" content="^Work In Progress^ By molokoloco 2010"/>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-	<!--<meta name="viewport" content="width=device-width; initial-scale=1.0;" /> // setted by jQMob -->
+	<!--<meta name="viewport" content="width=device-width; initial-scale=1.0;" />-->
 	<meta name="apple-mobile-web-app-capable" content="yes" />
 	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
 	<link rel="icon" type="image/x-icon" href="<?=$WWW;?>favicon.ico" />
@@ -28,7 +28,7 @@ $feedUrl = getFeed();
 
 	<header>
 		<form action="#" method="get" name="formFeed" id="formFeed">
-			<a href="<?=$WWW;?>google2reader.php" class="button blue" title="Choisir un flux RSS"><div class="icon gear"></div>Flux<span></span></a><input type="url" name="url" id="url" value="<?=htmlentities(urldecode($feedUrl));?>" title="Fluid interface @ BornToBeWeb, give me feed, give me food !" size="10"/>&nbsp;<a href="javascript:void(0);" onClick="$('form#formFeed').trigger('submit');" class="button blue" title="Choisir un flux RSS">Wallify&nbsp;!<span></span></a>
+			<a href="<?=$WWW;?>google2reader.php" class="button blue" title="Choisir un flux RSS"><div class="icon gear"></div>Flux<span></span></a><input type="url" name="url" id="url" value="<?=htmlentities(urldecode($feedUrl));?>" title="Fluid interface @ BornToBeWeb, give me feed, give me food !" size="10"/>&nbsp;<a href="javascript:void(0);" onclick="$('form#formFeed').trigger('submit');" class="button blue" title="Choisir un flux RSS">Wallify&nbsp;!<span></span></a>
 		</form>
 	</header>
 
@@ -44,9 +44,9 @@ $feedUrl = getFeed();
 	</div>
 
 	<footer>
-		<a href="javascript:void(0);" onClick="$('html, body').animate({scrollTop:0}, 1600);" class="button blue right" title="Remonter" id="up" style="display:none;"><div class="icon arrow"></div><span></span> Up</a> <a href="http://www.b2bweb.fr/" class="button blue right" title="http://www.b2bweb.fr"><div class="icon home"></div><span></span> Home</a>
+		<a href="javascript:void(0);" onclick="$('html, body').animate({scrollTop:0}, 1600);" class="button blue right" title="Remonter" id="up" style="display:none;"><div class="icon arrow"></div><span></span> Up</a> <a href="http://www.b2bweb.fr/" class="button blue right" title="http://www.b2bweb.fr"><div class="icon home"></div><span></span> Home</a>
 		<span id="scrollInfos"></span>
-		<a href="javascript:(function(w){w.open('<?=$WWW;?>?url='+encodeURIComponent(w.location.href));})(window);" onClick="alert('Drag me to your bookmarks to Wallify site/feed with one clic...'); return false;" title="Drag me to your bookmarks to Wallify site with one clic..." class="button gray left"><div class="icon grid"></div>Wallmarklet<span></span></a>
+		<a href="javascript:(function(w){w.open('<?=$WWW;?>?url='+encodeURIComponent(w.location.href));})(window);" onclick="alert('Drag me to your bookmarks to Wallify site/feed with one clic...'); return false;" title="Drag me to your bookmarks to Wallify site with one clic..." class="button gray left"><div class="icon grid"></div>Wallmarklet<span></span></a>
 	</footer>
 	
 	<script src="<?=$WWW;?>js/jquery-1.4.4.min.js"></script>

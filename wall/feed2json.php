@@ -1,12 +1,14 @@
 <?php
 
-//ini_set('display_errors','On');
+@ini_set('error_reporting', E_ALL & ~E_NOTICE);
+@ini_set('display_errors', 'on'); 
 
 require_once(dirname(__FILE__).'/php/functions.php');
 
 ///////////// URLificator ///////////////////////////////////////////////////
-
-function getFinalUrl($url, $timeout=5) { // Get Real URL (Keep out FeedBurner redirecting...) // Inspired from comment here : http://php.net/manual/fr/ref.curl.php
+// Get Real URL (Keep out FeedBurner redirecting...) 
+// Inspired from comments here : http://php.net/manual/fr/ref.curl.php
+function getFinalUrl($url, $timeout=5) { 
 
 	if (!function_exists('curl_init') || empty($url)) return $url;
 
@@ -24,7 +26,7 @@ function getFinalUrl($url, $timeout=5) { // Get Real URL (Keep out FeedBurner re
 	curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false ); // required for https urls
 	curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, $timeout);
 	curl_setopt($ch, CURLOPT_TIMEOUT, $timeout);
-	//curl_setopt($ch, CURLOPT_HEADER, true);
+	### curl_setopt($ch, CURLOPT_HEADER, true);
 
 	$content = curl_exec($ch);
 	$response = curl_getinfo($ch);
@@ -53,7 +55,9 @@ function getFinalUrl($url, $timeout=5) { // Get Real URL (Keep out FeedBurner re
 }
 
 ///////////// FEEDER ///////////////////////////////////////////////////
-
+// Convert distant RSS to processed JSON...
+// Based on the famous ./php/SimplePie
+// Images managed with ./php/PhpThumb
 function getJsonFromFeed($feedUrl, $start=0, $offset=15, $size=800) {
 	
 	global $WWW;
@@ -162,10 +166,11 @@ function getJsonFromFeed($feedUrl, $start=0, $offset=15, $size=800) {
 	else return '['.implode(',', $items).']';
 }
 
+// Get infinite post items from inside my wordpress blog... >>> Check ./wordpress2json.php (copy)
 function getJsonFromWordpress($page) {
 
 	if (!function_exists('curl_init')) return utf8_decode(file_get_contents('http://www.b2bweb.fr/wordpress2json/page/'.$page.'/'));
-	
+
 	$ch = curl_init();
 	curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.9.0.10) Gecko/2009042523 Ubuntu/8.10 (intrepid) Firefox/3.0.11');
 	curl_setopt($ch, CURLOPT_URL, 'http://www.b2bweb.fr/wordpress2json/page/'.$page.'/');
@@ -183,18 +188,16 @@ function getJsonFromWordpress($page) {
 	$content = curl_exec($ch);
 	$response = curl_getinfo($ch);
 	curl_close($ch);
-
+	
 	if ($response['http_code'] == 200 && !empty($content)) return utf8_decode($content);
 	return '[{"message":"Erreur URL interne"}]';
 }
 
 
-
-
 // LET'S GO AND FETCH FEED ! /////////////////////////////////////////////////////////////////////////////////////////////
 
-header('Content-Type: text/html; charset=utf-8');
-//header('Content-Type: application/json; charset=utf-8');
+### header('Content-Type: text/html; charset=utf-8'); // debug...
+header('Content-Type: application/json; charset=utf-8');
 
 $feedUrl = getFeed();
 $page = (isset($_GET['page']) && intval($_GET['page']) > 1 ? $_GET['page'] : 1);
@@ -204,9 +207,9 @@ $currentItem = ($page - 1) * $pageOffset;
 
 $cacheBase = dirname(__FILE__).'/cache/';
 $cache = $cacheBase.'json-'.$page.'-'.cleanName($feedUrl);
-// if (!is_dir($cacheBase)) mkdir($cache, 0777);
-### @unlink($cache);
+### if (!is_dir($cacheBase)) mkdir($cache, 0777); // Doyoudo
 
+### @unlink($cache); // debug...
 $feedData = '';
 if (!is_file($cache) || filemtime($cache) < (time() - (3600*6))) { // Re-cache every 6 hours
 	@ignore_user_abort(true);
@@ -220,5 +223,3 @@ if (!is_file($cache) || filemtime($cache) < (time() - (3600*6))) { // Re-cache e
 else $feedData = @file_get_contents($cache);
 
 echo utf8_encode($feedData);
-
-?>

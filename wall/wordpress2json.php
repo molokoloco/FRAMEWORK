@@ -73,15 +73,14 @@ function getWorpressPost() {
 	
 	wp_reset_query();
 	
-	
 	if ($paged > 0 && count($posts) < 2) return utf8_encode('[{"message":"no more"}]');
 	elseif (count($posts) < 2) return utf8_encode('[{"message":"We found no item in this feed... "}]');
-	else return utf8_encode('[{"link":"http://www.b2bweb.fr", "title":"Work Wild Web @ b2bWeb.fr", "description":"Watching the Web... Coding, Politics and Geekness pleasure..."},'.implode(',', $posts).']');
+	else return utf8_encode('[{"link":"'.$WWW.'", "title":"Work Wild Web @ b2bWeb.fr", "description":"Watching the Web... Coding, Politics and Geekness pleasure..."},'.implode(',', $posts).']');
 
 }
 
-header('Content-Type: text/html; charset=utf-8');
-//header('Content-Type: application/json; charset=utf-8');
-echo getWorpressPost(1);
+### header('Content-Type: text/html; charset=utf-8');
+header('Content-Type: application/json; charset=utf-8');
+echo getWorpressPost();
 
 ?>
