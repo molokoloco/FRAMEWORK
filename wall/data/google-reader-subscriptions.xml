@@ -72,7 +72,9 @@
             <outline text="Mozilla Hacks - the Web developer blog"
                 title="Mozilla Hacks - the Web developer blog"
                 type="rss" xmlUrl="http://hacks.mozilla.org/feed/" htmlUrl="http://hacks.mozilla.org"/>
-            <outline
+			<outline text="News, Augmented" title="http://owni.fr"
+                type="rss" xmlUrl="http://owni.fr/feed/" htmlUrl="http://owni.fr/"/>
+			<outline
                 text="Planète jQuery : l'actualité jQuery, plugins jQuery et tutoriels jQuery en français"
                 title="Planète jQuery : l'actualité jQuery, plugins jQuery et tutoriels jQuery en français"
                 type="rss"
