@@ -12,7 +12,8 @@ Template Name: Videos
 ### ini_set('error_reporting', E_ALL & ~E_NOTICE); // Wana debug ?
 ### ini_set('display_errors', 'on');
 
-$ROOT = '/home/b2bweb/www/'; // Define main UNIX root-path (to the dir where your want files to be processed)
+$WWW = get_option('home'); // http://www.b2bweb.fr/
+$ROOT = '/home/b2bweb/www/'; // Define UNIX site root-path (to the dir where your want files to be processed)
 $cacheBase = $ROOT.'cache/';
 ### if (!is_dir($cacheBase)) mkdir($cacheBase, 0777);
 $cacheContent = $cacheBase.'videos-'.date("Ymd");  // Build a  file cache per day... put "Ymdh" to build a cache per hour....
@@ -23,7 +24,7 @@ function getVideoFromFeed($feedUrl) {
 	
 	ob_start();
 	
-	global $WWW; // http://www.b2bweb.fr/
+	global $WWW;
 	global $ROOT;
 	global $cacheBase;
 	
@@ -45,7 +46,7 @@ function getVideoFromFeed($feedUrl) {
 	if (!$feed->init()) return 'Error parsing videos feed today... :-/';
 	$feed->handle_content_type();
 	
-	$size = 600; // Thumb and movie size...
+	$size = 600; // Thumbs and movies sizes...
 	
 	foreach($feed->get_items(0, 30) as $item):
 		$feed = $item->get_feed();
