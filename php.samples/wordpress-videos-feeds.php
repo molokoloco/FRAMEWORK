@@ -1,9 +1,12 @@
 <?php
-
+// Remixed by @molokoloco 2011 from http://simplepie.org
+//
 // This file is not garanted to work as-this... but it's easy to try ;)
 // Example here : http://www.b2bweb.fr/videos/
-// Put this file into your Wordpress template directory and create a page in your administration
-// The name "Videos" (below) must appear in template pages list... Validate and goto to yoursite.com/videos/
+// Put this file into your Wordpress template directory 
+// and create a page in your administration
+// The name "Videos" (below) must appear in template pages list...
+// Validate and goto to yoursite.com/videos/
 
 /*
 Template Name: Videos
