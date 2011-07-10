@@ -1,16 +1,16 @@
 Sample code mixed by molokoloco - 2011
 
 jquery.roundabound.js modified :
-  * Fluide HTML5 3D caroussel effect slider for presentation
+  * Fluid HTML5 3D carousel effect slider for presentation
   * One page HTML setup with a simple ul > li list
   * Screen adaptative and layout polish
   * Rocking fast un Chrome, do the job in Firefox
 
 Based on : RoundAbout for jQuery V1.1 http://fredhq.com/projects/roundabout/
-Mixed with : jQuery 2d transform (animate) http://www.binpress.com/app/jquery-2d-transform/145
+Mixed with : jQuery 2d transform (animate) http://www.binpress.com/app/jquery-2d-transform/145 (Donate if you plan to use)
 
 Demo : http://www.b2bweb.fr/bonus/jx/
-More info : http://www.b2bweb.fr/molokoloco/XXX/
+More info : http://www.b2bweb.fr/molokoloco/javascript-from-1998-to-2011/
 Main Script : https://github.com/molokoloco/FRAMEWORK/blob/master/jx/js/index.js
 GIT Sources : https://github.com/molokoloco/FRAMEWORK
 Site URL : http://www.b2bweb.fr
