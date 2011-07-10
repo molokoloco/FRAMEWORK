@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<meta http-equiv="content-language" content="fr"/>
+	<title>JavaScript xPerience</title>
+	<link rel="icon" type="image/x-icon" href="http://www.b2bweb.fr/favicon.ico" />
+	<link rel="shortcut icon" type="image/x-icon" href="http://www.b2bweb.fr/favicon.ico" />
+	<meta name="author" content="Julien Guézennec aka molokoloco 2011"/>
+	<link href="css/roundabout.css" rel="stylesheet" />
+	<script type="text/javascript" src="js/jquery.js"></script>
+	<!--<script type="text/javascript" src="js/jquery.easing.js"></script>-->
+	<script type="text/javascript" src="js/jquery.mousewheel.min.js"></script>
+	<script type="text/javascript" src="js/jquery.transform.light.min.js"></script>
+	<script type="text/javascript" src="js/jquery.roundabout.min.js"></script>
+	<script type="text/javascript" src="js/index.js"></script>
+</head>
+<body>
+	<div class="bg"></div>
+	<!--<a href="javascript:void(0);" class="previous">&lt;&lt;</a>
+	<a href="javascript:void(0);" class="next">&gt;&gt;</a>-->
+	<div class="roundabout">
+		<ul>
+			
+			<li class="slide">
+				<div class="stage">
+					<h1>From 1998 to 2011</h1>
+					<h3 title="Plus explorateur et parfois aussi éphémère que les graphs dans la ville !">Overview of a JS dev life... (L'esprit du graph !)</h3>
+					<p>&nbsp;</p>
+					<p>&nbsp;</p>
+					<p>Julien Gu&eacute;zennec .... Work definitely in progress...<br>
+					<a href="http://twitter.com/molokoloco" target="_blank">@molokoloco</a> | <a href="mailto:molokoloco@gmail.com" title="mailto:molokoloco@gmail.com" target="_blank">molokoloco@gmail.com</a> | <a href="http://b2bweb.fr/" target="_blank">http://b2bweb.fr</a>&nbsp;</p>
+					<p>&nbsp;</p>
+					<p>Depuis 2008 chez Bouygues Telecom, d&eacute;veloppeur Internet, R&amp;D &ldquo;convergence Internet&rdquo;<br>
+					Internet sur TV (Set Top Box / TV connectés), Internet mobile et tablettes tactile...<br>
+					Langages : jQuery, HTML5, SDK Android, Flex/Flash/Air, LAMP, ...</p>
+				</div>
+			</li>
+
+			<li class="slide">
+				<div class="stage">
+					<h5>à mes d&eacute;buts...</h5>
+					<h2>1998</h2>>
+					<p>Un bon mashup de frameset HTML (Ajax power 98 ^^)</p>
+					<p>D&eacute;mo : <a href="http://www.ifremer.fr/trenteans/fraccueil.html" target="_blank">http://www.ifremer.fr/trenteans/fraccueil.html</a> - [<a href="images/ifremer-DOM.png" target="_blank">Image d'example</a>]</p>
+					<p>&nbsp;</p>
+					<p><strong>index.html</strong></p>
+					<pre>&lt;frameset rows=&quot;100,*&quot; border=&quot;0&quot; framespacing=&quot;0&quot; frameborder=&quot;NO&quot;&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;frame src=&quot;<strong>menu.html</strong>&quot; name=&quot;galerie&quot; scrolling=&quot;NO&quot; noresize&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;frame src=&quot;photos.html&quot; name=&quot;image&quot; noresize&gt;<br>&lt;/frameset&gt;
+&lt;noframes&gt;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;body bgcolor=&quot;#000000&quot;&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;p&gt;This is not really a browser isn't it ?&lt;/p&gt;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/body&gt;
+&lt;/noframes&gt;</pre>
+					<p><strong>menu.html</strong></p>
+					<pre>&lt;frameset rows=&quot;*,120&quot; border=&quot;0&quot; framespacing=&quot;0&quot; frameborder=&quot;NO&quot;&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;frame src=&quot;menu-main.html&quot; name=&quot;image&quot; noresize&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;frame src=&quot;<strong>menu-bottom.html</strong>&quot; name=&quot;galerie&quot; scrolling=&quot;NO&quot; noresize&gt;<br>&lt;/frameset&gt;</pre>
+					<p><strong>menu-bottom.html</strong></p>
+					<pre>&lt;html&gt;Houra, i'm on bottom and i don't change when you browse the site&lt;/html&gt;</pre>
+				</div>
+			</li>
+
+			<li class="slide">
+				<div class="stage">
+					<h5>à mes d&eacute;buts...</h5>
+					<h2>1998 (Bis)</h2>
+					<p>Mouseover sur les images, sauce Dreamweaver...</p>
+					<pre>&lt;a href=&quot;index.html&quot; onMouseOut=&quot;MM_swapImgRestore()&quot; <strong>onMouseOver=&quot;MM_swapImage(&#39;img1978&#39;,&#39;&#39;,&#39;images/bar_nav_on_01.gif&#39;,1)&quot;</strong>&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;img name=&quot;<strong>img1978</strong>&quot; border=&quot;0&quot; src=&quot;images/navigation/imag_menu/bar_nav_no_01.gif&quot; width=&quot;24&quot; height=&quot;88&quot;&gt;
+&lt;/a&gt;<br /></pre>
+					<p>Ce qui donne des magnifiques JS, ins&eacute;r&eacute;s un peu partout dans le HTML</p>
+					<pre>&lt;script language=&quot;JavaScript&quot;&gt;<br />function MM_swapImgRestore() { //v3.0<br />	var i,x,a=document.MM_sr; for(i=0;a&amp;&amp;i&lt;a.length&amp;&amp;(x=a[i])&amp;&amp;x.oSrc;i++) x.src=x.oSrc;<br />}<br />function MM_preloadImages() { //v3.0<br />	var d=document; if(d.images){ if(!d.MM_p) d.MM_p=new Array();<br />	var i,j=d.MM_p.length,a=MM_preloadImages.arguments; for(i=0; i&lt;a.length; i++)<br />	if (a[i].indexOf(&quot;#&quot;)!=0){ d.MM_p[j]=new Image; d.MM_p[j++].src=a[i];}}<br />}<br />function MM_findObj(n, d) { //v3.0<br />	var p,i,x;  if(!d) d=document; if((p=n.indexOf(&quot;?&quot;))&gt;0&amp;&amp;parent.frames.length) {<br />	d=parent.frames[n.substring(p+1)].document; n=n.substring(0,p);}<br />	if(!(x=d[n])&amp;&amp;d.all) x=d.all[n]; for (i=0;!x&amp;&amp;i&lt;d.forms.length;i++) x=d.forms[i][n];<br />	for(i=0;!x&amp;&amp;d.layers&amp;&amp;i&lt;d.layers.length;i++) x=MM_findObj(n,d.layers[i].document); return x;<br />}<br />function MM_swapImage() { //v3.0<br />	var i,j=0,x,a=MM_swapImage.arguments; document.MM_sr=new Array; for(i=0;i&lt;(a.length-2);i+=3)<br />	if ((x=MM_findObj(a[i]))!=null){document.MM_sr[j++]=x; if(!x.oSrc) x.oSrc=x.src; x.src=a[i+2];}<br />}<br />&lt;/script&gt;</pre>
+					<h3>OK ok, le JS... ce sera sans moi ! ^^</h3>
+				</div>
+			</li>
+		
+			<li class="slide">
+				<div class="stage">
+					<h5>Et puis les annèes 2000 arrivent...</h5>
+					<h2><strong>2000</strong></h2>
+					<p>De formulaires en menus d&eacute;roulants ..., en lecteurs vid&eacute;os, ...<br />
+					On en revient petit &agrave; petit vers JS...</p>
+					<p>C'est à cette époque qu'arrive la <s>premi&egrave;re</s> seconde guerre mondiale, made in US...</p>
+					<pre>// Who is sniffing ?<br>var IE = (document.all ? true : false);<br>var NS = (document.layers ? true : false);<br>var DOM = (document.getElementById ? true : false); // Later FF+ / IE+ / NS+...</pre>
+					<h3>JavaScript progresse et les navigateurs.. ça va ça vient !</h3>
+					<p>&nbsp;</p>
+					<p>Les navigateurs...</p>
+					<ul class="big">
+						<li><a href="images/29-02_history_web_browser_infographic.jpg" target="_blank" rel="lightbox">Image d'example</a></li>
+					</ul>
+				</div>
+			</li>
+
+			<li class="slide">
+				<div class="stage">
+					<h5>Mon premier site &quot;dynamique&quot;</h5>
+					<h2>2001</h2>
+					<p>Conception du site <a href="http://web.archive.org/web/20050405050412/http://www.saintdesprit.net/agora/galeries_images.php?h=1&amp;pf=45#" target="_blank"><strong>Saintdesprit.net</strong></a>&nbsp;(2001-2005)</p>
+					<p>Sur base de &ldquo;MODs&rdquo; phpBB, galeries autonomes int&eacute;gr&eacute;es au forum : </p>
+					<ul>
+						<li>Cool browser, good bandwidth, JS, Flash 6 et Divx 5&nbsp;conseill&eacute;s !</li>
+					</ul>
+					<p>Cr&eacute;ation de galeries online pr&eacute;sentant les travaux de jeunes artistes : </p>
+					<p>150 galeries pour plus de 100 créatifs !</p>
+					<h3>A la main !... Toujours !</h3>
+					<p>&nbsp;</p>
+					<p>Too much things to says ;)</p>
+				</div>
+			</li>
+
+			<li class="slide">
+				<div class="stage">
+					<h5>Les choses se corsent !</h5>
+					<h2>2004</h2>
+					<p>Conception, r&eacute;alisation du site&nbsp;de la cha&icirc;ne &quot;<a href="http://web.archive.org/web/20040613120240/http://www.telessonne.fr/" target="_blank">T&eacute;lessonne.fr</a>&quot; (91).</p>
+					<p><strong>Front office</strong></p>
+					<ul >
+						<li>&quot;Web TV&quot; streaming vid&eacute;o (Wmp/Real/Flv), lecteur vid&eacute;o int&eacute;gr&eacute; auto-configurable : D&eacute;tection automatique de la configuration des visiteurs, gestion des cookies...</li>
+						<li>Formulaire de commande vid&eacute;o, calendrier interactif, grille des programmes</li>
+						<li>Formulaire de contact, petites annonces, newsletter...</li>
+						<li>Module m&eacute;t&eacute;o en Flash, intro en Flash 3D</li>
+						<li>Forum dynamique (Compte &quot;utilisateur&quot;, messagerie interne, tchat, agenda, ...).</li>
+						<li>D&eacute;clinaison de la charte graphique de la cha&icirc;ne pour le web.</li>
+						<li>R&eacute;f&eacute;rencement</li>
+					</ul>
+					<p><strong>Back Office</strong></p>
+					<ul >
+						<li>Administration compl&egrave;te du site gr&acirc;&ccedil;e &agrave; des formulaires s&eacute;curis&eacute;s.</li>
+						<li>Mise en oeuvre d&#39;une interface de gestion &quot;dynamique&quot; du site (Administration con&ccedil;u en Html, , PHP et script Flash)</li>
+						<li>Gestion du streaming vid&eacute;o, bases de donn&eacute;es, gestion des profils membres, de la newsletter, des news, modules Flash administrables par formulaire (texte d&eacute;filant, m&eacute;t&eacute;o, bandeau pub), statistiques, ...</li>
+						<li>Installation et administration du serveur d&eacute;di&eacute; (Fournit par ovh.com) , gestion des emails, mailing-list, etc...</li>
+					</ul>
+					<p>Softs : Dreamweaver MX, Photoshop 7.0, Flash MX, &hellip; Mise en relation d&#39;un logiciel sp&eacute;cifique d&#39;encodage avec la BDD du site pour une gestion dynamique du contenu vid&eacute;o</p>
+				</div>
+			</li>
+			
+			<li class="slide">
+				<div class="stage">
+					<h5>(Parenth&egrave;se sur les outils)</h5>
+					<h2>Les logiciels...</h2>
+					<p>Les IDEs front-end mainstream...</p>
+					<ul class="big">
+						<li><strong>1995</strong> - The Microsoft <strong>FrontPage</strong> Editor : Code editor, Styles, DOM path, ...</li>
+						<li><strong>1996</strong> - Adobe <strong>Golive</strong> Cyberstudio : Drag and drop, Sprites</li>
+						<li><strong>1997</strong> - Macromedia <strong>Dreamweaver</strong> &nbsp;: First complete tool (Advanced CSS, FTP, no much bugs)</li>
+						<li><strong>2002</strong> - Macromedia &nbsp;Dreamweaver <strong>MX</strong> : Think get serious</li>
+						<li><strong>2007</strong> - Adobe Dreamweaver <strong>CS</strong> : UI polish</li>
+						<li><strong>2011</strong> - <strong>Adobe CS5</strong>.5 : JS auto-completion ! A last !</li>
+					</ul>
+				</div>
+			</li>
+
+			<li class="slide">
+				<div class="stage">
+					<h5>&quot;Développeur PHP officiel&quot; : l'agence...</h5>
+					<h2>2005</h2>
+					<p><a href="http://code.google.com/p/molokoloco-coding-project/wiki/VirtualAdmin" target="_blank">Virtual Admin</a>&nbsp;: Framework <a href="http://www.php.net/" target="_blank">PHP4</a> et JavaScript <a href="http://www.prototypejs.org/" target="_blank">Prototype</a> /<a href="http://script.aculo.us/" target="_blank">&nbsp;</a><a href="http://script.aculo.us/" target="_blank">Script.aculo.us</a></p>
+					<p><span>CMS, <strong>Back</strong> et <strong>Front Office</strong>, catalogues, galeries, lecteurs</span> multimédias <br />
+					et une multitude de modules...</p>
+					<pre>/*///////////////////////////////////////////////////////////////////////////////////////////////////////<br />///// Code mixing by Molokoloco - www.borntobeweb.fr - BETA TESTING FOR EVER !       (o_O)       ///////<br />///////////////////////////////////////////////////////////////////////////////////////////////////////<br />KEEP ze ORDER : 001_admin.js, 002_flashObject, 003_cookie, 004_fade, 005_color, 006_mousewheel, 100_prototype,<br />102_slider, 104_sound, 110_effects, 111_effects.extend, 112_dragdrop, 113_controls, 114_prototip, 150_scroller,<br />200_tools, 201_client, 210_functions, 211_form, 212_diaporama, 213_horloge, 214_modal-dialogue,<br />215_menu,215_accordeon, 220_lightbox, 230_tab-view, 300_specifique,999_regexp<br />////////////////////////////////////////////////////////////////////////////////////////////////////*/<br />var compressed = false; // Cf. http://alex.dojotoolkit.org/shrinksafe/<br />var toLoad = '002_flashObject,100_prototype,110_effects,111_effects.extend,200_tools,201_client,210_functions,211_form,214_modal-dialogue,215_menu,999_regexp';<br />var Scriptaculous = {Version: '1.8.1'};<br />var preloader = {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;require: function(libraryName) {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;document.write('&lt;script type=&quot;text/javascript&quot; src=&quot;'+libraryName+'&quot; onerror=&quot;alert(\'Error: failed to load \'+this.src)&quot;&gt;&lt;/script&gt;');<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;},<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;init: function() {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if (compressed) this.require('./js/proto/functions.compressed.js');<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;else {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;var files = toLoad.split(',');<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for (var i=0; i&lt;files.length; i++) this.require('./js/proto/optional/'+files[i]+'.js');<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br />};<br />preloader.init();<br /></pre>
+					<p><a href="http://code.google.com/p/molokoloco-coding-project/source/browse/trunk/SITE_01_SRC/" target="_blank">http://code.google.com/p/molokoloco-coding-project/source/browse/trunk/SITE_01_SRC/</a></p>
+				</div>
+			</li>
+
+			<li class="slide">
+				<div class="stage">
+					<h5>Les WebApps</h5>
+					<h2>2008</h2>
+					<p>D&eacute;veloppement de (petits) <a href="http://plugins.jquery.com/user/14240/track" target="_blank">plugins jQuery</a>&nbsp;et d&rsquo;une <a href="http://code.google.com/p/molokoloco-coding-project/wiki/WikiMenu" target="_blank">base de connaissances</a>&nbsp;(2007-...)</p>
+					<p>&nbsp;</p>
+					<p><a href="http://code.google.com/p/molokoloco-coding-project/wiki/JavascriptWindowOpenExtended" target="_blank">http://code.google.com/p/molokoloco-coding-project/wiki/JavascriptWindowOpenExtended</a></p>
+					<p>VS <a href="http://code.google.com/p/molokoloco-coding-project/wiki/MyJQueryPlugins" target="_blank">http://code.google.com/p/molokoloco-coding-project/wiki/MyJQueryPlugins</a></p>
+					<p>&nbsp;</p>
+					<p>Workable / Testable jQuery Default Plugin : <a href="http://jsfiddle.net/molokoloco/DzYdE/" target="_blank">http://jsfiddle.net/molokoloco/DzYdE/</a></p>
+					<p>... Comments or suggests ? <a href="http://www.b2bweb.fr/molokoloco/jquery-default-plugin/" target="_blank">http://www.b2bweb.fr/molokoloco/jquery-default-plugin/</a></p>
+					<p>&nbsp;</p>
+					<p>Tips and tricks (5min d'altruisme auto-promotionnel ^^)</p>
+					<ul>
+						<li><a href="http://code.google.com/p/molokoloco-coding-project/wiki/JavascriptBase" target="_blank">http://code.google.com/p/molokoloco-coding-project/wiki/JavascriptBase</a></li>
+						<li><a href="https://github.com/molokoloco" target="_blank">https://github.com/molokoloco</a></li>
+						<li><a href="http://jsfiddle.net/user/molokoloco/fiddles/" target="_blank">http://jsfiddle.net/user/molokoloco/fiddles/</a></li>
+						<li><a href="https://github.com/parisjs/parisjs-website/wiki/LinksReferences" target="_blank">The community has gathered some good resources for you :D</a></li>
+					</ul>
+					<h3>C&rsquo;est toujours pareil... : Faux !</h3>
+				</div>
+			</li>
+
+			<li class="slide">
+				<div class="stage">
+					<h5>Mon weblog mashupé...</h5>
+					<h2>2009</h2>
+					<p>Je lance enfin mon blog, <a href="http://www.b2bweb.fr" target="_blank"><strong>B2bweb.fr</strong></a> sur la base d'un Wordpress, et du plugin <strong><a href="http://wordpress.org/extend/plugins/wp-o-matic/" target="_blank">WP-o-Matic</a></strong> </p>
+					<ul>
+						<li>Mashup de flux RSS, en particulier des éléments partagés Google Reader...</li>
+						<li>9 fois sur 10 ou j'ai une idée, je trouve déjà fait, déjà mieux, avec Google o_O</li>
+						<li>Plus de 400 Sites syndiqués dans Reader...</li>
+					</ul>
+					<h3>&quot;Since <strong>May 9, 2006</strong> <br />
+					you have read a total of <strong>59,665</strong> items&quot;</h3>
+					<p>Avantage de cette solution :</p>
+					<ul>
+						<li>Rapidité</li>
+						<li>Archivage et pérénité du contenu (Les articles entiers des flux RSS sont sauvegardés même si B2bweb.fr n'affiche que les 500 premiers caractères)</li>
+						<li>Tag et recherche ultra facile</li>
+						<li>Bénéficier des mise à jour de sécurité Wordpress</li>
+					</ul>
+					<p>&nbsp;</p>
+					<p>Dans l'élan, je crée ma propre page de démarrage, <a href="http://home.b2bweb.fr" target="_blank"><strong>home.b2bweb.fr</strong></a></p>
+				</div>
+			</li>
+
+			<li class="slide">
+				<div class="stage">
+					<h5>Conclusion</h5>
+					<h2>2011</h2>
+					<h1>La m&eacute;moire et le cloud</h1>
+					<h3>La connaissance est un flux en streaming...</h3>
+					<p>Sur chaque projet il faut <strong>capitaliser</strong>, penser en <strong>module</strong>, centraliser ces sources</p>
+					<p>... et toujours <strong>améliorer la formule</strong> !</p>
+				</div>
+			</li>
+			
+		</ul>
+	</div>
+	
+</body>
+</html>
