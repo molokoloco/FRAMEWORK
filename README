@@ -1,7 +1,15 @@
 Framework and sample code by molokoloco 2011
 
-More infos for the wall : http://www.b2bweb.fr/molokoloco/scroll-wall-jquery-mobile-masonry/
-Demo : http://www.b2bweb.fr/wall/
+Scroll Wall (jQuery Mobile & Masonry)
 
-GIT Sources : https://github.com/molokoloco/FRAMEWORK
-Site URL : http://www.b2bweb.fr
+  * Demo : http://www.b2bweb.fr/wall/
+  * Infos : http://www.b2bweb.fr/molokoloco/scroll-wall-jquery-mobile-masonry/
+  * Main Script : https://github.com/molokoloco/FRAMEWORK/blob/master/wall/js/jquery.wall.js
+  * GIT Sources : https://github.com/molokoloco/FRAMEWORK/tree/master/wall
+
+jQuery Presentation SlidR V1.2
+
+  * Demo : http://www.b2bweb.fr/bonus/jx/
+  * Infos : http://www.b2bweb.fr/molokoloco/html5-3d-effect-caroussel-presentation/
+  * Main Script : https://github.com/molokoloco/FRAMEWORK/blob/master/jx/js/index.js
+  * GIT Sources : https://github.com/molokoloco/FRAMEWORK/blob/master/jx/
