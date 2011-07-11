@@ -1,16 +1,22 @@
-Sample code mixed by molokoloco - 2011
+jQuery Presentation SlidR V1.2
 
-jQuery presentation slidR V1.1
   * Fluid HTML5 3D carousel effect slider for presentation
   * One page HTML setup with a simple ul > li list
-  * Screen adaptative and layout polish
-  * Rocking fast un Chrome, do the job in Firefox
+  * Screen adaptative and layout polish, User zoom extended
+  * Rocking fast in Chrome, do the job in Firefox
 
-Based on : RoundAbout for jQuery V1.1 http://fredhq.com/projects/roundabout/
-Mixed with : jQuery 2d transform (animate) http://www.binpress.com/app/jquery-2d-transform/145 (Donate if you plan to use)
-
+Sample code mixed by molokoloco - 2011
 Demo : http://www.b2bweb.fr/bonus/jx/
-More info : http://www.b2bweb.fr/molokoloco/javascript-from-1998-to-2011/
+Infos : http://www.b2bweb.fr/molokoloco/javascript-from-1998-to-2011/
 Main Script : https://github.com/molokoloco/FRAMEWORK/blob/master/jx/js/index.js
-GIT Sources : https://github.com/molokoloco/FRAMEWORK
-Site URL : http://www.b2bweb.fr
+GIT Sources : https://github.com/molokoloco/FRAMEWORK/blob/master/jx/
+Autor Site : http://www.b2bweb.fr
+
+RESSOURCES :
+
+  * Based on : RoundAbout for jQuery V1.1 http://fredhq.com/projects/roundabout/
+  * Mixed with : jQuery 2d transform (animate) http://www.binpress.com/app/jquery-2d-transform/145 (Donate if you plan to use)
+  * Use Google Fonts API : http://www.google.com/webfonts/v2
+  * Goole Plus API : https://code.google.com/intl/fr/apis/+1button/
+  * Twitter API : https://twitter.com/about/resources/tweetbutton
+  * Facebook API : https://developers.facebook.com/docs/reference/plugins/like/

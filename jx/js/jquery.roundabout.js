@@ -447,6 +447,7 @@ $(function(){
 			ref.children(data.childSelector).each(function(i) {
 				if ($.roundabout_updateChildPosition($(this), ref, info, i) && info.animating === 0) {
 					inFocus = i;
+					ref.trigger('roundaboutFocus', [{childPos:i}]); // Send event that this one is in front
 					$(this).addClass('roundabout-in-focus');
 				} else {
 					$(this).removeClass('roundabout-in-focus');
@@ -491,18 +492,19 @@ $(function(){
 	};
 	
 	$.roundabout_updateChildPosition = function(child, container, info, childPos) {
-		//// db('roundabout_updateChildPosition');
-		
-		var ref = $(child), data = ref.data('roundabout'), dataMain = container.data('roundabout'), out = [];
-		var rad = $.roundabout_degToRad((360.0 - data.degrees) + info.bearing);
+		// db('roundabout_updateChildPosition');
+		var ref = $(child),
+			data = ref.data('roundabout'),
+			dataMain = container.data('roundabout'),
+			out = [],
+			rad = $.roundabout_degToRad((360.0 - data.degrees) + info.bearing);
 		
 		// adjust radians to be between 0 and Math.PI * 2
 		while (rad < 0) { rad = rad + Math.PI * 2; }
 		while (rad > Math.PI * 2) { rad = rad - Math.PI * 2; }
 		
 		var factors = info.shape(rad, info.focusBearingRad, info.tilt); // obj with x, y, z, and scale values
-	
-		// correct
+		
 		factors.scale = (factors.scale > 1) ? 1 : factors.scale;
 		factors.adjustedScale = (info.scale.min + (info.scale.diff * factors.scale)).toFixed(4);
 		factors.width = (factors.adjustedScale * data.startWidth).toFixed(4);
@@ -510,8 +512,11 @@ $(function(){
 		factors.left = ((factors.x * info.midStage.width + info.nudge.width) - factors.width / 2.0).toFixed(1) + 'px';
 		factors.top = ((factors.y * info.midStage.height + info.nudge.height) - factors.height / 2.0).toFixed(1) + 'px';
 		factors.opacity = (info.opacity.min + (info.opacity.diff * factors.scale)).toFixed(2);
+		factors.z = Math.round(info.zValues.min + (info.zValues.diff * factors.z));
 		
-		if (factors.scale == 1) container.trigger('roundaboutFocus', [{childPos:childPos}]); //Send event who is in front
+		// OPTIM, Si plus de 7 slides on masque le contenu de ceux du fond....
+		if (dataMain.numChild > 7 && (factors.opacity < 0.6 || factors.z < 0.6)) ref.find('div:first').hide();
+		else ref.find('div:first').show();
 		
 		// alter item
 		ref
@@ -520,11 +525,10 @@ $(function(){
 				//'top': t,
 				//'width': factors.width + 'px',
 				//'height': factors.height + 'px',
+				//'font-size': (factors.adjustedScale * data.startFontSize).toFixed(2) + 'px',
 				'transform': 'translate('+factors.left+', '+factors.top+') scale('+factors.adjustedScale+')', //'translate(50px, 30px) rotate(25deg) scale(2,.5) skew(-35deg)', 
 				'opacity': factors.opacity,
-				'display': (dataMain.numChild > 8 && factors.opacity < 0.333 ? 'none' : ''), // Si plus de 8 slides on masque ceux du fond....
-				'z-index': Math.round(info.zValues.min + (info.zValues.diff * factors.z))
-				//'font-size': (factors.adjustedScale * data.startFontSize).toFixed(2) + 'px'
+				'z-index': factors.z
 			})
 			.attr('current-scale', factors.adjustedScale);
 	
