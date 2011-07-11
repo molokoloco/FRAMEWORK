@@ -12,50 +12,86 @@ var event2key = {
 		if (!e) return;
 		//db(e.which, e.keyCode);
 		return event2key[(e.which || e.keyCode)];
+	},
+	getHash = function() {
+		return document.location.hash.replace(/^#/, '') || '';
 	};
 
 // LET'S GO /////////////////////////////////////////////////////////////////////////////////////////////////
 
 $(document).ready(function() {
-	var setZoom = function() {
-		var currentZoom = $(window).width() / 1680; //  This slide target confortable screen so adapt for other
-		currentZoom = (currentZoom < 0.7 ? 0.7 : currentZoom); // Cannot read
-		$('div.roundabout').css({
-			zoom: currentZoom,
-			'transform': 'scale('+currentZoom+')'
-		});
-	};
-	setZoom();
+	var $carousel = $('div.roundabout ul:first'),
+		$slides = $carousel.find('li.slide');
+		$sommaire = $('div#footer span#sommaire');
 	
-	var $carousel = $('div.roundabout ul:first');
+	var startH = getHash();
+	if (startH > 0) setTimeout(function() { $carousel.roundabout_animateToChild(startH-1); }, 2000);
+	
+	$('div.roundabout').css({
+		'transform': 'scale(5)', // effect appear
+		'transform-origin': '50% 0',
+		'-ms-transform-origin': '50% 0',
+		'-webkit-transform-origin': '50% 0',
+		'-moz-transform-origin': '50% 0',
+		'-o-transform-origin': '50% 0'
+	});
+	
 	$carousel
 		.roundabout({
 			//easing: 'easeInOutBack',
 			duration: 1200,
-			minScale: 0.1,
-			tilt: 7.0,
+			//focusBearing: 300,
+			//startingChild:getHash() || 0,
+			minScale: 0.25,
 			maxScale: 1.0,
-			//btnNext: '.next',
-			//btnPrev: '.previous',
+			minOpacity: 0.25,
+			tilt: 0.555, // axe d'inclinaison
+			btnNext: '.next',
+			btnPrev: '.previous',
 			clickToFocus: true,
-			reflect: true,
+			reflect: true, // reverse slide order
 			childSelector: 'li.slide'
 		})
-		.find('li.slide')
-			.hide().fadeIn(2400)
-			.bind('mousewheel', function(e, delta) {
-				e.preventDefault();
-				//$(this).roundabout_adjustBearing(10.00 * delta);
-				//$(this).data('roundabout').shape = $(this).val();
-				if (delta > 0) $.roundabout_goPrev();
-				else $.roundabout_goNext();
-				return false;
-			});
+		.bind('roundaboutFocus', function(e, a) { // RoundAbout send who is in now focus
+			window.location.hash = '#'+(a.childPos+1);
+			$sommaire.find('a').removeClass('current').eq(a.childPos).addClass('current');
+			$slides.find('pre,iframe').css({overflow:'hidden'}); // Transparency not good on scrollbars... 
+			$slides.eq(a.childPos).find('pre,iframe').css({overflow:'auto'});
+		});
 	
+	$slides
+		//.hide().each(function(i){ $(this).fadeIn(500*(i+1)); }) // Effect appear
+		.bind('mousewheel', function(e, delta) {
+			e.preventDefault();
+			//$(this).roundabout_adjustBearing(10.00 * delta);
+			//$(this).data('roundabout').shape = $(this).val();
+			if (delta > 0) $.roundabout_goPrev();
+			else $.roundabout_goNext();
+			return false;
+		})
+		.each(function(i) {
+			$sommaire.append('<a href="#'+(i+1)+'" title="'+$(this).find('h5:first').text()+'">'+(i+1)+'</a>'); // Build sommaire forEach slides (with H5)
+		});
+	
+	$sommaire.delegate('a', 'click', function() {									
+		var h = $(this).attr('href').replace(/^#/, '');
+		if (h > 0) $carousel.roundabout_animateToChild(h-1);
+	});
+	
+	var setZoom = function() { // Global slideR zoom
+		var currentZoom = $(window).width() / 1680; //  This slide target confortable screen so adapt for other
+		$('div.roundabout').stop(true).animate({'transform': 'translate(0, 0) scale('+(currentZoom < 0.5 ? 0.5 : currentZoom)+')'}, 1200); // with $.transform.js
+		$carousel.roundabout_updateChildPositions();
+		$carousel.roundabout_animateToBearing($.roundabout_getBearing($carousel));
+	};
+	
+	$(window)
+		.bind('resize', function() { setZoom(); })
+		.trigger('resize');
+
 	var pageKey = function(e) {
 		e.preventDefault();
 		var k = e2key(e);
-		db('pageKey('+k+')');
 		switch(k) {
 			case 'up': break;
 			case 'down': break;
@@ -66,9 +102,5 @@ $(document).ready(function() {
 	};
 	
 	$(document).focus().bind('keyup', pageKey);
-	
-	$(window).resize(function() {
-		setZoom();
-		$carousel.roundabout_animateToBearing($.roundabout_getBearing($carousel));
-	});
 });
+

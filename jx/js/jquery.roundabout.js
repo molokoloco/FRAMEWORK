@@ -9,7 +9,7 @@
  * http://fredhq.com/projects/roundabout/
  *
  * Moves list-items of enabled ordered and unordered lists long
- * a chosen path. Includes the default "lazySusan" path, that
+ * a chosen path. Includes the default "juju" path, that
  * moves items long a spinning turntable.
  *
  * Terms of Use // $ Roundabout
@@ -50,14 +50,14 @@ $(function(){
 	// creates a default shape to be used for pathing
 	$.extend({
 		roundabout_shape: {
-			def: 'lazySusan',
-			lazySusan: function(r, a, t) {
+			def: 'juju',
+			juju: function(r, a, t) { // (rad, info.focusBearingRad, info.tilt)
 				return {
 					x: Math.sin(r + a), 
-					y: (Math.sin(r + 3*Math.PI/2 + a) / 8) * t, 
+					y: t - (Math.cos(r) * t), 
 					z: (Math.cos(r + a) + 1) / 2,
 					scale: (Math.sin(r + Math.PI/2 + a) / 2) + 0.5
-				};
+				}
 			}
 		}
 	});
@@ -80,8 +80,8 @@ $(function(){
 			btnPrev: options.btnPrev || null,
 			easing: options.easing || 'swing',
 			clickToFocus: (options.clickToFocus !== false),
-			focusBearing: (typeof options.focusBearing == 'undefined') ? 0.0 : $.roundabout_toFloat(options.focusBearing % 360.0),
-			shape: options.shape || 'lazySusan',
+			focusBearing: !options.focusBearing ? 0.0 : $.roundabout_toFloat(options.focusBearing % 360.0),
+			shape: options.shape || 'juju',
 			debug: options.debug || false,
 			childSelector: options.childSelector || 'li',
 			startingChild: (typeof options.startingChild == 'undefined') ? null : parseInt(options.startingChild, 10),
@@ -125,9 +125,16 @@ $(function(){
 					
 			// bind click events
 			if (options.clickToFocus === true) {
-				ref.children(options.childSelector).each(function(i) {
-					$(this)
-						.click(function(e) {
+				ref.children(options.childSelector)
+					.css({ // edited by molokoloco with $.transform.js
+						'transform-origin': '0 0',
+						'-ms-transform-origin': '0 0', /* IE 9 */
+						'-webkit-transform-origin': '0 0', /* Safari and Chrome */
+						'-moz-transform-origin': '0 0', /* Firefox */
+						'-o-transform-origin': '0 0' /* Opera */
+					})
+					.each(function(i) {
+						$(this).click(function(e) {
 							//// db('click - clickToFocus');
 							var degrees = (options.reflect === true) ? 360.0 - (period * i) : period * i;
 							degrees = $.roundabout_toFloat(degrees);
@@ -138,15 +145,8 @@ $(function(){
 								}
 								return false;
 							}
-						})
-						.css({ // edited by molokoloco with $.transform.js
-							'transform-origin': '0 0',
-							'-ms-transform-origin': '0 0', /* IE 9 */
-							'-webkit-transform-origin': '0 0', /* Safari and Chrome */
-							'-moz-transform-origin': '0 0', /* Firefox */
-							'-o-transform-origin': '0 0' /* Opera */
 						});
-				});
+					});
 			}
 			
 			$.roundabout_goNext = function(el) {
@@ -212,7 +212,7 @@ $(function(){
 				$(this).data('roundabout', {
 					'startWidth': $(this).width(),
 					'startHeight': $(this).height(),
-					'startFontSize': parseInt($(this).css('font-size'), 10),
+					//'startFontSize': parseInt($(this).css('font-size'), 10),
 					'degrees': degrees
 				});
 			});
@@ -494,7 +494,7 @@ $(function(){
 		//// db('roundabout_updateChildPosition');
 		
 		var ref = $(child), data = ref.data('roundabout'), dataMain = container.data('roundabout'), out = [];
-		var rad = $.roundabout_degToRad((360.0 - ref.data('roundabout').degrees) + info.bearing);
+		var rad = $.roundabout_degToRad((360.0 - data.degrees) + info.bearing);
 		
 		// adjust radians to be between 0 and Math.PI * 2
 		while (rad < 0) { rad = rad + Math.PI * 2; }
@@ -510,6 +510,8 @@ $(function(){
 		factors.left = ((factors.x * info.midStage.width + info.nudge.width) - factors.width / 2.0).toFixed(1) + 'px';
 		factors.top = ((factors.y * info.midStage.height + info.nudge.height) - factors.height / 2.0).toFixed(1) + 'px';
 		factors.opacity = (info.opacity.min + (info.opacity.diff * factors.scale)).toFixed(2);
+		
+		if (factors.scale == 1) container.trigger('roundaboutFocus', [{childPos:childPos}]); //Send event who is in front
 		
 		// alter item
 		ref

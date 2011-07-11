@@ -12,20 +12,21 @@
 	<!--<script type="text/javascript" src="js/jquery.easing.js"></script>-->
 	<script type="text/javascript" src="js/jquery.mousewheel.min.js"></script>
 	<script type="text/javascript" src="js/jquery.transform.light.min.js"></script>
-	<script type="text/javascript" src="js/jquery.roundabout.min.js"></script>
+	<script type="text/javascript" src="js/jquery.roundabout.js"></script>
 	<script type="text/javascript" src="js/index.js"></script>
 </head>
 <body>
 	<div class="bg"></div>
-	<!--<a href="javascript:void(0);" class="previous">&lt;&lt;</a>
-	<a href="javascript:void(0);" class="next">&gt;&gt;</a>-->
+	<div id="footer">
+		<a href="javascript:void(0);" class="previous">&lt;&lt;</a> <span id="sommaire"></span> <a href="javascript:void(0);" class="next">&gt;&gt;</a>
+	</div>
 	<div class="roundabout">
 		<ul>
 			
 			<li class="slide">
 				<div class="stage">
 					<h1>From 1998 to 2011</h1>
-					<h3 title="Plus explorateur et parfois aussi éphémère que les graphs dans la ville !">Overview of a JS dev life... (L'esprit du graph !)</h3>
+					<h3 title="L'esprit du graph ! Plus explorateur et parfois aussi éphémère que les graphs dans la ville !">Overview of a JS dev life...</h3>
 					<p>&nbsp;</p>
 					<p>&nbsp;</p>
 					<p>Julien Gu&eacute;zennec .... Work definitely in progress...<br>
@@ -64,7 +65,6 @@
 &lt;/a&gt;<br /></pre>
 					<p>Ce qui donne des magnifiques JS, ins&eacute;r&eacute;s un peu partout dans le HTML</p>
 					<pre>&lt;script language=&quot;JavaScript&quot;&gt;<br />function MM_swapImgRestore() { //v3.0<br />	var i,x,a=document.MM_sr; for(i=0;a&amp;&amp;i&lt;a.length&amp;&amp;(x=a[i])&amp;&amp;x.oSrc;i++) x.src=x.oSrc;<br />}<br />function MM_preloadImages() { //v3.0<br />	var d=document; if(d.images){ if(!d.MM_p) d.MM_p=new Array();<br />	var i,j=d.MM_p.length,a=MM_preloadImages.arguments; for(i=0; i&lt;a.length; i++)<br />	if (a[i].indexOf(&quot;#&quot;)!=0){ d.MM_p[j]=new Image; d.MM_p[j++].src=a[i];}}<br />}<br />function MM_findObj(n, d) { //v3.0<br />	var p,i,x;  if(!d) d=document; if((p=n.indexOf(&quot;?&quot;))&gt;0&amp;&amp;parent.frames.length) {<br />	d=parent.frames[n.substring(p+1)].document; n=n.substring(0,p);}<br />	if(!(x=d[n])&amp;&amp;d.all) x=d.all[n]; for (i=0;!x&amp;&amp;i&lt;d.forms.length;i++) x=d.forms[i][n];<br />	for(i=0;!x&amp;&amp;d.layers&amp;&amp;i&lt;d.layers.length;i++) x=MM_findObj(n,d.layers[i].document); return x;<br />}<br />function MM_swapImage() { //v3.0<br />	var i,j=0,x,a=MM_swapImage.arguments; document.MM_sr=new Array; for(i=0;i&lt;(a.length-2);i+=3)<br />	if ((x=MM_findObj(a[i]))!=null){document.MM_sr[j++]=x; if(!x.oSrc) x.oSrc=x.src; x.src=a[i+2];}<br />}<br />&lt;/script&gt;</pre>
-					<h3>OK ok, le JS... ce sera sans moi ! ^^</h3>
 				</div>
 			</li>
 		
@@ -213,9 +213,8 @@
 					<p>... et toujours <strong>améliorer la formule</strong> !</p>
 				</div>
 			</li>
-			
 		</ul>
 	</div>
-	<a target="_blank" title="See source code on GITHUB..." href="https://github.com/molokoloco/FRAMEWORK/tree/master/jx/"><img width="100" height="100" alt="Fork me on GitHub" src="images/github-ribbon.png" style="position:fixed;top:0;right:0;border:0;"></a>
+<a target="_blank" title="See source code on GITHUB..." href="https://github.com/molokoloco/FRAMEWORK/tree/master/jx/"><img width="100" height="100" alt="Fork me on GitHub" src="images/github-ribbon.png" style="position:fixed;top:0;right:0;border:0;"></a>
 </body>
 </html>
