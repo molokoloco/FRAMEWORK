@@ -1,5 +1,5 @@
 /*
-	// SlidR - copyleft Molokoloco 2011 - Version alpha 1.1
+	// SlidR - copyleft Molokoloco 2011
 	// Demo : http://www.b2bweb/bonus/jx/
 	// The sources here : https://github.com/molokoloco/FRAMEWORK/tree/master/jx/
 */
