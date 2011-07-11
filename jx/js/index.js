@@ -1,3 +1,9 @@
+/*
+	// SlidR - copyleft Molokoloco 2011 - Version alpha 1.1
+	// Demo : http://www.b2bweb/bonus/jx/
+	// The sources here : https://github.com/molokoloco/FRAMEWORK/tree/master/jx/
+*/
+
 // SOMES FUNCTIONS /////////////////////////////////////////////////////////////////////////////////////////////////
 
 // Debug tool !
@@ -44,7 +50,7 @@ $(document).ready(function() {
 			//startingChild:getHash() || 0,
 			minScale: 0.25,
 			maxScale: 1.0,
-			minOpacity: 0.25,
+			minOpacity: 0.1,
 			tilt: 0.555, // axe d'inclinaison
 			btnNext: '.next',
 			btnPrev: '.previous',
