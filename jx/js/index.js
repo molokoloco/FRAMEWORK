@@ -14,7 +14,7 @@ var db = function() { 'console' in window && console.log.call(console, arguments
 		'65':'a', '66':'b', '67':'c', '68':'d', '69':'e', '70':'f', '71':'g', '72':'h', '73':'i', '74':'j', '75':'k', '76':'l', '77':'m', '78':'n', '79':'o', '80':'p', '81':'q', '82':'r', '83':'s', '84':'t', '85':'u', '86':'v', '87':'w', '88':'x', '89':'y', '90':'z', // Alphabet
 		'37':'left', '39':'right', '38':'up', '40':'down', '13':'enter', '27':'esc', '32':'space', '107':'+', '109':'-', '33':'pageUp', '34':'pageDown', '223':'!', '178':'stop','176':'suivant','177':'precedant' // KEYCODES
 	},
-	e2key = function(e) { return event2key[(e.which || e.keyCode)] || ''; }, // db(e.which, e.keyCode);
+	e2key = function(e) { return event2key[(e.which || e.keyCode)] || ''; },
 	getHash = function() { return document.location.hash.replace(/^#/, '') || ''; };
 
 // LET'S GO /////////////////////////////////////////////////////////////////////////////////////////////////
@@ -41,8 +41,20 @@ $(document).ready(function() {
 		'-moz-transform-origin': '50% 0',
 		'-o-transform-origin': '50% 0'
 	});
+
+	// Global slideR zoom
+	var setZoom = function(zoom) { 
+		currentZoom = zoom ? zoom : $(window).width() / 1680; //  This slide target confortable screen so adapt for other
+		currentZoom = (currentZoom < 0.5 ? 0.5 : currentZoom);
+		$('div.roundabout').stop(true).animate({'transform': 'translate(0, 0) scale('+currentZoom+')'}, 1200); // with $.transform.js
+		$carousel.roundabout_updateChildPositions();
+		$carousel.roundabout_animateToBearing($.roundabout_getBearing($carousel));
+		// var webkitZoom = document.width / $(document).width();
+		$('html,body').css('zoom', '101%'); // Intent to restore user zoom to 100% to only zoom the slide, but fail with chrome
+		//db($('html').css('zoom'));
+	};
 	
-	// Setup carousel !!!
+	// Setup slideR !!!
 	$carousel
 		.roundabout({
 			//easing: 'easeInOutBack',
@@ -60,10 +72,9 @@ $(document).ready(function() {
 			childSelector: 'li.slide'
 		})
 		.bind('roundaboutFocus', function(e, a) { // RoundAbout send EVENT who is in now focus
-			window.location.hash = '#'+(a.childPos+1); // Update URL hash
-			$sommaire.find('a').removeClass('current').eq(a.childPos).addClass('current'); // Highlight current sommaire link
+			window.location.hash = '#'+(a.childPos+1); // Update URL hash // let link do it
 		});
-	
+
 	$slides
 		//.hide().each(function(i){ $(this).fadeIn(500*(i+1)); }) // Effect appear
 		.each(function(i) {  // Build sommaire forEach slides (with H5)
@@ -71,22 +82,19 @@ $(document).ready(function() {
 		});
 	
 	// Activate sommaire links
-	$sommaire.delegate('a', 'click', function() {									
+	$sommaire.delegate('a', 'click', function(event) {
+		event.preventDefault(); // roundaboutFocus update hash
 		var h = $(this).attr('href').replace(/^#/, '');
 		if (h > 0) $carousel.roundabout_animateToChild(h-1);
 	});
 	
-	// Global slideR zoom
-	var setZoom = function(zoom) { 
-		currentZoom = zoom ? zoom : $(window).width() / 1680; //  This slide target confortable screen so adapt for other
-		currentZoom = (currentZoom < 0.5 ? 0.5 : currentZoom);
-		$('div.roundabout').stop(true).animate({'transform': 'translate(0, 0) scale('+currentZoom+')'}, 1200); // with $.transform.js
-		$carousel.roundabout_updateChildPositions();
-		$carousel.roundabout_animateToBearing($.roundabout_getBearing($carousel));
-		// var webkitZoom = document.width / $(document).width();
-		$('html,body').css('zoom', '101%'); // Intent to restore user zoom to 100% to only zoom the slide, but fail with chrome
-		db($('html').css('zoom'));
-	};
+	$(window)
+		.bind('smartresize', function() { setZoom(); }).trigger('smartresize') // Debounced resize
+		.bind('hashchange', function(event) {
+			var page = getHash();
+			if (page < 1) page = 1;
+			$sommaire.find('a').removeClass('current').eq(page-1).addClass('current'); // Highlight current sommaire link
+		}).trigger('hashchange');
 	
 	$('body').bind('mousewheel', function(event, delta) { // Can't cache USER ZOOM in chrome when ctrl + wheel
     	event.preventDefault();
@@ -94,19 +102,14 @@ $(document).ready(function() {
 			if (delta > 0) setZoom(currentZoom + 0.05);
 			else setZoom(currentZoom - 0.1);
 		}
-		if (delta > 0) $.roundabout_goPrev(); // $(this).roundabout_adjustBearing(10.00 * delta);
+		else if (delta > 0) $.roundabout_goPrev(); // $(this).roundabout_adjustBearing(10.00 * delta);
 		else $.roundabout_goNext();
 		return false;
-	})
+	});
 	
-	$(window)
-		.bind('resize', function() { setZoom(); })
-		.trigger('resize');
-
 	var pageKey = function(event) {
 		event.preventDefault();
-		var k = e2key(event);
-		switch(k) {
+		switch(e2key(event)) {
 			case 'up': break;
 			case 'down': break;
 			case 'left': $.roundabout_goPrev(); break;
@@ -116,15 +119,8 @@ $(document).ready(function() {
 		return false;
 	};
 	
-	/*var pageKeyIntent = function(event) {
-		event.stopPropagation();
-    	event.preventDefault();
-		return false;
-	}*/
-	
 	$(document)
 		.focus()
-		.bind('keyup', pageKey)
-		//.bind('keydown', pageKeyIntent);
+		.bind('keyup', pageKey);
 });
 

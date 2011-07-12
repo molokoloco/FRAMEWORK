@@ -311,7 +311,6 @@ $(function(){
 	
 			if (timer < thisDuration) {
 				data.animating = 1;
-				
 				if (typeof $.easing.def == 'string') {
 					easingFn = $.easing[thisEasingType] || $.easing[$.easing.def];
 					newBearing = easingFn(null, timer, passedData.start, bearing - passedData.start, passedData.totalTime);
@@ -424,7 +423,7 @@ $(function(){
 	};
 	
 	$.fn.roundabout_updateChildPositions = function() {
-		// db('roundabout_updateChildPositions');
+		//db('roundabout_updateChildPositions');
 		this.each(function(i) {
 			var ref = $(this), data = ref.data('roundabout');
 			var inFocus = -1;
@@ -445,23 +444,20 @@ $(function(){
 	
 			// update child positions
 			ref.children(data.childSelector).each(function(i) {
-				if ($.roundabout_updateChildPosition($(this), ref, info, i) && info.animating === 0) {
+				if ($.roundabout_updateChildPosition($(this), ref, info, i)) { //&& info.animating === 0
 					inFocus = i;
-					ref.trigger('roundaboutFocus', [{childPos:i}]); // Send event that this one is in front
 					$(this).addClass('roundabout-in-focus');
-				} else {
-					$(this).removeClass('roundabout-in-focus');
 				}
+				else $(this).removeClass('roundabout-in-focus');
 			});
-	
+			
 			// update status of who is in focus
 			if (inFocus !== info.inFocus) {
 				$.roundabout_triggerEvent(ref, info.inFocus, 'blur');
-	
 				if (inFocus !== -1) {
 					$.roundabout_triggerEvent(ref, inFocus, 'focus');
+					ref.trigger('roundaboutFocus', [{childPos:inFocus}]); // Send outside event that this one is in front
 				}
-	
 				data.childInFocus = inFocus;
 			}
 		});	
@@ -532,7 +528,8 @@ $(function(){
 			})
 			.attr('current-scale', factors.adjustedScale);
 	
-		return $.roundabout_isInFocus(container, ref.data('roundabout').degrees);
+		return (info.scale.min < 1 && factors.scale == 1) || (info.opacity.min < 1 && factors.opacity == 1); 
+		// return $.roundabout_isInFocus(container, ref.data('roundabout').degrees); // BUG not triggerring sometimes ??? For me don't fire with slide 6/7... ????
 	};
 
 });
