@@ -96,11 +96,11 @@ $(document).ready(function() {
 			$sommaire.find('a').removeClass('current').eq(page-1).addClass('current'); // Highlight current sommaire link
 		}).trigger('hashchange');
 	
-	$('body').bind('mousewheel', function(event, delta) { // Can't cache USER ZOOM in chrome when ctrl + wheel
+	$('body').bind('mousewheel', function(event, delta) { // Can't cache USER ZOOM in Chrome with ctrl + wheel
     	event.preventDefault();
 		if (event.ctrlKey) { // CATCH default CTRL + WHEEL browser ZOOM : Set zoom only on slides
 			if (delta > 0) setZoom(currentZoom + 0.05);
-			else setZoom(currentZoom - 0.1);
+			else setZoom(currentZoom - 0.05);
 		}
 		else if (delta > 0) $.roundabout_goPrev(); // $(this).roundabout_adjustBearing(10.00 * delta);
 		else $.roundabout_goNext();
@@ -110,8 +110,8 @@ $(document).ready(function() {
 	var pageKey = function(event) {
 		event.preventDefault();
 		switch(e2key(event)) {
-			case 'up': break;
-			case 'down': break;
+			case 'up': setZoom(currentZoom + 0.05); break;
+			case 'down': setZoom(currentZoom - 0.05); break;
 			case 'left': $.roundabout_goPrev(); break;
 			case 'right': $.roundabout_goNext(); break;
 			case 'enter': $carousel.roundabout_setBearing(0); break; // HOME
@@ -124,3 +124,30 @@ $(document).ready(function() {
 		.bind('keyup', pageKey);
 });
 
+$(window).bind('load', function() {
+	setTimeout(function() { // Helper : Use keyboard !
+		$('<img/>')
+			.load(function(event) {
+				$(this)
+					.attr({width:$(this).width(),height:$(this).height()})
+					.css({
+						opacity: 0,
+						top: (($(window).scrollTop() || 0) - $(this).height()) + 'px',
+						position: 'absolute',
+						left: '50%',
+						margin: '0 0 0 -' + ($(this).width() / 2) + 'px' // horizontal center
+					})
+					.animate({
+						opacity: 1,
+						top: (100 + ($(window).scrollTop() || 0)) + 'px'
+					}, 800)
+					.delay(2200)
+					.fadeOut(600, function() {
+						$(this).remove();
+					});
+			})
+			.error(function() {})
+			.attr('src', './images/key-pad-arrows.png')
+			.appendTo('body');
+	}, 2000);
+});
