@@ -1,9 +1,11 @@
 /* //////////////////////////////////////////////////////////////////////////////////////////////////////
-///// Code mixing by Molokoloco ..... 08/10/2011 ......... [EVER IN PROGRESS (it's not done yet)] //////
+///// Code mixing by Molokoloco ..... 2011 ......... [EVER IN PROGRESS (it's not done yet)] ////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////// */
 /*
-	// Center element into an other
-	// Source here : http://plugins.jquery.com/project/autocenter
+	// Pixel polished jQuery & CSS3 analogue clock
+	// by molokoloco@gmail.com 08/10/2011
+	// Infos : http://www.b2bweb.fr/molokoloco/pixels-polished-jquery-css3-analogue-clock/
+	// jsFiddle : http://jsfiddle.net/molokoloco/ajcRz/
 
 	// HTML
 	<link href="http://fonts.googleapis.com/css?family=Orbitron" rel="stylesheet" type="text/css">
@@ -26,8 +28,7 @@
 	$('div#clock').analogueClock({digitBoxWidth:18, withDigitalTime:false});
 */
 
-// Pixel polished jQuery & CSS3 analogue clock
-// by molokoloco@gmail.com 08/10/2011
+
 
 (function($) {
     
