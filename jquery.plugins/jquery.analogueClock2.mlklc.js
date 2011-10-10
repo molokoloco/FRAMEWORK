@@ -1,5 +1,5 @@
 /*
-    // Pixel polished jQuery & CSS3 Analogue Clock plugin V2
+    // Pixel polished jQuery & CSS3 Analogue Clock plugin V2.1
     // by molokoloco@gmail.com 10/10/2011 - 
     // Infos : http://www.b2bweb.fr/molokoloco/pixels-polished-jquery-css3-analogue-clock/
     // jsFiddle : http://jsfiddle.net/molokoloco/ajcRz/
@@ -28,13 +28,6 @@
     $(document).ready(function(){
         $('div#clock').analogueClock({digitBoxWidth:18, withDigitalTime:false});
     });
-*/
-
-/*
-    // Pixel polished jQuery & CSS3 Analogue Clock plugin V2.1
-    // by molokoloco@gmail.com 10/10/2011 - 
-    // Infos : http://www.b2bweb.fr/molokoloco/pixels-polished-jquery-css3-analogue-clock/
-    // jsFiddle : http://jsfiddle.net/molokoloco/V2rFN/
 */
 
 ;(function($, window) {
