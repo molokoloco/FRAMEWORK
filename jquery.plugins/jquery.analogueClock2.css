@@ -103,7 +103,14 @@ div.clockwise {
     div.min div.clockwise { top:26px; } /* ---CHOOSE--- size */
     div.hour div.clockwise { top:32px; } /* ---CHOOSE--- size */
 
-div.digit,div.time {
+div.digit, div.time, div.date {
+    text-rendering:optimizeLegibility;
+    font-smoothing:always;
+    -webkit-font-smoothing:antialiased; -moz-font-smoothing:antialiased; -ms-font-smoothing:antialiased; -o-font-smoothing:antialiased;
+    text-size-adjust:none; -webkit-text-size-adjust:none; -moz-text-size-adjust:none; -ms-text-size-adjust:none; -o-text-size-adjust:none;
+}
+
+div.digit {
     position:absolute;
     z-index:5;
     width:18px; height:18px;  /* ---CHOOSE--- size */
@@ -130,15 +137,21 @@ div.unit {
     background:rgba(255,255,255,0.4);
 }
 
-div.time {
-    top:68%; left:50%;
+div.time, div.date {
+    position:absolute;
+    z-index:5;
+    top:82px; left:50%;
     width:200px; height:12px;  /* ---CHOOSE--- size */
-    margin:-6px 0 0 -100px; /* centered with half this size */
-    font:10px/12px 'Courrier New','Courier',serif;
+    margin:0 0 0 -100px; /* centered with half this size */
     text-align:center;
-    color:#FFF;
-    color:rgba(255,255,255,0.3);
-    /*text-shadow:0 1px 0 rgba(155,155,155,0.45);*/
+    font:bold 11px/12px 'Courrier New','Courier',serif;/* ---CHOOSE--- */
+    text-shadow:0 0 3px rgba(255, 255, 255, 0.5);
+    color:#000;
+    color:rgba(0,0,0,0.3);
+}
+
+div.date {
+    top:70px;
 }
 
 /* ------- Fancy CSS3 background example ------ */
