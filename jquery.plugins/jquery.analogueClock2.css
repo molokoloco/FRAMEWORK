@@ -2,10 +2,11 @@
     // Pixel polished jQuery & CSS3 analogue clock
     // by molokoloco@gmail.com 08/10/2011
     
-    // Colors are based on a white semi-transparent theme:
-    // replace "255,255,255" by "0,0,0" to blackify
-    // Mostly elements that need to be centered are centered in JS, 
-    // so only kee in mind your SIZES
+	//> Colors : easy to change, Sizes and positions : more tricky
+    // Colors are based on a white semi-transparent theme :
+    // replace "255,255,255" by "0,0,0" to blackify... or wathever you want
+    // Mostly elements that need to be centered... are centered in JS, 
+    // So only kee in mind your SIZES ((---MOD---))
 */
 
 * { margin:0; padding:0; }
@@ -18,32 +19,36 @@ body { background-color:#026873; }
 div#clock {
     position:relative; /* childs are abs. positionned */
     display:block;
-    width:130px; height:130px; /* ---CHOOSE--- size */
-    margin:30px auto; /* ---CHOOSE--- as you want,or float left */
-    transition:all 250ms ease-in-out; /* for mouseover effect */
+    width:130px; height:130px; /* (---MOD---) */
+    margin:30px auto; /* (---MOD---) or float left */
+    border-radius:50%; /* (---MOD---) All round ? */
+    background:grey;
+    background:rgba(0,0,0,0.1);
+	transition:all 250ms ease-in-out; /* for mouseover effect */
         -webkit-transition:all 250ms ease-in-out;
         -moz-transition:all 250ms ease-in-out;
         -ms-transition:all 250ms ease-in-out;
         -o-transition:all 250ms ease-in-out;
-    border-radius:50%; /* All round */
-    background:grey;
-    background:rgba(0,0,0,0.1);
+	box-shadow:0 2px 6px rgba(0,0,0,0.3);
+       -o-box-shadow:0 2px 6px rgba(0,0,0,0.3);
+       -webkit-box-shadow:0 2px 6px rgba(0,0,0,0.3);
+       -moz-box-shadow:0 2px 6px rgba(0,0,0,0.3);
+       -ms-box-shadow:0 2px 6px rgba(0,0,0,0.3);
 }
     div#clock:hover {
-        transform:scale(1.3);
+        transform:scale(1.3);/* Example */
             -moz-transform:scale(1.3);
             -webkit-transform:scale(1.3);
             -ms-transform:scale(1.3);
             -o-transform:scale(1.3);           
     }
 
-/* ------- JS elements ------ */
-div.clockGlass { /* give clock gradient over the bg */
+div.clockGlass { /* Give clock glass effect */
     position:absolute;
     z-index:6;
     top:0; left:0;
     right:0; bottom:0;
-    border-radius:50%; /* All round */
+    border-radius:50%; /* (---MOD---) */
     background:linear-gradient(top,rgba(255,255,255,0) 0%,rgba(255,255,255,0.2) 100%);
         background:-moz-linear-gradient(top,rgba(255,255,255,0) 0%,rgba(255,255,255,0.2) 100%);
         background:-webkit-gradient(linear,left top,left bottom,color-stop(0%,rgba(255,255,255,0)),color-stop(100%,rgba(255,255,255,0.2)));
@@ -51,18 +56,21 @@ div.clockGlass { /* give clock gradient over the bg */
         background:-o-linear-gradient(top,rgba(255,255,255,0) 0%,rgba(255,255,255,0.2) 100%);
         background:-ms-linear-gradient(top,rgba(255,255,255,0) 0%,rgba(255,255,255,0.2) 100%);
         filter:progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000',endColorstr='#29000000',GradientType=0 );
-    box-shadow:0 2px 6px rgba(0,0,0,0.4),inset 0 0 5px rgba(255,255,255,0.2),inset 5px 10px 10px rgba(255,255,255,0.2),inset -5px -10px 10px rgba(255,255,255,0.2);
-       -o-box-shadow:0 2px 6px rgba(0,0,0,0.4),inset 0 0 5px rgba(255,255,255,0.2),inset 5px 10px 10px rgba(255,255,255,0.2),inset -5px -10px 10px rgba(255,255,255,0.2);
-       -webkit-box-shadow:0 2px 6px rgba(0,0,0,0.4),inset 0 0 5px rgba(255,255,255,0.2),inset 5px 10px 10px rgba(255,255,255,0.2),inset -5px -10px 10px rgba(255,255,255,0.2);
-       -moz-box-shadow:0 2px 6px rgba(0,0,0,0.4),inset 0 0 5px rgba(255,255,255,0.2),inset 5px 10px 10px rgba(255,255,255,0.2),inset -5px -10px 10px rgba(255,255,255,0.2);
-       -ms-box-shadow:0 2px 6px rgba(0,0,0,0.4),inset 0 0 5px rgba(255,255,255,0.2),inset 5px 10px 10px rgba(255,255,255,0.2),inset -5px -10px 10px rgba(255,255,255,0.2);
+    box-shadow:inset 0 0 5px rgba(255,255,255,0.2),inset 5px 10px 10px rgba(255,255,255,0.2),inset -5px -10px 10px rgba(255,255,255,0.2);
+       -o-box-shadow:inset 0 0 5px rgba(255,255,255,0.2),inset 5px 10px 10px rgba(255,255,255,0.2),inset -5px -10px 10px rgba(255,255,255,0.2);
+       -webkit-box-shadow:inset 0 0 5px rgba(255,255,255,0.2),inset 5px 10px 10px rgba(255,255,255,0.2),inset -5px -10px 10px rgba(255,255,255,0.2);
+       -moz-box-shadow:inset 0 0 5px rgba(255,255,255,0.2),inset 5px 10px 10px rgba(255,255,255,0.2),inset -5px -10px 10px rgba(255,255,255,0.2);
+       -ms-box-shadow:inset 0 0 5px rgba(255,255,255,0.2),inset 5px 10px 10px rgba(255,255,255,0.2),inset -5px -10px 10px rgba(255,255,255,0.2);
 }
+
+/* ------- JS works with this elements ------ */
+
 div.innerCenter { /* Circle inside clock */
     position:absolute;
     z-index:2;
     top:50%; left:50%;
-    width:94px; height:94px; /* ---CHOOSE--- size */
-    border-radius:50%;
+    width:94px; height:94px; /* (---MOD---) (Centered with JS) */
+    border-radius:50%; /* (---MOD---) */
     background:rgba(255,255,255,0.16);
     box-shadow:0 0 3px rgba(0,0,0,0.2),0 0 10px rgba(255,255,255,0.2);
         -moz-box-shadow:0 0 3px rgba(0,0,0,0.2),0 0 10px rgba(255,255,255,0.2);
@@ -70,39 +78,41 @@ div.innerCenter { /* Circle inside clock */
         -ms-box-shadow:0 0 3px rgba(0,0,0,0.2),0 0 10px rgba(255,255,255,0.2);
         -o-box-shadow:0 0 3px rgba(0,0,0,0.2),0 0 10px rgba(255,255,255,0.2);
 }
+
 div.sec,div.min,div.hour {
     position:absolute;
-    /* transition:all 200ms linear; // rotate anticlockwise from 359° to >0° */
+    /* transition:all 200ms linear; // smooth, but rotate anticlockwise from 359° to 1° */
 }
     div.sec {
-        width:1px; /* ---CHOOSE--- size */
+        width:1px; /* (---MOD---) sec clockwise width */
         z-index:10;
     }
     div.min {
-        width:2px; /* ---CHOOSE--- size */
+        width:2px; /* (---MOD---) */
         z-index:11;
     }
     div.hour {
-        width:4px; /* ---CHOOSE--- size */
+        width:4px; /* (---MOD---) */
         z-index:12;
     }
-
-div.clockwise {
-    position:absolute;
-    left:0; right:0;
-    background:#FFF;
-    background:rgba(255,255,255,0.4);
-    border-radius:2px;
-    box-shadow:0 0 3px rgba(0,0,0,0.25);
-        -moz-box-shadow:0 0 3px rgba(0,0,0,0.25);
-        -webkit-box-shadow:0 0 3px rgba(0,0,0,0.25);
-        -ms-box-shadow:0 0 3px rgba(0,0,0,0.25);
-        -o-box-shadow:0 0 3px rgba(0,0,0,0.25);
-}
-    div.sec div.clockwise { top:18px; } /* ---CHOOSE--- dist from clock border */
-    div.min div.clockwise { top:26px; } /* ---CHOOSE--- size */
-    div.hour div.clockwise { top:32px; } /* ---CHOOSE--- size */
-
+	
+	div.sec div.clockwise { top:18px; } /* (---MOD---) dist from clock border == clockwise height */
+	div.min div.clockwise { top:26px; } /* (---MOD---) */
+	div.hour div.clockwise { top:32px; } /* (---MOD---) */
+	
+	div.clockwise {
+		position:absolute;
+		left:0; right:0; /* parents sec,min,hour width */
+		background:#FFF;
+		background:rgba(255,255,255,0.4);
+		border-radius:2px;
+		box-shadow:0 0 3px rgba(0,0,0,0.25);
+			-moz-box-shadow:0 0 3px rgba(0,0,0,0.25);
+			-webkit-box-shadow:0 0 3px rgba(0,0,0,0.25);
+			-ms-box-shadow:0 0 3px rgba(0,0,0,0.25);
+			-o-box-shadow:0 0 3px rgba(0,0,0,0.25);
+	}
+		
 div.digit, div.time, div.date {
     text-rendering:optimizeLegibility;
     font-smoothing:always;
@@ -113,8 +123,8 @@ div.digit, div.time, div.date {
 div.digit {
     position:absolute;
     z-index:5;
-    width:18px; height:18px;  /* ---CHOOSE--- size */
-    font:12px/18px 'Orbitron',arial,verdana,sans-serif; /* ---CHOOSE--- size .... */
+    width:18px; height:18px;  /* (---MOD---) */
+    font:12px/18px 'Orbitron',arial,verdana,sans-serif; /* (---MOD---) */
     text-align:center;
     color:#FFF;
     color:rgba(255,255,255,0.33);
@@ -126,33 +136,30 @@ div.digit {
         -ms-box-shadow:inset 0 0 3px rgba(255,255,255,0.3);
         -o-box-shadow:inset 0 0 3px rgba(255,255,255,0.3); */
 }
-    div.digit span {
-        color:rgba(255,255,255,0.75); /* 12,3,6 and 9 */
+    div.digit span { /* 12,3,6 and 9 */
+        color:rgba(255,255,255,0.75); 
     }
 
 div.unit {
     position:absolute;
     z-index:8;
-    width:1px; height:4px; /* ---CHOOSE--- size */
+    width:1px; height:4px; /* (---MOD---) */
     background:rgba(255,255,255,0.4);
 }
 
 div.time, div.date {
     position:absolute;
     z-index:5;
-    top:82px; left:50%;
-    width:200px; height:12px;  /* ---CHOOSE--- size */
-    margin:0 0 0 -100px; /* centered with half this size */
+    top:82px; left:50%; /* (---MOD---) */
+    width:200px; height:12px;  /* (---MOD---) */
+    margin:0 0 0 -100px; /* (---MOD---) Centered with half this size - no JS */
     text-align:center;
-    font:bold 11px/12px 'Courrier New','Courier',serif;/* ---CHOOSE--- */
+    font:bold 11px/12px 'Courrier New','Courier',serif; /* (---MOD---) */
     text-shadow:0 0 3px rgba(255, 255, 255, 0.5);
     color:#000;
     color:rgba(0,0,0,0.3);
 }
-
-div.date {
-    top:70px;
-}
+	div.date { top:70px; } /* (---MOD---) */
 
 /* ------- Fancy CSS3 background example ------ */
 /* http://leaverou.me/css3patterns/#cicada-stripes */

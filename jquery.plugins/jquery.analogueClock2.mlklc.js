@@ -2,7 +2,7 @@
     // Pixel polished jQuery & CSS3 Analogue Clock plugin V2.1
     // by molokoloco@gmail.com 10/10/2011 - 
     // Infos : http://www.b2bweb.fr/molokoloco/pixels-polished-jquery-css3-analogue-clock/
-    // jsFiddle : http://jsfiddle.net/molokoloco/ajcRz/
+    // Demo : http://jsfiddle.net/molokoloco/V2rFN/
 
     // HTML
     <link href="http://fonts.googleapis.com/css?family=Orbitron" rel="stylesheet" type="text/css">
@@ -10,6 +10,7 @@
     script src="http://code.jquery.com/jquery-latest.js"
 
     <div id="clock">
+		<div class="clockGlass"></div>
         <!--// PLUGIN BUILD THIS // ---
             <div class="digit" style="left:56px;top:0px;"><span>12</span></div>
             <div class="digit" style="left:84px;top:7.50px;">1</div>
@@ -20,13 +21,14 @@
             <div class="min" style="transform:rotate(270deg);"><div class="clockwise"></div></div>
             <div class="hour" style="transform:rotate(412.5deg);"><div class="clockwise"></div></div>
             <div class="time">13:45:41</div>
+			<div class="date">Tue Oct 11</div>
             <div class="innerCenter"></div>
        --- // END PLUGIN //-->
     </div>
 
     // USAGE
     $(document).ready(function(){
-        $('div#clock').analogueClock({digitBoxWidth:18, withDigitalTime:false});
+        $('div#clock').analogueClock({withDate:true});
     });
 */
 
@@ -95,8 +97,7 @@
                     $hour = $('<div class="hour"><div class="clockwise"></div></div>').appendTo($clock),
                     $time = (options.withDigitalTime ? $('<div class="time">00:00:00</div>').appendTo($clock) : null),
                     $date = (options.withDate ? $('<div class="date"> XXX </div>').appendTo($clock) : null),
-                    $innerCenter = $('<div class="innerCenter"></div>').appendTo($clock),
-                    $clockGlass = $('<div class="clockGlass"></div>').appendTo($clock);
+                    $innerCenter = $('<div class="innerCenter"></div>').appendTo($clock);
                 
                 // CSS Center elements with half clock diameter
                 $sec.css({top:0, left:( (clockW/2)-(parseInt($sec.width(), 10) / 2) )+'px', height:clockH+'px'});
