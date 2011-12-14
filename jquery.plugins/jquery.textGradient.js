@@ -106,10 +106,8 @@
                     //db('redraw');
                     privateMethods.init();
                     $this.find(options.tag).each(function() { // <p>
-                        var $this  = $(this);
-                        P.row = 0;
-                        /* if (options.resetAtEnd) */ P.col = 0;
-                        $this.find(options.gradientBox+'.'+plugName).each(function() { // <span>
+                        if (options.resetAtEnd) P.col = 0;
+                        $(this).find(options.gradientBox+'.'+plugName).each(function() { // <span>
                             if (P.row % 2 === 0) P.color = P.colorInc * P.col;
                             else                P.color = P.colorInc * (P.maxLetter - P.col);
                             P.color = $.xcolor.opacity(options.color1, options.color2, P.color).toString();
