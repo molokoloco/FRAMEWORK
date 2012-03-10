@@ -26,13 +26,13 @@
                return this.each(function() {
                     var props = {position:'absolute'};
                     if (options.vertical) {
-                         var top = ($(options.inside).height() - $(this).outerHeight()) / 2;
+                         var top = ($(options.inside).height() - $(this).outerHeight()) / 2  + $(options.inside).position().top;
                          if (options.withScrolling) top += $(options.inside).scrollTop() || 0;
                          top = (top > options.minY ? top : options.minY);
                          $.extend(props, {top: top+'px'});
                     }
                     if (options.horizontal) {
-                          var left = ($(options.inside).width() - $(this).outerWidth()) / 2;
+                          var left = ($(options.inside).width() - $(this).outerWidth()) / 2  + $(options.inside).position().left;
                           if (options.withScrolling) left += $(options.inside).scrollLeft() || 0;
                           left = (left > options.minX ? left : options.minX);
                           $.extend(props, {left: left+'px'});
