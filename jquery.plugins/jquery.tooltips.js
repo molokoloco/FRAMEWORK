@@ -1,7 +1,9 @@
 // Workable / Testable jQuery Default Plugin Boilerplate
 // --> http://docs.jquery.com/Plugins/Authoring
 // --> http://jsfiddle.net/molokoloco/DzYdE/
-// ...comments or suggests ? http://www.b2bweb.fr/molokoloco/jquery-default-plugin/
+// --> https://github.com/molokoloco/FRAMEWORK/blob/master/jquery.plugins/jquery.tooltips.js
+// --> Comments or suggests ? http://www.b2bweb.fr/molokoloco/jquery-default-plugin/
+
 /*
     Sources code examples (jQuery Plugins Patterns Boilerplates)… :
     
@@ -121,7 +123,6 @@ $(function() {
     
     // Call internal method
     $('a.tooltip').on('click', function() {
-        console.log('update');
         $(this).tooltip('update', 'This is the new tooltip content! '+ Math.random()); // update tooltip ?
     });
     
