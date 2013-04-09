@@ -53,7 +53,7 @@
             data['tooltip'].stop(true, true).fadeOut(400); // End animation
         },
         
-		fetch: function(url, $element) {
+	fetch: function(url, $element) {
             if (debug) console.log(plugName+'.fetch()');
             $.ajax({ // http://api.jquery.com/jQuery.ajax/
                 dataType:'jsonp',
@@ -71,7 +71,7 @@
                     console.log('JSON error', textStatus, errorThrown);
                 }
             });
-		}
+	}
         
     }; // End Privates plugin methods
     
