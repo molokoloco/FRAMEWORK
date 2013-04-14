@@ -13,3 +13,10 @@ jQuery Presentation SlidR V1.2
   * Infos : http://www.b2bweb.fr/molokoloco/html5-3d-effect-caroussel-presentation/
   * Main Script : https://github.com/molokoloco/FRAMEWORK/blob/master/jx/js/index.js
   * GIT Sources : https://github.com/molokoloco/FRAMEWORK/blob/master/jx/
+
+
+ Workable / Testable jQuery Default Plugin Boilerplate
+  * Doc : http://docs.jquery.com/Plugins/Authoring
+  * Live edit : http://jsfiddle.net/molokoloco/DzYdE/
+  * GIT Sources : https://github.com/molokoloco/FRAMEWORK/blob/master/jquery.plugins/jquery.tooltips.js
+  * Comments or suggests : http://www.b2bweb.fr/molokoloco/jquery-default-plugin/
