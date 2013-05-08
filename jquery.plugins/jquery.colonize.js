@@ -48,7 +48,7 @@
                     for (var i = 0, len = $collection.length; i < len; i++) {
                         totalHeight += ($collection[i].height() * colHeightRatio); // Futur P height
                         $wrapper.append($collection[i].detach()); // Extract P
-                        if (totalHeight > options.maxHeight) {
+                        if (totalHeight > options.maxHeight) { // Breaking Cols if > screen height
                             $wrapper.insertAfter($this);
                             $this = $wrapper;
                             totalHeight = 0;
@@ -84,6 +84,33 @@
 
 
 $('#colonize').click(function() {
+    
+    /*
+    // in your styles.css...
+    
+    .multiplecolumns {
+        -webkit-column-width:180px;
+           -moz-column-width:180px;
+                column-width:180px;
+        -webkit-column-gap: 1px;
+           -moz-column-gap: 1px;
+                column-gap: 1px;
+        -webkit-column-rule: 1px dashed rgba(0,0,0,.4);
+           -moz-column-rule: 1px dashed rgba(0,0,0,.4);
+                column-rule: 1px dashed rgba(0,0,0,.4);
+        -webkit-column-fill: auto;
+           -moz-column-fill: auto;
+                column-fill: auto;
+        
+        background:rgba(255, 192, 203, 0.4);
+        padding:10px 0;
+    }
+    
+    .multiplecolumns p {
+        margin:0 10px;
+        text-align: justify;
+    }
+    */
 
     $('#container').colonize({ // Use it...
         marge:      10,
