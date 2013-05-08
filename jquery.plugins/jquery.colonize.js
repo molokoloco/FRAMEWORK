@@ -75,7 +75,7 @@
         chapters:    'h1,h2,h3,h4,h5,h6',                   // Between the
         take:        'p',                                   // Take all the
         wrapper:     '<div class="multiplecolumns"/>',      // And wrap them with
-        maxHeight:   $(window).height()  // Max col height will be..Math.max(100, $(window).height() / 2).
+        maxHeight:   Math.max(100, $(window).height() - 60) // Max col height will be..
     };
     
 })(window.jQuery);
