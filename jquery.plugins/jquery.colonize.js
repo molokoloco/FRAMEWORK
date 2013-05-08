@@ -1,9 +1,9 @@
 (function($) {
-
+    
     // Molokoloco 2013 - Copyleft
     // Live fiddle : http://jsfiddle.net/molokoloco/Ra288/
     // Github : https://github.com/molokoloco/FRAMEWORK/blob/master/jquery.plugins/jquery.colonize.js
-
+    
     $.fn.colonize = function(options) { // Wrapping P between H2
         options = $.extend(true, {}, $.fn.colonize.defaults, typeof options == 'object' &&  options); 
         return this.each(function() {
@@ -18,10 +18,8 @@
             lineHeight = $p.outerHeight();
             $p.remove();
             
-            if (options.colWidth) 
-                colWidth = options.colWidth;
-            else if (options.colCount)
-                colWidth = (cWidth - ((options.marge * 2) * options.colCount)) / options.colCount;
+            if (options.colWidth) options.colCount = Math.max(1, Math.floor(cWidth / options.colWidth));
+            colWidth = (cWidth - ((options.marge * 2) * options.colCount)) / options.colCount;
             colHeightRatio = cWidth / colWidth;
             
             var colsExtractor = function () { // wrapAll || nextAll // :-(
@@ -48,7 +46,7 @@
                     for (var i = 0, len = $collection.length; i < len; i++) {
                         totalHeight += ($collection[i].height() * colHeightRatio); // Futur P height
                         $wrapper.append($collection[i].detach()); // Extract P
-                        if (totalHeight > options.maxHeight) { // Breaking Cols if > screen height
+                        if (totalHeight >= options.maxHeight) { // Breaking Cols if > screen height
                             $wrapper.insertAfter($this);
                             $this = $wrapper;
                             totalHeight = 0;
@@ -77,7 +75,7 @@
         chapters:    'h1,h2,h3,h4,h5,h6',                   // Between the
         take:        'p',                                   // Take all the
         wrapper:     '<div class="multiplecolumns"/>',      // And wrap them with
-        maxHeight:   Math.min(420, $(window).height() / 2)  // Max col height will be...
+        maxHeight:   $(window).height()  // Max col height will be..Math.max(100, $(window).height() / 2).
     };
     
 })(window.jQuery);
