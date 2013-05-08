@@ -1,6 +1,8 @@
 (function($) {
 
-    // Plugin here : http://jsfiddle.net/molokoloco/Ra288/ - Molokoloco 2013
+    // Molokoloco 2013 - Copyleft
+    // Live fiddle : http://jsfiddle.net/molokoloco/Ra288/
+    // Github : https://github.com/molokoloco/FRAMEWORK/blob/master/jquery.plugins/jquery.colonize.js
 
     $.fn.colonize = function(options) { // Wrapping P between H2
         options = $.extend(true, {}, $.fn.colonize.defaults, typeof options == 'object' &&  options); 
