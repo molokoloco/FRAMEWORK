@@ -3,6 +3,7 @@
     // Molokoloco 2013 - Copyleft
     // Live fiddle : http://jsfiddle.net/molokoloco/Ra288/
     // Github : https://github.com/molokoloco/FRAMEWORK/blob/master/jquery.plugins/jquery.colonize.js
+    // Infos : http://www.b2bweb.fr/molokoloco/jquery-colonize-plugin-in-between-titles-multicols-paragraphes-with-css3/
     
     $.fn.colonize = function(options) { // Wrapping P between H2
         // Merge user options
