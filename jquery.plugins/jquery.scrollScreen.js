@@ -1,15 +1,16 @@
-(function($, window) {
+(function($, window, document) {
     
     // jQuery scrollView V0.8.2 : Viewport scroll and screen vertical helper - @molokoloco 2013 - Copyleft
     // One view for each screen that user need to scroll to get to the bottom of the HTML view
     // Live fiddle : http://jsfiddle.net/molokoloco/XK3t5/
     // Github : https://github.com/molokoloco/FRAMEWORK/blob/master/jquery.plugins/jquery.scrollScreen.js
+    //          https://github.com/molokoloco/FRAMEWORK/blob/master/jquery.plugins/jquery.colonize.css
     // Infos : ...
     
     // VIEWPORT SCREEN THUMBS
     // Made other plugin here : http://jsfiddle.net/molokoloco/Atj8Z/
     
-    // ----------- SCROLLTOP element - BROWSER SET BASE ---------------------------------------------------------------------------------- //
+    // ----------- SCROLLTOP + BROWSER BASE ---------------------------------------------------------------------------------- //
     
     var $window             = $(window),
         $document           = $(document),
@@ -17,7 +18,7 @@
         scrollElements      = 'html,body,document',
         $scrollElement      = $(),
         newAnchror          = '',
-    	isAnimated          = false; // Tell if something is actually animating the scroll
+        isAnimated          = false; // Tell if something is actually animating the scroll
     
     // Find scrollElement
     // Inspired by http://www.zachstronaut.com/posts/2009/01/18/jquery-smooth-scroll-bugs.html
@@ -32,7 +33,7 @@
     });
     $scrollElement = $(scrollElements);
     
-    // UTILITIES...
+    // ----------- UTILITIES ---------------------------------------------------------------------------------- //
     var getHash             = function() { return window.location.hash || ''; },
         setHash             = function(hash) { if (hash && getHash() != hash) window.location.hash = hash; },
         getWinWidth         = function() { return $window.width(); }, // iphone ? ((window.innerWidth && window.innerWidth > 0) ? window.innerWidth : $window.width());
@@ -58,7 +59,7 @@
                 });
         };
 
-    // ----------- JQUERY EXTEND ---------------------------------------------------------------------------------- //
+    // ----------- $.easing ---------------------------------------------------------------------------------- //
     
     $.easing.jswing = $.easing.swing;
     $.extend($.easing, { // Extract from jQuery UI
@@ -68,6 +69,8 @@
         easeOutCubic: function (x, t, b, c, d) {  return c*((t=t/d-1)*t*t + 1) + b; }
     });
     
+    // ----------- $.scrollToMe() ---------------------------------------------------------------------------------- //
+    
     $.fn.scrollToMe = function(target) { // Extend jQuery, call view scrolling to a element himself
         return this.each(function() {
             if (target) newAnchror = target; // Update hash, but after scroll anim
@@ -75,10 +78,14 @@
         });
     };
     
-    $.fn.scrollScreen = function(options) { // ................... $scrollScreen();
+    // ----------- $.scrollScreen() ---------------------------------------------------------------------------------- //
+    
+    $.fn.scrollScreen = function(options) {
 
         if ($body.data('scrollScreen') == true) return this; // Only once... and one
         $body.data('scrollScreen', true);
+        
+        // ----------- SETTINGS ---------------------------------------------------------------------------------- //
         
         // Merge user options
         options = $.extend(true, {}, $.fn.scrollScreen.defaults, typeof options == 'object' &&  options);
@@ -91,28 +98,27 @@
         // Privates vars
         var mouseIsMoveViewsInt   = null,
             windowTmr             = null,
-			currentHeight         = getWinHeight(),
-			currentPageHeight     = getPageHeight(),
-			maxScroll             = (totalViews - 1) * currentHeight,
-			totalViews            = 1 + Math.floor(getPageHeight() / currentHeight),	
+            currentHeight         = getWinHeight(),
+            currentPageHeight     = getPageHeight(),
+            maxScroll             = (totalViews - 1) * currentHeight,
+            totalViews            = 1 + Math.floor(getPageHeight() / currentHeight),    
             scrollScreenMarginTop = - (Math.floor($scrollScreen.height() - ($scrollScreen.height() / 3))),
             scrollScreenMaxTop    = currentHeight - $scrollScreen.height();
         
         // ----------- VIEWPORT SCREEN THUMBS ---------------------------------------------------------------------------------- //
-        // My others others plugins here : http://jsfiddle.net/molokoloco/Atj8Z/
 
         var mouseIsMoveViewsClear = function() {
                 if (options.debug) console.log('mouseIsMoveViewsClear()');
                 if (mouseIsMoveViewsInt) clearTimeout(mouseIsMoveViews);
-				if (isAnimated) {
-					mouseIsMoveViewsInt = setTimeout(mouseIsMoveViewsClear, 2500); // Wait end of scrolling user anim
-				}
-				else {
-					mouseIsMoveViewsInt = null;
-					$scrollScreen.removeClass('current');
+                if (isAnimated) {
+                    mouseIsMoveViewsInt = setTimeout(mouseIsMoveViewsClear, 2500); // Wait end of scrolling user anim
+                }
+                else {
+                    mouseIsMoveViewsInt = null;
+                    $scrollScreen.removeClass('current');
                     $scrollScreenZone.attr('title', '');
-					setCurrentViewport(getScrollTop()); // Reset
-				}
+                    setCurrentViewport(getScrollTop()); // Reset
+                }
             },
             mouseIsOutViews = function(event) {
                 if (options.debug) console.log('mouseIsOutViews(event)', event);
@@ -129,7 +135,7 @@
                 $scrollScreen // .stop(true, false).animate({top:ascPos}, 250, 'easeOutCubic');  // JS skipped for CSS : transition
                     .css({top:ascPos})
                     .text(view);
-				if (options.checkHash  && getHash() != '#screen_'+view) setHash('#screen_'+view);
+                if (options.checkHash  && getHash() != '#screen_'+view) setHash('#screen_'+view);
             },
             mouseIsMoveViews = function(event) {
                 if (options.debug) console.log('mouseIsMoveViews(event)', event.clientY);
@@ -147,21 +153,24 @@
                     ascPos         = currentHeight * ascPos; // Pix in the viewport
                 moveViews(ascPos);
             },
-			moveToViewport = function(view) { // Lead to corresponding screen number
-				if (options.debug) console.log('moveToViewport(view)', view);
-				var scrollTarget = 0;
-				if (view == totalViews) scrollTarget = currentPageHeight; // (totalViews - 1) * currentHeight; // To be certain to reach the end...
+            moveToViewport = function(view) { // Lead to corresponding screen number
+                if (options.debug) console.log('moveToViewport(view)', view);
+                var scrollTarget = 0;
+                if (view == totalViews) scrollTarget = currentPageHeight; // (totalViews - 1) * currentHeight; // To be certain to reach the end...
                 else scrollTarget = view * currentHeight;
-				myScrollTo(scrollTarget);
-				return false;
-			},
+                myScrollTo(scrollTarget);
+                return false;
+            },
             viewportClick = function(event) { // Paginette links click lead to corresponding screen scroll
                 if (options.debug) console.log('viewportClick(event)', event);
-                var ascPos = currentPageHeight * ((event.clientY + scrollScreenMarginTop) / currentHeight);
+                var ascPos = 0;
+                if (event.clientY < 10) ascPos = 0;
+                else if (event.clientY > (currentHeight - 10)) ascPos = currentPageHeight;
+                else ascPos = currentPageHeight * ((event.clientY + scrollScreenMarginTop) / currentHeight);
                 myScrollTo(ascPos);
                 return false;
             },
-			viewportDbClick = function(event) { // Double click to run up...
+            viewportDbClick = function(event) { // Double click to run up...
                 if (options.debug) console.log('viewportDbClick()');
                 myScrollTo(1);
                 return false;
@@ -171,10 +180,10 @@
                 if (totalViews < 1) return; // Never now...
                 $scrollScreenZone
                     .on('click touchend', viewportClick)
-					.on('dblclick',       viewportDbClick)
+                    .on('dblclick',       viewportDbClick)
                     .on('mousemove',      mouseIsMoveViews)
                     .on('mouseout',       mouseIsOutViews);
-				setCurrentViewport();
+                setCurrentViewport();
             };
         
         createViewport();
@@ -189,9 +198,9 @@
             scrollling = function(event) {
                 // if (options.debug) console.log('scrollling()'); // Flood
                 if (windowTmr) clearTimeout(windowTmr);
-			    windowTmr = setTimeout(scrollRefreshEvent, 600); //trottle resize : Wait a pause of 300ms before triggering
+                windowTmr = setTimeout(scrollRefreshEvent, 600); //trottle resize : Wait a pause of 300ms before triggering
                 setCurrentViewport();
-				$scrollScreen.addClass('current');
+                $scrollScreen.addClass('current');
             },
             resizeRefreshEvent = function(target) { // Global EVENT.RESIZE dispatcher, ok TODO with pub/sub pattern...
                 if (options.debug) console.log('resizeRefreshEvent()');
@@ -203,7 +212,7 @@
                 if (options.checkHash)
                     windowTmr = setTimeout(function(_target) {
                         windowTmr = null;
-						checkHash(_target); // Repos scroll to current ?
+                        checkHash(_target); // Repos scroll to current ?
                     }, 1000, target || getHash());
             },
             resizing = function(event) { // Resize Event
@@ -219,20 +228,20 @@
         // ----------- DOCUMENT LOCATION INIT ---------------------------------------------------------------------------------- //
 
         var checkHash = function(hash) {
+            if (options.debug) console.log('checkHash(hash)', hash, 'getHash()', getHash());
             var initTarget = hash || getHash();
             if (initTarget) {
                 initTarget = initTarget.split('screen_'); // Catch fake hash // '#screen_'+view
-                if (parseInt(initTarget[1], 10) > 0) { // (initTarget.length > 0) {
-                    if (options.debug) console.log('checkHash() auto init target', initTarget[1]);
+                if (parseInt(initTarget[1], 10) > 1) { // (initTarget.length > 0) {
                     // $(initTarget[0]).scrollToMe(initTarget[0]); // #chapter_4_screen (fake) == #chapter_4 (real one)
-					moveToViewport(initTarget[1]);
+                    moveToViewport(initTarget[1]);
                 }
             }
         };
 
         if (options.checkHash) checkHash();
         
-        // ----------- jQuery element (body ?) ---------------------------------------------------------------------------------- //
+        // ----------- jQuery element plugin (body ?) ---------------------------------------------------------------------------------- //
         
         // Iterate collections // Maybe later ?
         // return this.each(function() {});
@@ -241,16 +250,17 @@
 
     // Default setup options
     $.fn.scrollScreen.defaults = {
-        debug             : ('console' in window && /* DEBUG ? */false), // Log all functions and events ?
+        debug             : ('console' in window && /* DEBUG ? */true), // Log all functions and events ?
         checkHash         : false, // On doc init, look for some anchors in the URL to scroll to ?...
         scrollScreenZone  : 'scrollScreenZone', // CSS class, without dot.
         scrollScreen      : 'scrollScreen'
     };
     
-})(jQuery, window); // End of the Scrolling Lab Closure... //
+})(jQuery, window, document); // End of the Scrolling Lab Closure... //
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 // Usage example... //////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////
 
 $('body').scrollScreen({ // Use it...
     checkHash        :  true,              // On doc init, look for some anchors in the URL to scroll to ?...
