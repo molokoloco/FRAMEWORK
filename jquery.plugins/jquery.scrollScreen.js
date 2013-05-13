@@ -1,13 +1,13 @@
-(function($, window, document) {
+(function($, window) {
     
-    // jQuery scrollView V0.8.2 : Viewport scroll and screen vertical helper
+    // jQuery scrollView V0.8.2 : Viewport scroll and screen vertical helper - @molokoloco 2013 - Copyleft
     // One view for each screen that user need to scroll to get to the bottom of the HTML view
-    // Molokoloco 2013 - Copyleft
     // Live fiddle : http://jsfiddle.net/molokoloco/XK3t5/
-    // Github : ...
+    // Github : https://github.com/molokoloco/FRAMEWORK/blob/master/jquery.plugins/jquery.scrollScreen.js
     // Infos : ...
     
-    // Made another plugin here : http://jsfiddle.net/molokoloco/Atj8Z/ (Viewport live menu)
+    // VIEWPORT SCREEN THUMBS
+    // Made other plugin here : http://jsfiddle.net/molokoloco/Atj8Z/
     
     // ----------- SCROLLTOP element - BROWSER SET BASE ---------------------------------------------------------------------------------- //
     
@@ -17,7 +17,7 @@
         scrollElements      = 'html,body,document',
         $scrollElement      = $(),
         newAnchror          = '',
-          isAnimated          = false; // Tell if something is actually animating the scroll
+    	isAnimated          = false; // Tell if something is actually animating the scroll
     
     // Find scrollElement
     // Inspired by http://www.zachstronaut.com/posts/2009/01/18/jquery-smooth-scroll-bugs.html
@@ -91,10 +91,10 @@
         // Privates vars
         var mouseIsMoveViewsInt   = null,
             windowTmr             = null,
-            currentHeight         = getWinHeight(),
-            currentPageHeight     = getPageHeight(),
-            maxScroll             = (totalViews - 1) * currentHeight,
-            totalViews            = 1 + Math.floor(getPageHeight() / currentHeight),    
+			currentHeight         = getWinHeight(),
+			currentPageHeight     = getPageHeight(),
+			maxScroll             = (totalViews - 1) * currentHeight,
+			totalViews            = 1 + Math.floor(getPageHeight() / currentHeight),	
             scrollScreenMarginTop = - (Math.floor($scrollScreen.height() - ($scrollScreen.height() / 3))),
             scrollScreenMaxTop    = currentHeight - $scrollScreen.height();
         
@@ -104,15 +104,15 @@
         var mouseIsMoveViewsClear = function() {
                 if (options.debug) console.log('mouseIsMoveViewsClear()');
                 if (mouseIsMoveViewsInt) clearTimeout(mouseIsMoveViews);
-                if (isAnimated) {
-                    mouseIsMoveViewsInt = setTimeout(mouseIsMoveViewsClear, 2500); // Wait end of scrolling user anim
-                }
-                else {
-                    mouseIsMoveViewsInt = null;
-                    $scrollScreen.removeClass('current');
+				if (isAnimated) {
+					mouseIsMoveViewsInt = setTimeout(mouseIsMoveViewsClear, 2500); // Wait end of scrolling user anim
+				}
+				else {
+					mouseIsMoveViewsInt = null;
+					$scrollScreen.removeClass('current');
                     $scrollScreenZone.attr('title', '');
-                    setCurrentViewport(getScrollTop()); // Reset
-                }
+					setCurrentViewport(getScrollTop()); // Reset
+				}
             },
             mouseIsOutViews = function(event) {
                 if (options.debug) console.log('mouseIsOutViews(event)', event);
@@ -129,7 +129,7 @@
                 $scrollScreen // .stop(true, false).animate({top:ascPos}, 250, 'easeOutCubic');  // JS skipped for CSS : transition
                     .css({top:ascPos})
                     .text(view);
-                if (options.checkHash  && getHash() != '#screen_'+view) setHash('#screen_'+view);
+				if (options.checkHash  && getHash() != '#screen_'+view) setHash('#screen_'+view);
             },
             mouseIsMoveViews = function(event) {
                 if (options.debug) console.log('mouseIsMoveViews(event)', event.clientY);
@@ -147,21 +147,21 @@
                     ascPos         = currentHeight * ascPos; // Pix in the viewport
                 moveViews(ascPos);
             },
-            moveToViewport = function(view) { // Lead to corresponding screen number
-                if (options.debug) console.log('moveToViewport(view)', view);
-                var scrollTarget = 0;
-                if (view == totalViews - 1) scrollTarget = (totalViews - 1) * currentHeight; // To be certain to reach the end...
-                else scrollTarget = (view - 1) * currentHeight;
-                myScrollTo(scrollTarget);
-                return false;
-            },
+			moveToViewport = function(view) { // Lead to corresponding screen number
+				if (options.debug) console.log('moveToViewport(view)', view);
+				var scrollTarget = 0;
+				if (view == totalViews) scrollTarget = currentPageHeight; // (totalViews - 1) * currentHeight; // To be certain to reach the end...
+                else scrollTarget = view * currentHeight;
+				myScrollTo(scrollTarget);
+				return false;
+			},
             viewportClick = function(event) { // Paginette links click lead to corresponding screen scroll
                 if (options.debug) console.log('viewportClick(event)', event);
-                var ascPos = currentPageHeight * (event.clientY / currentHeight);
+                var ascPos = currentPageHeight * ((event.clientY + scrollScreenMarginTop) / currentHeight);
                 myScrollTo(ascPos);
                 return false;
             },
-            viewportDbClick = function(event) { // Double click to run up...
+			viewportDbClick = function(event) { // Double click to run up...
                 if (options.debug) console.log('viewportDbClick()');
                 myScrollTo(1);
                 return false;
@@ -171,10 +171,10 @@
                 if (totalViews < 1) return; // Never now...
                 $scrollScreenZone
                     .on('click touchend', viewportClick)
-                    .on('dblclick',       viewportDbClick)
+					.on('dblclick',       viewportDbClick)
                     .on('mousemove',      mouseIsMoveViews)
                     .on('mouseout',       mouseIsOutViews);
-                setCurrentViewport();
+				setCurrentViewport();
             };
         
         createViewport();
@@ -189,9 +189,9 @@
             scrollling = function(event) {
                 // if (options.debug) console.log('scrollling()'); // Flood
                 if (windowTmr) clearTimeout(windowTmr);
-                windowTmr = setTimeout(scrollRefreshEvent, 600); //trottle resize : Wait a pause of 300ms before triggering
+			    windowTmr = setTimeout(scrollRefreshEvent, 600); //trottle resize : Wait a pause of 300ms before triggering
                 setCurrentViewport();
-                $scrollScreen.addClass('current');
+				$scrollScreen.addClass('current');
             },
             resizeRefreshEvent = function(target) { // Global EVENT.RESIZE dispatcher, ok TODO with pub/sub pattern...
                 if (options.debug) console.log('resizeRefreshEvent()');
@@ -203,7 +203,7 @@
                 if (options.checkHash)
                     windowTmr = setTimeout(function(_target) {
                         windowTmr = null;
-                        checkHash(_target); // Repos scroll to current ?
+						checkHash(_target); // Repos scroll to current ?
                     }, 1000, target || getHash());
             },
             resizing = function(event) { // Resize Event
@@ -225,7 +225,7 @@
                 if (parseInt(initTarget[1], 10) > 0) { // (initTarget.length > 0) {
                     if (options.debug) console.log('checkHash() auto init target', initTarget[1]);
                     // $(initTarget[0]).scrollToMe(initTarget[0]); // #chapter_4_screen (fake) == #chapter_4 (real one)
-                    moveToViewport(initTarget[1]);
+					moveToViewport(initTarget[1]);
                 }
             }
         };
@@ -247,62 +247,10 @@
         scrollScreen      : 'scrollScreen'
     };
     
-})(jQuery, window, document); // End of the Scrolling Lab Closure... //
+})(jQuery, window); // End of the Scrolling Lab Closure... //
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 // Usage example... //////////////////////////////////////////////////////////////////////////////////
-
-/* 
-    // Assuming this CSS...
- 
-    // a rectangle from top to bottom of the viewport (ex. 40*600) - User events zone
-    div.scrollScreenZone { 
-        position:fixed;
-        z-index:999;
-        top:0;
-        right:0;
-        bottom:0;
-        width:40px;
-        cursor:pointer;
-    }
-    
-    // a square that print pages and follow user OR scrollbar
-    div.scrollScreen { 
-        position:fixed;
-        z-index:989;
-        top:0;
-        right:3px;
-        width:33px;
-        height:33px;
-        // border-radius:3px; - skipped for fast perf
-        line-height:33px;
-        font-size:16px;
-        font-weight:normal;
-        text-align:center;
-        color:rgba(5,5,5,0.2);
-        text-shadow:0 1px 0 rgba(250,250,250,0.6);
-        // box-shadow:inset 0 1px 0 rgba(250,250,250,0.6); - avoided for fast perf
-        background:rgba(5,5,5,0.05);
-        -webkit-transition: background 1s cubic-bezier(0.215, 0.610, 0.355, 1.000),
-                            top 1200ms cubic-bezier(0.215, 0.610, 0.355, 1.000); //  easeOutCubic
-           -moz-transition: background 1s cubic-bezier(0.215, 0.610, 0.355, 1.000),
-                            top 1200ms cubic-bezier(0.215, 0.610, 0.355, 1.000);
-            -ms-transition: background 1s cubic-bezier(0.215, 0.610, 0.355, 1.000),
-                            top 1200ms cubic-bezier(0.215, 0.610, 0.355, 1.000);
-             -o-transition: background 1s cubic-bezier(0.215, 0.610, 0.355, 1.000),
-                            top 1200ms cubic-bezier(0.215, 0.610, 0.355, 1.000);
-                transition: background 1s cubic-bezier(0.215, 0.610, 0.355, 1.000),
-                            top 1200ms cubic-bezier(0.215, 0.610, 0.355, 1.000);
-    }
-        div.scrollScreen.current {
-            color:rgba(250,250,250,0.9);
-            text-shadow:0 1px 0 rgba(0, 0, 0, 0.33);
-            // box-shadow:0 1px 0 rgba(250,250,250,0.6); - avoided for fast perf ==
-            background:rgba(5,5,5,0.3);
-            text-decoration:none;
-        }
-
-*/
 
 $('body').scrollScreen({ // Use it...
     checkHash        :  true,              // On doc init, look for some anchors in the URL to scroll to ?...
