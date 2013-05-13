@@ -4,7 +4,7 @@
     // One view for each screen that user need to scroll to get to the bottom of the HTML view
     // Live fiddle : http://jsfiddle.net/molokoloco/XK3t5/
     // Github : https://github.com/molokoloco/FRAMEWORK/blob/master/jquery.plugins/jquery.scrollScreen.js
-    //          https://github.com/molokoloco/FRAMEWORK/blob/master/jquery.plugins/jquery.colonize.css
+    //          https://github.com/molokoloco/FRAMEWORK/blob/master/jquery.plugins/jquery.scrollScreen.css
     // Infos : ...
     
     // VIEWPORT SCREEN THUMBS
