@@ -1,0 +1,26 @@
+/* ------------------------ jquery.colonize.css ------------------------ */
+
+.multiplecolumns {
+    -webkit-column-width:180px; /* CHOOSE between column-width OR column-count */
+       -moz-column-width:180px;
+            column-width:180px;
+    /*-webkit-column-count:2;
+       -moz-column-count:2;
+            column-count:2;*/
+    -webkit-column-gap: 1px;
+       -moz-column-gap: 1px;
+            column-gap: 1px;
+    -webkit-column-rule: 1px dashed rgba(0,0,0,.4);
+       -moz-column-rule: 1px dashed rgba(0,0,0,.4);
+            column-rule: 1px dashed rgba(0,0,0,.4);
+    -webkit-column-fill: auto;
+       -moz-column-fill: auto;
+            column-fill: auto;
+    background:rgba(255, 192, 203, 0.4);
+    padding:10px 0;
+}
+
+    .multiplecolumns p {
+        margin:0 10px;
+        text-align: justify;
+    }
