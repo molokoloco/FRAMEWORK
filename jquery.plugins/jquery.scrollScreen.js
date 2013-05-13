@@ -250,7 +250,7 @@
 
     // Default setup options
     $.fn.scrollScreen.defaults = {
-        debug             : ('console' in window && /* DEBUG ? */true), // Log all functions and events ?
+        debug             : ('console' in window && /* DEBUG ? */false), // Log all functions and events ?
         checkHash         : false, // On doc init, look for some anchors in the URL to scroll to ?...
         scrollScreenZone  : 'scrollScreenZone', // CSS class, without dot.
         scrollScreen      : 'scrollScreen'
