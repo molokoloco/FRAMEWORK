@@ -1,0 +1,48 @@
+/* ------------------------- jquery.scrollScreen.css ------------------------------------------------------------- */
+
+/* a rectangle from top to bottom of the viewport (ex. 40*600) - User events zone */
+div.scrollScreenZone { 
+    position:fixed;
+	z-index:999;
+	top:0;
+	right:0;
+	bottom:0;
+	width:40px;
+	cursor:pointer;
+}
+
+/* a square that print pages and follow user OR scrollbar */
+div.scrollScreen { 
+	position:fixed;
+	z-index:989;
+	top:0;
+	right:3px;
+    width:33px;
+    height:33px;
+    /* border-radius:3px; - skipped for fast perf */
+    line-height:33px;
+    font-size:16px;
+    font-weight:normal;
+    text-align:center;
+    color:rgba(5,5,5,0.2);
+    text-shadow:0 1px 0 rgba(250,250,250,0.6);
+    /* box-shadow:inset 0 1px 0 rgba(250,250,250,0.6); - avoided for fast perf */
+    background:rgba(5,5,5,0.05);
+    -webkit-transition: background 1s cubic-bezier(0.215, 0.610, 0.355, 1.000),
+                        top 1200ms cubic-bezier(0.215, 0.610, 0.355, 1.000); /*  easeOutCubic */
+       -moz-transition: background 1s cubic-bezier(0.215, 0.610, 0.355, 1.000),
+                        top 1200ms cubic-bezier(0.215, 0.610, 0.355, 1.000);
+        -ms-transition: background 1s cubic-bezier(0.215, 0.610, 0.355, 1.000),
+                        top 1200ms cubic-bezier(0.215, 0.610, 0.355, 1.000);
+         -o-transition: background 1s cubic-bezier(0.215, 0.610, 0.355, 1.000),
+                        top 1200ms cubic-bezier(0.215, 0.610, 0.355, 1.000);
+            transition: background 1s cubic-bezier(0.215, 0.610, 0.355, 1.000),
+                        top 1200ms cubic-bezier(0.215, 0.610, 0.355, 1.000);
+}
+    div.scrollScreen.current {
+		color:rgba(250,250,250,0.9);
+        text-shadow:0 1px 0 rgba(0, 0, 0, 0.33);
+        /* box-shadow:0 1px 0 rgba(250,250,250,0.6); - avoided for fast perf */
+		background:rgba(5,5,5,0.3);
+		text-decoration:none;
+	}
