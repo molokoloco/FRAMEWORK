@@ -1,6 +1,6 @@
 (function($) {
     
-    // jQuery colonize V0.8.1 : In-between titles Multicols paragraphes
+    // jQuery colonize V0.8.2 : In-between titles Multicols paragraphes
     // Molokoloco 2013 - Copyleft
     // Live fiddle : http://jsfiddle.net/molokoloco/Ra288/
     // Github : https://github.com/molokoloco/FRAMEWORK/blob/master/jquery.plugins/jquery.colonize.js
@@ -45,7 +45,7 @@
                 for (var i = 0, len = $collection.length; i < len; i++) {
                     totalHeight += ($collection[i].height() * colHeightRatio); // Futur P height
                     $wrapper.append($collection[i].detach()); // Extract P
-                    if (totalHeight >= options.maxHeight) { // Breaking Cols if > screen height
+                    if (totalHeight >= options.maxHeight && $collection[(i + 1)]) { // Breaking Cols if > screen height
                         $wrapper.insertAfter($this);
                         $this = $wrapper;
                         totalHeight = 0;
@@ -60,7 +60,7 @@
                 if (intentNextP < 3 && $this.next()) $.proxy(colsExtractor, $this.next())();
             }
         };
-        
+
         // Iterate collections
         return this.each(function() {
             
@@ -71,15 +71,17 @@
             intentNextP    = 0;
             lineHeight     = 0;
             
-            var $exists = $container.find(options.css);
+            if (options.maxHeight < 1)
+                options.maxHeight = Math.max(80, $(window).height() - 60); // (Min/)Max cols height ?
+            
+            var $exists = $container.find('.'+options.css);
             if ($exists.length) { // Existing wrappers ?
                 var exists = '';
                 $exists.each(function() {
                     var $this = $(this);
-                    exists += $this.html();
+                    $($this.html()).insertBefore($this);
                     $this.remove(); 
                 });
-                $container.append(exists);
             }
 
             var $p = $('<p>A</p>').appendTo($container);
@@ -100,26 +102,44 @@
     
     // Default setup options
     $.fn.colonize.defaults = {
-        marge:       10,   // Left/right margin
-        colWidth:    null, // As in the CSS, chose between COUNT or WIDTH for cols
-        colCount:    null, // colWidth OR colCount
-        chapters:    'h1,h2,h3,h4,h5,h6',                    // Between the
-        take:        'p',                                    // Take all the
-        css:         'multiplecolumns',                      // And wrap them with
-        maxHeight:    Math.max(100, $(window).height() - 60) // Max col height will be..
+        marge:       10,                   // Left/right margin
+        colWidth:    null,                 // As in the CSS, choose between COUNT or WIDTH for cols
+        colCount:    null,                 // colWidth OR colCount
+        chapters:    'h1,h2,h3,h4,h5,h6',  // Between the H1-Hx
+        take:        'p',                  // Take all the p ... p,ul,ol,quote,adress ... *
+        css:         'multiplecolumns',    // And wrap them with class
+        maxHeight:    null                 // Max col height will be..
     };
     
 })(window.jQuery);
 
-// Usage example...
+/////////////////////////////////////////////////////////////////
+// Usage example... /////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////
 
-$('#colonize').click(function() {
+/*
 
-    $('#container').colonize({ // Use it...
-        marge:      10,
-        colWidth:   180, // Report CSS "column-width"
-        take:       'p,ul', // Adding UL to the stream...
-        css:        'multiplecolumns'
+    var createCols = function() {
+        $('#container').colonize({ // Use it...
+            marge:      10,
+            colWidth:   180, // Report CSS "column-width"
+            take:       'p,ul', // Adding UL to the stream...
+            css:        'multiplecolumns' // If you want to change the CSS..
+        });
+    }
+    
+    $('#colonize').click(createCols); // Call on click
+    
+    var windowTmr = null; // Timeout...
+    
+    var resizeRefreshEvent = function() { // Trottle resize...
+        windowTmr = null;
+        createCols(); // Re-call it
+    };
+    
+    $(window).on('resize', function(event) { // Resize Event
+        if (windowTmr) clearTimeout(windowTmr);
+        windowTmr = setTimeout(resizeRefreshEvent, 1600); // trottle resize, pass current hash...
     });
 
-});
+*/
