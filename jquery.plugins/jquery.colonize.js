@@ -1,8 +1,10 @@
 (function($) {
     
+    // jQuery colonize V0.8.1 : In-between titles Multicols paragraphes
     // Molokoloco 2013 - Copyleft
     // Live fiddle : http://jsfiddle.net/molokoloco/Ra288/
     // Github : https://github.com/molokoloco/FRAMEWORK/blob/master/jquery.plugins/jquery.colonize.js
+    //          https://github.com/molokoloco/FRAMEWORK/blob/master/jquery.plugins/jquery.colonize.css
     // Infos : http://www.b2bweb.fr/molokoloco/jquery-colonize-plugin-in-between-titles-multicols-paragraphes-with-css3/
     
     $.fn.colonize = function(options) { // Wrapping P between H2
@@ -69,8 +71,17 @@
             intentNextP    = 0;
             lineHeight     = 0;
             
-            $container.find(options.css).remove(); // Existing wrappers ?
-            
+            var $exists = $container.find(options.css);
+            if ($exists.length) { // Existing wrappers ?
+                var exists = '';
+                $exists.each(function() {
+                    var $this = $(this);
+                    exists += $this.html();
+                    $this.remove(); 
+                });
+                $container.append(exists);
+            }
+
             var $p = $('<p>A</p>').appendTo($container);
             lineHeight = $p.outerHeight();
             $p.remove();
@@ -100,49 +111,15 @@
     
 })(window.jQuery);
 
-
 // Usage example...
 
-
 $('#colonize').click(function() {
-    
-    /*
-    // in your styles.css...
-    
-    .multiplecolumns {
-        -webkit-column-width:180px; // CHOOSE between column-width OR column-count
-           -moz-column-width:180px;
-                column-width:180px;
-        -webkit-column-count:2;
-           -moz-column-count:2;
-                column-count:2;
-                
-        -webkit-column-gap: 1px;
-           -moz-column-gap: 1px;
-                column-gap: 1px;
-        -webkit-column-rule: 1px dashed rgba(0,0,0,.4);
-           -moz-column-rule: 1px dashed rgba(0,0,0,.4);
-                column-rule: 1px dashed rgba(0,0,0,.4);
-        -webkit-column-fill: auto;
-           -moz-column-fill: auto;
-                column-fill: auto;
-        
-        background:rgba(255, 192, 203, 0.4);
-        padding:10px 0;
-    }
-    
-    .multiplecolumns p {
-        margin:0 10px;
-        text-align: justify;
-    }
-    */
 
     $('#container').colonize({ // Use it...
         marge:      10,
         colWidth:   180, // Report CSS "column-width"
-        take:        'p,ul', // Adding UL to the stream...
-        wrapper:    '<div class="multiplecolumns"/>'
+        take:       'p,ul', // Adding UL to the stream...
+        css:        'multiplecolumns'
     });
 
 });
-
