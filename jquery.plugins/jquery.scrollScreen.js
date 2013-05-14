@@ -5,7 +5,7 @@
     // Live fiddle : http://jsfiddle.net/molokoloco/XK3t5/
     // Github : https://github.com/molokoloco/FRAMEWORK/blob/master/jquery.plugins/jquery.scrollScreen.js
     //          https://github.com/molokoloco/FRAMEWORK/blob/master/jquery.plugins/jquery.scrollScreen.css
-    // Infos : ...
+    // Infos : http://www.b2bweb.fr/molokoloco/jquery-scrollview-viewport-scroll-and-screen-vertical-helper
     
     // VIEWPORT SCREEN THUMBS
     // Made other plugin here : http://jsfiddle.net/molokoloco/Atj8Z/
@@ -183,6 +183,8 @@
                     .on('dblclick',       viewportDbClick)
                     .on('mousemove',      mouseIsMoveViews)
                     .on('mouseout',       mouseIsOutViews);
+                $scrollScreen
+                    .on('click touchend', viewportClick); // IE
                 setCurrentViewport();
             };
         
