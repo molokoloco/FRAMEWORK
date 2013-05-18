@@ -9,6 +9,15 @@
     
     // Made another(older) plugin here : http://jsfiddle.net/molokoloco/Atj8Z/
     
+    /*
+        // Usage example...
+        $('body').scrollScreen({ // Use it...
+            checkHash        :  true,              // On doc init, look for some anchors in the URL to scroll to ?...
+            scrollScreen     : 'scrollScreen',
+            scrollScreenZone : 'scrollScreenZone' // CSS class, withou dot.
+        });
+    */
+    
     // ----------- SCROLLTOP + BROWSER BASE ---------------------------------------------------------------------------------- //
     
     var $window             = $(window),
@@ -268,13 +277,3 @@
     };
     
 })(jQuery, window, document); // End of the Scrolling Lab Closure... //
-
-//////////////////////////////////////////////////////////////////////////////////////////////////////
-// Usage example... //////////////////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////////////////////////////////////
-
-$('body').scrollScreen({ // Use it...
-    checkHash        :  true,              // On doc init, look for some anchors in the URL to scroll to ?...
-    scrollScreen     : 'scrollScreen',
-    scrollScreenZone : 'scrollScreenZone' // CSS class, withou dot.
-});
