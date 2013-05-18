@@ -1,6 +1,6 @@
 (function($, window, document) {
     
-    // jQuery scrollView V0.8.3 : Viewport scroll and screen vertical helper - @molokoloco 2013 - Copyleft
+    // jQuery scrollView V0.8.4 : Viewport scroll and screen vertical helper - @molokoloco 2013 - Copyleft
     // One view for each screen that user need to scroll to get to the bottom of the HTML view
     // Live fiddle : http://jsfiddle.net/molokoloco/XK3t5/
     // Github : https://github.com/molokoloco/FRAMEWORK/blob/master/jquery.plugins/jquery.scrollScreen.js
@@ -113,6 +113,7 @@
             currentHeight         = getWinHeight(),
             currentPageHeight     = getPageHeight(),
             maxScroll             = (totalViews - 1) * currentHeight,
+            scrollHeight          = currentHeight * (currentHeight / currentPageHeight),
             totalViews            = 1 + Math.floor(getPageHeight() / currentHeight),    
             scrollScreenMarginTop = - (Math.floor($scrollScreen.height() - ($scrollScreen.height() / 3))),
             scrollScreenMaxTop    = currentHeight - $scrollScreen.height();
@@ -148,6 +149,7 @@
                 ascPos = Math.max(ascPos, 0);
                 ascPos = Math.min(ascPos, scrollScreenMaxTop);
                 var view = 1 + Math.floor(totalViews * (ascPos / currentHeight)); // view 1 == < winHeight : ceil
+
                 $scrollScreen // .stop(true, false).animate({top:ascPos}, 250, 'easeOutCubic');  // JS skipped for CSS : transition
                     .css({top:ascPos})
                     .text(view);
@@ -165,8 +167,8 @@
             setCurrentViewport = function(scrollTop) { // I cannot pretend to be exactly aligned with the browser scrollbar :-/
                 if (options.debug) console.log('setCurrentViewport(scrollTop)', scrollTop);
                 var currentScroll  = scrollTop || getScrollTop(),
-                    ascPos         = (currentScroll + currentHeight) / currentPageHeight, // % in the viewport
-                    ascPos         = currentHeight * ascPos; // Pix in the viewport
+                    ascPosRatio    = (currentScroll + currentHeight) / currentPageHeight, // % in the viewport
+                    ascPos         = (currentHeight - scrollHeight) * ascPosRatio; // Pix in the viewport
                 moveViews(ascPos);
             },
             moveToViewport = function(view) { // Lead to corresponding screen number
@@ -193,7 +195,6 @@
             },
             createViewport = function() { // Build viewport 
                 if (options.debug) console.log('createViewport()');
-                if (totalViews < 1) return; // Never now...
                 $scrollScreenZone
                     .on('click touchend', viewportClick)
                     .on('dblclick',       viewportDbClick)
@@ -226,7 +227,10 @@
                 currentHeight     = getWinHeight();
                 currentPageHeight = getPageHeight();
                 maxScroll         = (totalViews - 1) * currentHeight;
+                scrollHeight      = currentHeight * (currentHeight / currentPageHeight);
                 totalViews        = Math.ceil(getPageHeight() / currentHeight);
+                if (totalViews <= 1) $scrollScreen.hide();
+                else $scrollScreen.show();
                 posScrollScreenRight();
                 setCurrentViewport();
                 if (options.checkHash)
@@ -244,6 +248,8 @@
         $window
             .on('scroll', scrollling)
             .on('resize', resizing);
+        
+        resizeRefreshEvent();
 
         // ----------- DOCUMENT LOCATION INIT ---------------------------------------------------------------------------------- //
 
@@ -276,4 +282,4 @@
         scrollScreen      : 'scrollScreen'
     };
     
-})(jQuery, window, document); // End of the Scrolling Lab Closure... //
+})(jQuery, window, document); // End of the Scrolling Lab Closure...
