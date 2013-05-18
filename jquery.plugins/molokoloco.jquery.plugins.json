@@ -1,0 +1,32 @@
+{
+  "name": "molokoloco.jquery.plugins",
+  "title": "molokoloco.jquery.plugins",
+  "description": "Various jQuery plugins",
+  "keywords": ["viewport","scroll"],
+  "version": "0.x",
+  "author": {
+    "name":   "Julien Guézennec",
+    "email":  "molokoloco@gmail.com",
+    "url":    "http://www.b2bweb.fr"
+  },
+  "maintainers": [
+    {
+      "name":   "Julien Guézennec",
+      "email":  "molokoloco@gmail.com",
+      "url":    "http://www.b2bweb.fr"
+    }
+  ],
+  "licenses": [
+    {
+      "type":  "MIT",
+      "url":   "http://opensource.org/licenses/MIT"
+    }
+  ],
+  "bugs":     "https://github.com/molokoloco/FRAMEWORK/issues",
+  "homepage": "http://cahnory.github.com/FRAMEWORK/",
+  "docs":     "http://cahnory.github.com/FRAMEWORK/",
+  "download": "https://github.com/cahnory/FRAMEWORK/zipball/master",
+  "dependencies": {
+    "jquery": ">=1.8.1"
+  }
+}
