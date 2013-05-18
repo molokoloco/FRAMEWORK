@@ -1,14 +1,13 @@
 (function($, window, document) {
     
-    // jQuery scrollView V0.8.2 : Viewport scroll and screen vertical helper - @molokoloco 2013 - Copyleft
+    // jQuery scrollView V0.8.3 : Viewport scroll and screen vertical helper - @molokoloco 2013 - Copyleft
     // One view for each screen that user need to scroll to get to the bottom of the HTML view
     // Live fiddle : http://jsfiddle.net/molokoloco/XK3t5/
     // Github : https://github.com/molokoloco/FRAMEWORK/blob/master/jquery.plugins/jquery.scrollScreen.js
     //          https://github.com/molokoloco/FRAMEWORK/blob/master/jquery.plugins/jquery.scrollScreen.css
     // Infos : http://www.b2bweb.fr/molokoloco/jquery-scrollview-viewport-scroll-and-screen-vertical-helper
     
-    // VIEWPORT SCREEN THUMBS
-    // Made other plugin here : http://jsfiddle.net/molokoloco/Atj8Z/
+    // Made another(older) plugin here : http://jsfiddle.net/molokoloco/Atj8Z/
     
     // ----------- SCROLLTOP + BROWSER BASE ---------------------------------------------------------------------------------- //
     
@@ -90,13 +89,17 @@
         // Merge user options
         options = $.extend(true, {}, $.fn.scrollScreen.defaults, typeof options == 'object' &&  options);
         
-        var $container            = $(this),
+        var 
+        // Public vars
+            $container            = $(this),
             $scrollScreen         = $('<div class="'+options.scrollScreen+'">1</div>')
                                     .appendTo($container),
             $scrollScreenZone     = $('<div class="'+options.scrollScreenZone+'" title="Pour naviguer d\'écran en écran..."></div>')
                                     .appendTo($container);
+        
+        var 
         // Privates vars
-        var mouseIsMoveViewsInt   = null,
+            mouseIsMoveViewsInt   = null,
             windowTmr             = null,
             currentHeight         = getWinHeight(),
             currentPageHeight     = getPageHeight(),
@@ -105,9 +108,13 @@
             scrollScreenMarginTop = - (Math.floor($scrollScreen.height() - ($scrollScreen.height() / 3))),
             scrollScreenMaxTop    = currentHeight - $scrollScreen.height();
         
-        // ----------- VIEWPORT SCREEN THUMBS ---------------------------------------------------------------------------------- //
-
-        var mouseIsMoveViewsClear = function() {
+        var 
+            // ----------- VIEWPORT SCREEN VIEWS
+            posScrollScreenRight = function() {
+                // right:3px; > Moz Bug
+                $scrollScreen.css({left:getPageWidth() - $scrollScreen.width() - 3});
+            },
+            mouseIsMoveViewsClear = function() {
                 if (options.debug) console.log('mouseIsMoveViewsClear()');
                 if (mouseIsMoveViewsInt) clearTimeout(mouseIsMoveViews);
                 if (isAnimated) {
@@ -188,11 +195,12 @@
                 setCurrentViewport();
             };
         
+        posScrollScreenRight();
         createViewport();
-        
-        // ----------- WIN EVENTS ---------------------------------------------------------------------------------- //
 
-        var scrollRefreshEvent = function() {
+        var
+        // ----------- WIN EVENTS ---------------------------------------------------------------------------------- //
+            scrollRefreshEvent = function() {
                 if (options.debug) console.log('scrollRefreshEvent()');
                 windowTmr = null;
                 $scrollScreen.removeClass('current');
@@ -210,6 +218,7 @@
                 currentPageHeight = getPageHeight();
                 maxScroll         = (totalViews - 1) * currentHeight;
                 totalViews        = Math.ceil(getPageHeight() / currentHeight);
+                posScrollScreenRight();
                 setCurrentViewport();
                 if (options.checkHash)
                     windowTmr = setTimeout(function(_target) {
