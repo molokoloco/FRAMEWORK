@@ -1,0 +1,57 @@
+div {
+    outline:1px solid rgba(0,0,0,.4);
+    padding:5px;
+    margin:5px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    -webkit-column-span: all;
+       -moz-column-span: all;
+        -ms-column-span: all;
+         -o-column-span: all;
+            column-span: all;
+}
+
+.multiplecolumns {
+    -webkit-column-width:180px;
+       -moz-column-width:180px;
+        -ms-column-width:180px;
+         -o-column-width:180px;
+            column-width:180px;
+    /*
+    -webkit-column-count:2;
+       -moz-column-count:2;
+        -ms-column-count:2;
+         -o-column-count:2;
+            column-count:2;
+    */
+    -webkit-column-gap: 1px;
+       -moz-column-gap: 1px;
+        -ms-column-gap: 1px;
+         -o-column-gap: 1px;
+            column-gap: 1px;
+    -webkit-column-rule: 1px dashed rgba(0,0,0,.4);
+       -moz-column-rule: 1px dashed rgba(0,0,0,.4);
+        -ms-column-rule: 1px dashed rgba(0,0,0,.4);
+         -o-column-rule: 1px dashed rgba(0,0,0,.4);
+            column-rule: 1px dashed rgba(0,0,0,.4);
+    -webkit-column-fill: auto;
+       -moz-column-fill: auto;
+        -ms-column-fill: auto;
+         -o-column-fill: auto;
+            column-fill: auto;
+    
+    outline:1px dashed rgba(0,0,0,.4);
+    background:rgba(255, 192, 203, 0.4);
+    padding:10px 0;
+}
+
+.multiplecolumns p {
+    margin:0 10px;
+    text-align: justify;
+}
+
+p, div {
+    font:12px verdana, arial;
+    line-height: 125%;
+}
