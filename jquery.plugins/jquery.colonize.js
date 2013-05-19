@@ -7,6 +7,9 @@
     //          https://github.com/molokoloco/FRAMEWORK/blob/master/jquery.plugins/jquery.colonize.css
     // Infos : http://www.b2bweb.fr/molokoloco/jquery-colonize-plugin-in-between-titles-multicols-paragraphes-with-css3/
     
+    // Updated new version V0.9 :
+    // https://github.com/molokoloco/jquery.plugins/jquery.colonizr.js
+    
     $.fn.colonize = function(options) { // Wrapping P between H2
         // Merge user options
         options = $.extend(true, {}, $.fn.colonize.defaults, typeof options == 'object' &&  options);
