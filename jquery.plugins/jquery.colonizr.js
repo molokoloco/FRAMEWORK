@@ -1,5 +1,5 @@
 /* =============================================================
- * jQuery colonizr V0.9.1 - Molokoloco 2013 - Copyleft
+ * jQuery colonizr V0.9.2 - Molokoloco 2013 - Copyleft
  * "In-between titles Multicols paragraphes" (Bootstrap-like plugin)
  * Live fiddle : http://jsfiddle.net/molokoloco/Ra288/
  * Github : https://github.com/molokoloco/FRAMEWORK/blob/master/jquery.plugins/jquery.colonizr.js
@@ -35,6 +35,7 @@
 
 * ============================================================== */
 
+
 !function ($) {
 
     "use strict"; // jshint ;_;
@@ -48,7 +49,7 @@
         // Privates vars
         this.$container = $(element);
         this.wrapper    = '<div class="'+this.options.css+'"/>';
-        this.cWidth, this.colHeightRatio, this.intentNextP, this.lineHeight, this.maxHeight;
+		this.cWidth, this.intentNextP, this.lineHeight, this.maxHeight;
 		this.refresh();
     };
 
@@ -81,7 +82,8 @@
             if ($collection.length && estimateHeight > this.lineHeight) {
                 var $wrapper = $(this.wrapper);
                 for (var i = 0, len = $collection.length; i < len; i++) {
-                    totalHeight += ($collection[i].outerHeight() * this.colHeightRatio); // Futur P height
+                    totalHeight += $collection[i].outerHeight(); // P height considered nearly the same as futur Col height
+                    $wrapper.append('<p>totalHeight : '+totalHeight+'</p>'); // Extract P
                     $wrapper.append($collection[i].detach()); // Extract P
                     if ($collection[(i + 1)] && this.maxHeight <= (totalHeight + $collection[(i + 1)].outerHeight())) { // Cut Cols if > screen height
                         $wrapper.insertAfter($element);
@@ -101,7 +103,6 @@
         
         refresh: function () {
 			this.cWidth         = this.$container.width();
-			this.colHeightRatio = 1;
 			this.intentNextP    = 0;
 			this.lineHeight     = 0;
             this.maxHeight      = this.options.maxHeight;
@@ -124,7 +125,6 @@
 			if (this.options.colWidth)
 				this.options.colCount = Math.max(1, Math.floor(this.cWidth / this.options.colWidth));
 			colWidth = (this.cWidth - ((this.options.marge * 2) * this.options.colCount)) / this.options.colCount;
-			this.colHeightRatio = this.cWidth / colWidth;
 			this.$container
 				.find(this.options.chapters)
 				.each($.proxy(this.colsExtractor, this)); // $.wrapAll() || $.nextAll() // :-(
@@ -138,8 +138,8 @@
 
     $.fn.colonizr = function (options) {
         return this.each(function() { // Iterate collections
-            var $this  = $(this),
-				data   = $this.data('colonizr');
+            var $this          = $(this),
+				data           = $this.data('colonizr');
 			if (!data) $this.data('colonizr', (data = new Colonizr(this, options)));
             if (typeof options == 'string') data[options]();
         });
