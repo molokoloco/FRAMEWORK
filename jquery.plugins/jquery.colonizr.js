@@ -83,7 +83,6 @@
                 var $wrapper = $(this.wrapper);
                 for (var i = 0, len = $collection.length; i < len; i++) {
                     totalHeight += $collection[i].outerHeight(); // P height considered nearly the same as futur Col height
-                    $wrapper.append('<p>totalHeight : '+totalHeight+'</p>'); // Extract P
                     $wrapper.append($collection[i].detach()); // Extract P
                     if ($collection[(i + 1)] && this.maxHeight <= (totalHeight + $collection[(i + 1)].outerHeight())) { // Cut Cols if > screen height
                         $wrapper.insertAfter($element);
@@ -177,3 +176,32 @@
     });
 
 }(window.jQuery);
+
+
+/////////////////////////////////////////////////////////////////
+// Usage example... /////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////
+
+
+var $container = $('div#container');
+
+$('a#colonize').click(function() {     // Call on click 
+    $container.colonizr({              // Use plugin...
+        marge:      10,
+        colWidth:   180,               // Report CSS "column-width"
+        take:       'p,ul',            // Adding UL to the stream...
+        css:        'multiplecolumns'  // If you want to change the CSS..
+    });
+});
+
+var windowTmr = null; // Timeout...
+var resizeRefreshEvent = function() {   // Trottle resize...
+    windowTmr = null;
+    if ($container.data('colonizr'))    // Colonizr was applyed by user click ?
+        $container.colonizr('refresh'); //  Refresh cols height...
+};
+
+$(window).on('resize', function(event) { // Resize Event
+    if (windowTmr) clearTimeout(windowTmr);
+    windowTmr = setTimeout(resizeRefreshEvent, 1600); // Trottle resize
+});
