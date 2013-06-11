@@ -1,23 +1,10 @@
-div {
-    outline:1px solid rgba(0,0,0,.4);
-    padding:5px;
-    margin:5px;
-}
-
-h1, h2, h3, h4, h5, h6 {
-    -webkit-column-span: all;
-       -moz-column-span: all;
-        -ms-column-span: all;
-         -o-column-span: all;
-            column-span: all;
-}
-
 .multiplecolumns {
     -webkit-column-width:180px;
        -moz-column-width:180px;
         -ms-column-width:180px;
          -o-column-width:180px;
             column-width:180px;
+    /* OR */
     /*
     -webkit-column-count:2;
        -moz-column-count:2;
