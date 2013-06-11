@@ -28,7 +28,8 @@ var cssPrefixString = {};
 var cssPrefix = function(propertie) {
     if (cssPrefixString[propertie]) return cssPrefixString[propertie] + propertie;
     var e = document.createElement('div');
-    var prefixes = ['', 'Moz', 'Webkit', 'O', 'ms', 'Khtml']; // Various supports...
+    if (e.style[propertie]) return propertie;
+    var prefixes = ['Moz', 'Webkit', 'O', 'ms', 'Khtml']; // Various supports...
     for (var i in prefixes) {
         if (typeof e.style[prefixes[i] + propertie] !== 'undefined') {
             cssPrefixString[propertie] = prefixes[i];
