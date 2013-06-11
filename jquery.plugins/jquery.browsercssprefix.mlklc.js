@@ -26,14 +26,17 @@
 
 var cssPrefixString = {};
 var cssPrefix = function(propertie) {
-    if (cssPrefixString[propertie]) return cssPrefixString[propertie] + propertie;
+    if (cssPrefixString[propertie]) return cssPrefixString[propertie];
     var e = document.createElement('div');
-    if (e.style[propertie]) return propertie;
-    var prefixes = ['Moz', 'Webkit', 'O', 'ms', 'Khtml']; // Various supports...
+    if (e.style[propertie]) { // HTML5 release ? ;)
+    	cssPrefixString[propertie] = propertie;
+    	return cssPrefixString[propertie];
+    }
+    var prefixes = ['Moz', 'Webkit', 'O', 'ms', 'Khtml']; // Various old supports...
     for (var i in prefixes) {
-        if (typeof e.style[prefixes[i] + propertie] !== 'undefined') {
-            cssPrefixString[propertie] = prefixes[i];
-            return prefixes[i] + propertie;
+        if ((prefixes[i] + propertie) in e.style) {
+            cssPrefixString[propertie] = prefixes[i] + propertie;
+            return cssPrefixString[propertie];
         }
     }
     return false;
