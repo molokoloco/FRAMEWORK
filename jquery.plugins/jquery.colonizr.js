@@ -49,14 +49,14 @@
         // Privates vars
         this.$container = $(element);
         this.wrapper    = '<div class="'+this.options.css+'"/>';
-		this.cWidth, this.intentNextP, this.lineHeight, this.maxHeight;
-		this.refresh();
+        this.cWidth, this.intentNextP, this.lineHeight, this.maxHeight;
+        this.refresh();
     };
 
     Colonizr.prototype = {
         
-		constructor: Colonizr,
-		
+        constructor: Colonizr,
+        
         colsExtractor: function (i, e) {
             var $element    = $(e),
                 $next       = $element.next(),
@@ -101,33 +101,33 @@
         },
         
         refresh: function () {
-			this.cWidth         = this.$container.width();
-			this.intentNextP    = 0;
-			this.lineHeight     = 0;
+            this.cWidth         = this.$container.width();
+            this.intentNextP    = 0;
+            this.lineHeight     = 0;
             this.maxHeight      = this.options.maxHeight;
-			var colWidth        = this.cWidth;
-			if (this.options.maxHeight < 1)
-				this.maxHeight = Math.max(80, $(window).height() - 60); // (Min/) Max cols height ?			
-			var $exists = this.$container.find('.'+this.options.css);
-			if ($exists.length) { // Existing this.wrappers ?
-				var exists = '';
-				$exists.each(function() {
-					var $this = $(this);
-					$($this.html()).insertBefore($this);
-					$this.remove(); 
-				});
-			}
-			var $p = $('<p>A</p>').appendTo(this.$container);
-			this.lineHeight = $p.outerHeight();
+            var colWidth        = this.cWidth;
+            if (this.options.maxHeight < 1)
+                this.maxHeight = Math.max(80, $(window).height() - 60); // (Min/) Max cols height ?            
+            var $exists = this.$container.find('.'+this.options.css);
+            if ($exists.length) { // Existing this.wrappers ?
+                var exists = '';
+                $exists.each(function() {
+                    var $this = $(this);
+                    $($this.html()).insertBefore($this);
+                    $this.remove(); 
+                });
+            }
+            var $p = $('<p>A</p>').appendTo(this.$container);
+            this.lineHeight = $p.outerHeight();
             this.lineHeight = this.lineHeight * this.options.minLine;
-			$p.remove();
-			if (this.options.colWidth)
-				this.options.colCount = Math.max(1, Math.floor(this.cWidth / this.options.colWidth));
-			colWidth = (this.cWidth - ((this.options.marge * 2) * this.options.colCount)) / this.options.colCount;
-			this.$container
-				.find(this.options.chapters)
-				.each($.proxy(this.colsExtractor, this)); // $.wrapAll() || $.nextAll() // :-(
-		}
+            $p.remove();
+            if (this.options.colWidth)
+                this.options.colCount = Math.max(1, Math.floor(this.cWidth / this.options.colWidth));
+            colWidth = (this.cWidth - ((this.options.marge * 2) * this.options.colCount)) / this.options.colCount;
+            this.$container
+                .find(this.options.chapters)
+                .each($.proxy(this.colsExtractor, this)); // $.wrapAll() || $.nextAll() // :-(
+        }
     };
 
    /* COLONIZR PLUGIN DEFINITION
@@ -138,8 +138,8 @@
     $.fn.colonizr = function (options) {
         return this.each(function() { // Iterate collections
             var $this          = $(this),
-				data           = $this.data('colonizr');
-			if (!data) $this.data('colonizr', (data = new Colonizr(this, options)));
+                data           = $this.data('colonizr');
+            if (!data) $this.data('colonizr', (data = new Colonizr(this, options)));
             if (typeof options == 'string') data[options]();
         });
     };
