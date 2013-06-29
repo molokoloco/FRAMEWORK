@@ -55,7 +55,7 @@
         // Privates vars
         this.$container = $(element);
         this.wrapper = '<div class="'+this.options.css+'"/>';
-        this.cWidth, this.intentNextP, this.lineHeight, this.maxHeight;
+        this.cWidth, this.intentNextP, this.lineMinHeight, this.maxHeight, this.estimateHeight;
         this.refresh();
     };
 
@@ -63,7 +63,7 @@
         
         constructor: colonizr,
         
-        colsExtractor: function (i, e) {
+        colsExtractor: function (i, e) {  // Cannot be done with $.wrapAll() || $.nextAll() // :-(
             var $element    = $(e),
                 $next       = $element.next(),
                 $collection = [],
@@ -79,13 +79,13 @@
                     $next = $next.next();
                 }
             }
-            var estimateHeight = 0;
+            this.estimateHeight = 0;
             if ($collection.length) {
                 for (var j = 0, len = $collection.length; j < len; j++) {
-                    estimateHeight += $collection[j].outerHeight();
+                    this.estimateHeight += $collection[j].outerHeight();
                 }
             }
-            if ($collection.length && estimateHeight > this.lineHeight) {
+            if ($collection.length && this.estimateHeight > this.lineMinHeight) {
                 var $wrapper = $(this.wrapper);
                 for (var j = 0, len = $collection.length; j < len; j++) {
                     if (!(totalHeight == 0 && $collection[j].html() == '&nbsp;')) { // first col element empty <p> ?
@@ -111,21 +111,25 @@
         refresh: function () {
             this.cWidth         = this.$container.width();
             this.intentNextP    = 0;
-            this.lineHeight     = 0;
+            this.lineMinHeight  = 0;
             this.maxHeight      = this.options.maxHeight;
             
             if (this.options.maxHeight < 1)
                 this.maxHeight = Math.max(80, $(window).height() * 0.8); // (Min/) Max cols height ?
             
             var $p = $('<p>A</p>').appendTo(this.$container);
-            this.lineHeight = $p.outerHeight();
-            this.lineHeight = this.lineHeight * this.options.minLine;
+            this.lineMinHeight = $p.outerHeight() * this.options.minLine;
             $p.remove();
             
-            /*var colWidth = this.cWidth;
-            if (this.options.colWidth)
+            /*
+            // TODO : 
+            // better height estimation given column-width and margin for "this.estimateHeight"
+            // window.getComputedStyle(elem, null).getPropertyValue("column-width")
+            var colWidth = this.cWidth; 
+            if (this.options.colWidth)    
                 this.options.colCount = Math.max(1, Math.floor(this.cWidth / this.options.colWidth));
-            colWidth = (this.cWidth - ((this.options.marge * 2) * this.options.colCount)) / this.options.colCount;*/
+            colWidth = (this.cWidth - ((this.options.marge * 2) * this.options.colCount)) / this.options.colCount;
+            */
 
             var $exists = this.$container.find('.'+this.options.css);
             if ($exists.length) { // Existing this.wrappers ?
@@ -140,13 +144,12 @@
                 this.$container.insertAfter($prev);
             }
             
-            // Deferred for the so long #GuezNet page !
             var that = this;
-            this.$container                
+            this.$container // We cannot .detach() the container before operating because we need the height of some elements inside
                 .find(this.options.chapters)
-                    //.each($.proxy(this.colsExtractor, this)); // $.wrapAll() || $.nextAll() // :-(
+                    //.each($.proxy(this.colsExtractor, this));
                     .each(function(i, e) {
-                        setTimeout($.proxy(that.colsExtractor, that), 0, i, e);
+                        setTimeout($.proxy(that.colsExtractor, that), 0, i, e); // Deferred for the so long #GuezNet page !
                     });
         }
     };
@@ -168,9 +171,9 @@
     $.fn.colonizr.Constructor = colonizr;
 
     $.fn.colonizr.defaults = {
-        marge:       10,                   // Left/right <p> margin
-        colWidth:    null,                 // As in the CSS, choose between COUNT or WIDTH for cols
-        colCount:    2,                    // colWidth (px) OR colCount (num)
+        //marge:       10,                 // Left/right <p> margin
+        //colWidth:    null,               // As in the CSS, choose between COUNT or WIDTH for cols
+        //colCount:    2,                  // colWidth (px) OR colCount (num)
         chapters:    'h1,h2,h3,h4,h5,h6',  // Between the H1-Hx ()
         take:        'p',                  // Take all the p (ul,quote,..) NEXT() to each chapters
         css:         'multiplecolumns',    // And wrap them with class
