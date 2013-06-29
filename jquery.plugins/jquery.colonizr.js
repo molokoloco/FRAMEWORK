@@ -1,6 +1,6 @@
 /* =============================================================
  *
- * jQuery colonizr V0.9.4 - Molokoloco 2013 - Copyleft
+ * jQuery colonizr V0.9.5 - Molokoloco 2013 - Copyleft
  * "In-between titles Multicols paragraphes" (Bootstrap-like plugin)
  *
  * Blog post : http://www.b2bweb.fr/molokoloco/jquery-colonize-plugin-in-between-titles-multicols-paragraphes-with-css3/
@@ -20,9 +20,8 @@
     
     $('a#colonize').click(function() {     // Call on click 
         $container.colonizr({              // Use plugin...
-            marge:      10,
-            colWidth:   180,               // Report CSS "column-width"
-            take:       'p,ul',            // Adding UL to the stream...
+            chapters:   'h2,h3',
+            take:       'p,ul,quote',      // Adding UL and quote to the stream...
             css:        'multiplecolumns'  // If you want to change the CSS..
         });
     });
@@ -82,7 +81,7 @@
             this.estimateHeight = 0;
             if ($collection.length) {
                 for (var j = 0, len = $collection.length; j < len; j++) {
-                    this.estimateHeight += $collection[j].outerHeight();
+                    this.estimateHeight += $collection[j].outerHeight(); // Work better if "p" margin (2) == ".multiplecolumns p" margin (2*cols)
                 }
             }
             if ($collection.length && this.estimateHeight > this.lineMinHeight) {
@@ -120,16 +119,6 @@
             var $p = $('<p>A</p>').appendTo(this.$container);
             this.lineMinHeight = $p.outerHeight() * this.options.minLine;
             $p.remove();
-            
-            /*
-            // TODO : 
-            // better height estimation given column-width and margin for "this.estimateHeight"
-            // window.getComputedStyle(elem, null).getPropertyValue("column-width")
-            var colWidth = this.cWidth; 
-            if (this.options.colWidth)    
-                this.options.colCount = Math.max(1, Math.floor(this.cWidth / this.options.colWidth));
-            colWidth = (this.cWidth - ((this.options.marge * 2) * this.options.colCount)) / this.options.colCount;
-            */
 
             var $exists = this.$container.find('.'+this.options.css);
             if ($exists.length) { // Existing this.wrappers ?
@@ -171,9 +160,6 @@
     $.fn.colonizr.Constructor = colonizr;
 
     $.fn.colonizr.defaults = {
-        //marge:       10,                 // Left/right <p> margin
-        //colWidth:    null,               // As in the CSS, choose between COUNT or WIDTH for cols
-        //colCount:    2,                  // colWidth (px) OR colCount (num)
         chapters:    'h1,h2,h3,h4,h5,h6',  // Between the H1-Hx ()
         take:        'p',                  // Take all the p (ul,quote,..) NEXT() to each chapters
         css:         'multiplecolumns',    // And wrap them with class
