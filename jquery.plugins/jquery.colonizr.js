@@ -1,6 +1,6 @@
 /* =============================================================
  *
- * jQuery colonizr V0.9.3 - Molokoloco 2013 - Copyleft
+ * jQuery colonizr V0.9.4 - Molokoloco 2013 - Copyleft
  * "In-between titles Multicols paragraphes" (Bootstrap-like plugin)
  *
  * Blog post : http://www.b2bweb.fr/molokoloco/jquery-colonize-plugin-in-between-titles-multicols-paragraphes-with-css3/
@@ -88,13 +88,15 @@
             if ($collection.length && estimateHeight > this.lineHeight) {
                 var $wrapper = $(this.wrapper);
                 for (var j = 0, len = $collection.length; j < len; j++) {
-                    totalHeight += $collection[j].outerHeight(); // P height considered nearly the same as futur Col height
-                    $wrapper.append($collection[j].detach()); // Extract P
-                    if ($collection[(j + 1)] && this.maxHeight <= (totalHeight + $collection[(j + 1)].outerHeight())) { // Cut Cols if > screen height
-                        $wrapper.insertAfter($element);
-                        $element = $wrapper;
-                        totalHeight = 0;
-                        $wrapper = $(this.wrapper);
+                    if (!(totalHeight == 0 && $collection[j].html() == '&nbsp;')) { // first col element empty <p> ?
+                        totalHeight += $collection[j].outerHeight(); // P height considered nearly the same as futur Col height
+                        $wrapper.append($collection[j].detach()); // Extract P
+                        if ($collection[(j + 1)] && this.maxHeight <= (totalHeight + $collection[(j + 1)].outerHeight())) { // Cut Cols if > screen height
+                            $wrapper.insertAfter($element);
+                            $element = $wrapper;
+                            totalHeight = 0;
+                            $wrapper = $(this.wrapper);
+                        }
                     }
                 }
                 $wrapper.insertAfter($element); // Append new COL div container
@@ -111,9 +113,20 @@
             this.intentNextP    = 0;
             this.lineHeight     = 0;
             this.maxHeight      = this.options.maxHeight;
-            var colWidth        = this.cWidth;
+            
             if (this.options.maxHeight < 1)
-                this.maxHeight = Math.max(80, $(window).height() - 60); // (Min/) Max cols height ?            
+                this.maxHeight = Math.max(80, $(window).height() * 0.8); // (Min/) Max cols height ?
+            
+            var $p = $('<p>A</p>').appendTo(this.$container);
+            this.lineHeight = $p.outerHeight();
+            this.lineHeight = this.lineHeight * this.options.minLine;
+            $p.remove();
+            
+            /*var colWidth = this.cWidth;
+            if (this.options.colWidth)
+                this.options.colCount = Math.max(1, Math.floor(this.cWidth / this.options.colWidth));
+            colWidth = (this.cWidth - ((this.options.marge * 2) * this.options.colCount)) / this.options.colCount;*/
+
             var $exists = this.$container.find('.'+this.options.css);
             if ($exists.length) { // Existing this.wrappers ?
                 var exists = '',
@@ -126,27 +139,15 @@
                 });
                 this.$container.insertAfter($prev);
             }
-            var $p = $('<p>A</p>').appendTo(this.$container);
-            this.lineHeight = $p.outerHeight();
-            this.lineHeight = this.lineHeight * this.options.minLine;
-            $p.remove();
-            if (this.options.colWidth)
-                this.options.colCount = Math.max(1, Math.floor(this.cWidth / this.options.colWidth));
-            colWidth = (this.cWidth - ((this.options.marge * 2) * this.options.colCount)) / this.options.colCount;
             
-            
-            //this.$container                
-                //.find(this.options.chapters)
-                    //.each($.proxy(this.colsExtractor, this)); // $.wrapAll() || $.nextAll() // :-(
-            
+            // Deferred for the so long #GuezNet page !
             var that = this;
             this.$container                
                 .find(this.options.chapters)
+                    //.each($.proxy(this.colsExtractor, this)); // $.wrapAll() || $.nextAll() // :-(
                     .each(function(i, e) {
-                        //setTimeout(function(t, el) {
-                            $.proxy(that.colsExtractor, that)(0, e);
-                        //}, 0, that, e);
-                    }); // $.wrapAll() || $.nextAll() // :-(
+                        setTimeout($.proxy(that.colsExtractor, that), 0, i, e);
+                    });
         }
     };
 
