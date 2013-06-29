@@ -1,14 +1,20 @@
 /* =============================================================
- * jQuery colonizr V0.9.2 - Molokoloco 2013 - Copyleft
+ *
+ * jQuery colonizr V0.9.3 - Molokoloco 2013 - Copyleft
  * "In-between titles Multicols paragraphes" (Bootstrap-like plugin)
- * Live fiddle : http://jsfiddle.net/molokoloco/Ra288/
- * Github : https://github.com/molokoloco/FRAMEWORK/blob/master/jquery.plugins/jquery.colonizr.js
-            https://github.com/molokoloco/FRAMEWORK/blob/master/jquery.plugins/jquery.colonizr.min.js
- *          https://github.com/molokoloco/FRAMEWORK/blob/master/jquery.plugins/jquery.colonizr.css
- *  Infos : http://www.b2bweb.fr/molokoloco/jquery-colonize-plugin-in-between-titles-multicols-paragraphes-with-css3/
+ *
+ * Blog post : http://www.b2bweb.fr/molokoloco/jquery-colonize-plugin-in-between-titles-multicols-paragraphes-with-css3/
+ * Live fiddle demo : http://jsfiddle.net/molokoloco/Ra288/
+ * Github :
+ *   - https://github.com/molokoloco/FRAMEWORK/blob/master/jquery.plugins/jquery.colonizr.js
+ *   - https://github.com/molokoloco/FRAMEWORK/blob/master/jquery.plugins/jquery.colonizr.min.js
+ *   - https://github.com/molokoloco/FRAMEWORK/blob/master/jquery.plugins/jquery.colonizr.css
+ *
  * ============================================================== */
+ 
 /* =============================================================
- * // Usage example...
+
+    // Usage example... (+ 10 000 chars will be very long to process)
 
     var $container = $('div#container');
     
@@ -24,7 +30,7 @@
     var windowTmr = null; // Timeout...
     var resizeRefreshEvent = function() {   // Trottle resize...
         windowTmr = null;
-        if ($container.data('colonizr'))    // Colonizr was applyed by user click ?
+        if ($container.data('colonizr'))    // colonizr was applyed by user click ?
             $container.colonizr('refresh'); //  Refresh cols height...
     };
     
@@ -40,22 +46,22 @@
 
     "use strict"; // jshint ;_;
 
-   /* COLONIZR CLASS DEFINITION
+   /* colonizr CLASS DEFINITION
     * ========================== */
 
-    function Colonizr(element, options) {
+    function colonizr(element, options) {
         // Merge user options
         this.options = $.extend(true, {}, $.fn.colonizr.defaults, typeof options == 'object' && options || {});
         // Privates vars
         this.$container = $(element);
-        this.wrapper    = '<div class="'+this.options.css+'"/>';
+        this.wrapper = '<div class="'+this.options.css+'"/>';
         this.cWidth, this.intentNextP, this.lineHeight, this.maxHeight;
         this.refresh();
     };
 
-    Colonizr.prototype = {
+    colonizr.prototype = {
         
-        constructor: Colonizr,
+        constructor: colonizr,
         
         colsExtractor: function (i, e) {
             var $element    = $(e),
@@ -75,16 +81,16 @@
             }
             var estimateHeight = 0;
             if ($collection.length) {
-                for (var i = 0, len = $collection.length; i < len; i++) {
-                    estimateHeight += $collection[i].outerHeight();
+                for (var j = 0, len = $collection.length; j < len; j++) {
+                    estimateHeight += $collection[j].outerHeight();
                 }
             }
             if ($collection.length && estimateHeight > this.lineHeight) {
                 var $wrapper = $(this.wrapper);
-                for (var i = 0, len = $collection.length; i < len; i++) {
-                    totalHeight += $collection[i].outerHeight(); // P height considered nearly the same as futur Col height
-                    $wrapper.append($collection[i].detach()); // Extract P
-                    if ($collection[(i + 1)] && this.maxHeight <= (totalHeight + $collection[(i + 1)].outerHeight())) { // Cut Cols if > screen height
+                for (var j = 0, len = $collection.length; j < len; j++) {
+                    totalHeight += $collection[j].outerHeight(); // P height considered nearly the same as futur Col height
+                    $wrapper.append($collection[j].detach()); // Extract P
+                    if ($collection[(j + 1)] && this.maxHeight <= (totalHeight + $collection[(j + 1)].outerHeight())) { // Cut Cols if > screen height
                         $wrapper.insertAfter($element);
                         $element = $wrapper;
                         totalHeight = 0;
@@ -110,12 +116,15 @@
                 this.maxHeight = Math.max(80, $(window).height() - 60); // (Min/) Max cols height ?            
             var $exists = this.$container.find('.'+this.options.css);
             if ($exists.length) { // Existing this.wrappers ?
-                var exists = '';
+                var exists = '',
+                    $prev  = this.$container.prev();
+                this.$container.detach(); // Detach DOM
                 $exists.each(function() {
                     var $this = $(this);
                     $($this.html()).insertBefore($this);
                     $this.remove(); 
                 });
+                this.$container.insertAfter($prev);
             }
             var $p = $('<p>A</p>').appendTo(this.$container);
             this.lineHeight = $p.outerHeight();
@@ -124,13 +133,24 @@
             if (this.options.colWidth)
                 this.options.colCount = Math.max(1, Math.floor(this.cWidth / this.options.colWidth));
             colWidth = (this.cWidth - ((this.options.marge * 2) * this.options.colCount)) / this.options.colCount;
-            this.$container
+            
+            
+            //this.$container                
+                //.find(this.options.chapters)
+                    //.each($.proxy(this.colsExtractor, this)); // $.wrapAll() || $.nextAll() // :-(
+            
+            var that = this;
+            this.$container                
                 .find(this.options.chapters)
-                .each($.proxy(this.colsExtractor, this)); // $.wrapAll() || $.nextAll() // :-(
+                    .each(function(i, e) {
+                        //setTimeout(function(t, el) {
+                            $.proxy(that.colsExtractor, that)(0, e);
+                        //}, 0, that, e);
+                    }); // $.wrapAll() || $.nextAll() // :-(
         }
     };
 
-   /* COLONIZR PLUGIN DEFINITION
+   /* colonizr PLUGIN DEFINITION
     * =========================== */
 
     var old = $.fn.colonizr;
@@ -139,12 +159,12 @@
         return this.each(function() { // Iterate collections
             var $this          = $(this),
                 data           = $this.data('colonizr');
-            if (!data) $this.data('colonizr', (data = new Colonizr(this, options)));
+            if (!data) $this.data('colonizr', (data = new colonizr(this, options)));
             if (typeof options == 'string') data[options]();
         });
     };
 
-    $.fn.colonizr.Constructor = Colonizr;
+    $.fn.colonizr.Constructor = colonizr;
 
     $.fn.colonizr.defaults = {
         marge:       10,                   // Left/right <p> margin
@@ -157,7 +177,7 @@
         maxHeight:    null                 // Max col height will be..
     };
 
-   /* COLONIZR NO CONFLICT
+   /* colonizr NO CONFLICT
     * ===================== */
 
     $.fn.colonizr.noConflict = function () {
@@ -165,7 +185,7 @@
         return this;
     };
 
-   /* COLONIZR DATA-API
+   /* colonizr DATA-API
     * ================== */
 
     $(window).on('load', function () {

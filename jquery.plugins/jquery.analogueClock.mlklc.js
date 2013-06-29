@@ -3,7 +3,7 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////// */
 /*
 	// Pixel polished jQuery & CSS3 analogue clock
-	// by molokoloco@gmail.com 08/10/2011
+	// by @molokoloco 08/10/2011
 	// Infos : http://www.b2bweb.fr/molokoloco/pixels-polished-jquery-css3-analogue-clock/
 	// jsFiddle : http://jsfiddle.net/molokoloco/ajcRz/
 
