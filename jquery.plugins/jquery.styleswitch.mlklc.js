@@ -2,38 +2,38 @@
 ///// Code mixing by Molokoloco ..... 2011 ......... [EVER IN PROGRESS (it's not done yet)] ////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////// */
 /*
-	// Add Or Switch Stylesheet
-	
-		// Ressources :
-			* Source here : http://home.b2bweb.fr/js/jquery.style.js
-			* Official : http://plugins.jquery.com/project/AddOrSwitchStylesheet
-			* Use cookie manager from : http://plugins.jquery.com/project/cookie 
-			
-		// Plugin who load (at the first demand) and switch stylesheet, with cookie :
-			* Manage links to change style
-			* Add stylesheet to head, if not exist
-			* If already exist, switch style with the disabled attribute
-			* Prevent changing styles who are not related to theme : No modification on styles without id attribute
-			* Prevent changing other styles who are not related to theme
-			* Stock and autoload user style preference, with a cookie 
-	
-		// HTML
-	
-			<head>
-				 <link rel="stylesheet" type="text/css" media="all" href="css/styles.css" id="themeDefault"/>
-			</head>
-			<body>
-				 <ul>
-					  <li><a href="javascript:void(0);" rel="css/styles.css" class="css">Original</a></li>
-					  <li><a href="javascript:void(0);" rel="css/style_light.css" class="css">Blanc</a></li>
-					  <li><a href="javascript:void(0);" rel="css/style_dark.css" class="css">Sombre</a></li>
-				 </ul>
-			</body>
-		
-		// JS USE CASE
-		
-			$('a.css').styleInit(); // That all ! Wait user click...
-			$.fn.styleSwitch('css/styles.css'); // Direct style change with JS call
+    // Add Or Switch Stylesheet
+    
+        // Ressources :
+            * Source here : http://home.b2bweb.fr/js/jquery.style.js
+            * Official : http://plugins.jquery.com/project/AddOrSwitchStylesheet
+            * Use cookie manager from : http://plugins.jquery.com/project/cookie 
+            
+        // Plugin who load (at the first demand) and switch stylesheet, with cookie :
+            * Manage links to change style
+            * Add stylesheet to head, if not exist
+            * If already exist, switch style with the disabled attribute
+            * Prevent changing styles who are not related to theme : No modification on styles without id attribute
+            * Prevent changing other styles who are not related to theme
+            * Stock and autoload user style preference, with a cookie 
+    
+        // HTML
+    
+            <head>
+                 <link rel="stylesheet" type="text/css" media="all" href="css/styles.css" id="themeDefault"/>
+            </head>
+            <body>
+                 <ul>
+                      <li><a href="javascript:void(0);" rel="css/styles.css" class="css">Original</a></li>
+                      <li><a href="javascript:void(0);" rel="css/style_light.css" class="css">Blanc</a></li>
+                      <li><a href="javascript:void(0);" rel="css/style_dark.css" class="css">Sombre</a></li>
+                 </ul>
+            </body>
+        
+        // JS USE CASE
+        
+            $('a.css').styleInit(); // That all ! Wait user click...
+            $.fn.styleSwitch('css/styles.css'); // Direct style change with JS call
 */
 
 (function($){

@@ -71,7 +71,7 @@
     
     $.easing.jswing = $.easing.swing;
     $.extend($.easing, { // Extract from jQuery UI
-        def: 'easeOutQuad',
+        def: 'easeOutCubic',
         swing: function (x, t, b, c, d) { return $.easing[$.easing.def](x, t, b, c, d); },
         easeInQuad: function (x, t, b, c, d) { return c*(t/=d)*t + b; },
         easeOutCubic: function (x, t, b, c, d) {  return c*((t=t/d-1)*t*t + 1) + b; }

@@ -2,7 +2,7 @@
     // Pixel polished jQuery & CSS3 analogue clock
     // by @molokoloco 08/10/2011
     
-	//> Colors : easy to change, Sizes and positions : more tricky
+    //> Colors : easy to change, Sizes and positions : more tricky
     // Colors are based on a white semi-transparent theme :
     // replace "255,255,255" by "0,0,0" to blackify... or wathever you want
     // Mostly elements that need to be centered... are centered in JS, 
@@ -24,12 +24,12 @@ div#clock {
     border-radius:50%; /* (---MOD---) All round ? */
     background:grey;
     background:rgba(0,0,0,0.1);
-	transition:all 250ms ease-in-out; /* for mouseover effect */
+    transition:all 250ms ease-in-out; /* for mouseover effect */
         -webkit-transition:all 250ms ease-in-out;
         -moz-transition:all 250ms ease-in-out;
         -ms-transition:all 250ms ease-in-out;
         -o-transition:all 250ms ease-in-out;
-	box-shadow:0 2px 6px rgba(0,0,0,0.3);
+    box-shadow:0 2px 6px rgba(0,0,0,0.3);
        -o-box-shadow:0 2px 6px rgba(0,0,0,0.3);
        -webkit-box-shadow:0 2px 6px rgba(0,0,0,0.3);
        -moz-box-shadow:0 2px 6px rgba(0,0,0,0.3);
@@ -95,24 +95,24 @@ div.sec,div.min,div.hour {
         width:4px; /* (---MOD---) */
         z-index:12;
     }
-	
-	div.sec div.clockwise { top:18px; } /* (---MOD---) dist from clock border == clockwise height */
-	div.min div.clockwise { top:26px; } /* (---MOD---) */
-	div.hour div.clockwise { top:32px; } /* (---MOD---) */
-	
-	div.clockwise {
-		position:absolute;
-		left:0; right:0; /* parents sec,min,hour width */
-		background:#FFF;
-		background:rgba(255,255,255,0.4);
-		border-radius:2px;
-		box-shadow:0 0 3px rgba(0,0,0,0.25);
-			-moz-box-shadow:0 0 3px rgba(0,0,0,0.25);
-			-webkit-box-shadow:0 0 3px rgba(0,0,0,0.25);
-			-ms-box-shadow:0 0 3px rgba(0,0,0,0.25);
-			-o-box-shadow:0 0 3px rgba(0,0,0,0.25);
-	}
-		
+    
+    div.sec div.clockwise { top:18px; } /* (---MOD---) dist from clock border == clockwise height */
+    div.min div.clockwise { top:26px; } /* (---MOD---) */
+    div.hour div.clockwise { top:32px; } /* (---MOD---) */
+    
+    div.clockwise {
+        position:absolute;
+        left:0; right:0; /* parents sec,min,hour width */
+        background:#FFF;
+        background:rgba(255,255,255,0.4);
+        border-radius:2px;
+        box-shadow:0 0 3px rgba(0,0,0,0.25);
+            -moz-box-shadow:0 0 3px rgba(0,0,0,0.25);
+            -webkit-box-shadow:0 0 3px rgba(0,0,0,0.25);
+            -ms-box-shadow:0 0 3px rgba(0,0,0,0.25);
+            -o-box-shadow:0 0 3px rgba(0,0,0,0.25);
+    }
+        
 div.digit, div.time, div.date {
     text-rendering:optimizeLegibility;
     font-smoothing:always;
@@ -159,7 +159,7 @@ div.time, div.date {
     color:#000;
     color:rgba(0,0,0,0.3);
 }
-	div.date { top:70px; } /* (---MOD---) */
+    div.date { top:70px; } /* (---MOD---) */
 
 /* ------- Fancy CSS3 background example ------ */
 /* http://leaverou.me/css3patterns/#cicada-stripes */

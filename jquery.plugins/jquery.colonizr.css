@@ -50,4 +50,15 @@
 .multiplecolumns p {
     margin:0 10px;
     text-align: justify;
+
+    /* http://stackoverflow.com/questions/8506783/css3-columns-force-non-breaking-splitting-element */
+    display:inline-block;
+    /* OR */
+    /*
+    -webkit-column-break-inside:avoid;
+       -moz-column-break-inside:avoid;
+         -o-column-break-inside:avoid;
+        -ms-column-break-inside:avoid;
+            column-break-inside:avoid;
+    */
 }

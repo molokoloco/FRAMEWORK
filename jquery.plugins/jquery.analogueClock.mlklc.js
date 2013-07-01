@@ -2,30 +2,30 @@
 ///// Code mixing by Molokoloco ..... 2011 ......... [EVER IN PROGRESS (it's not done yet)] ////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////// */
 /*
-	// Pixel polished jQuery & CSS3 analogue clock
-	// by @molokoloco 08/10/2011
-	// Infos : http://www.b2bweb.fr/molokoloco/pixels-polished-jquery-css3-analogue-clock/
-	// jsFiddle : http://jsfiddle.net/molokoloco/ajcRz/
+    // Pixel polished jQuery & CSS3 analogue clock
+    // by @molokoloco 08/10/2011
+    // Infos : http://www.b2bweb.fr/molokoloco/pixels-polished-jquery-css3-analogue-clock/
+    // jsFiddle : http://jsfiddle.net/molokoloco/ajcRz/
 
-	// HTML
-	<link href="http://fonts.googleapis.com/css?family=Orbitron" rel="stylesheet" type="text/css">
-	<link rel="stylesheet" type="text/css" href="jquery.analogueClock.css">
+    // HTML
+    <link href="http://fonts.googleapis.com/css?family=Orbitron" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" type="text/css" href="jquery.analogueClock.css">
 
-	<div id="clock">
-		<!--// PLUGIN BUILD THIS
-			<div class="digit" style="left:56px;top:0px;"><span>12</span></div>
-			<div class="digit" style="left:84px;top:7.50px;">1</div>
-			...12 digits...
-			<div class="sec" style="-webkit-transform:rotate(246deg);"><div class="clockwise"></div></div>
-			<div class="min" style="-webkit-transform:rotate(270deg);"><div class="clockwise"></div></div>
-			<div class="hour" style="-webkit-transform:rotate(412.5deg);"><div class="clockwise"></div></div>
-			<div class="time">13:45:41</div>
-			<div class="innerCenter"></div>
-		//-->
-	</div>
+    <div id="clock">
+        <!--// PLUGIN BUILD THIS
+            <div class="digit" style="left:56px;top:0px;"><span>12</span></div>
+            <div class="digit" style="left:84px;top:7.50px;">1</div>
+            ...12 digits...
+            <div class="sec" style="-webkit-transform:rotate(246deg);"><div class="clockwise"></div></div>
+            <div class="min" style="-webkit-transform:rotate(270deg);"><div class="clockwise"></div></div>
+            <div class="hour" style="-webkit-transform:rotate(412.5deg);"><div class="clockwise"></div></div>
+            <div class="time">13:45:41</div>
+            <div class="innerCenter"></div>
+        //-->
+    </div>
 
-	// USAGE ;
-	$('div#clock').analogueClock({digitBoxWidth:18, withDigitalTime:false});
+    // USAGE ;
+    $('div#clock').analogueClock({digitBoxWidth:18, withDigitalTime:false});
 */
 
 

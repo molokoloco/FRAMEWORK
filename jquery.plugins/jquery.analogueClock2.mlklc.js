@@ -10,7 +10,7 @@
     script src="http://code.jquery.com/jquery-latest.js"
 
     <div id="clock">
-		<div class="clockGlass"></div>
+        <div class="clockGlass"></div>
         <!--// PLUGIN BUILD THIS // ---
             <div class="digit" style="left:56px;top:0px;"><span>12</span></div>
             <div class="digit" style="left:84px;top:7.50px;">1</div>
@@ -21,7 +21,7 @@
             <div class="min" style="transform:rotate(270deg);"><div class="clockwise"></div></div>
             <div class="hour" style="transform:rotate(412.5deg);"><div class="clockwise"></div></div>
             <div class="time">13:45:41</div>
-			<div class="date">Tue Oct 11</div>
+            <div class="date">Tue Oct 11</div>
             <div class="innerCenter"></div>
        --- // END PLUGIN //-->
     </div>

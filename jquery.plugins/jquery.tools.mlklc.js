@@ -5,8 +5,8 @@
 // ------------------------------------ Some vars... ------------------------------------ //
 
 var WWW = ( /localhost\//.test(document.location) ? 'http://localhost/www.b2bweb.fr/' : 'http://www.b2bweb.fr/' ),
-	H	= $(window).height(), // Viewport dimensions
-	W	= $(window).width();
+    H    = $(window).height(), // Viewport dimensions
+    W    = $(window).width();
 
 // ------------------------------------ Some littles functions... ------------------------------------ //
 
@@ -29,10 +29,10 @@ var loadJs = function(jsPath) { var s = document.createElement('script'); s.setA
 var getScript = function(src, callback) { $.ajax({dataType:'script', async:false, cache:true, url:src, success:function(response) { if (callback && typeof callback == 'function') callback(); }}); };
 // var touch = e2key(event);
 var event2key = {
-	'96':'0', '97':'1', '98':'2', '99':'3', '100':'4', '101':'5', '102':'6', '103':'7', '104':'8', '105':'9', // Chiffres clavier num
-	'48':'m0', '49':'m1', '50':'m2', '51':'m3', '52':'m4', '53':'m5', '54':'m6', '55':'m7', '56':'m8', '57':'m9', // Chiffres caracteres speciaux
-	'65':'a', '66':'b', '67':'c', '68':'d', '69':'e', '70':'f', '71':'g', '72':'h', '73':'i', '74':'j', '75':'k', '76':'l', '77':'m', '78':'n', '79':'o', '80':'p', '81':'q', '82':'r', '83':'s', '84':'t', '85':'u', '86':'v', '87':'w', '88':'x', '89':'y', '90':'z', // Alphabet
-	'37':'left', '39':'right', '38':'up', '40':'down', '13':'enter', '27':'esc', '32':'space', '107':'+', '109':'-'// Keycodes
+    '96':'0', '97':'1', '98':'2', '99':'3', '100':'4', '101':'5', '102':'6', '103':'7', '104':'8', '105':'9', // Chiffres clavier num
+    '48':'m0', '49':'m1', '50':'m2', '51':'m3', '52':'m4', '53':'m5', '54':'m6', '55':'m7', '56':'m8', '57':'m9', // Chiffres caracteres speciaux
+    '65':'a', '66':'b', '67':'c', '68':'d', '69':'e', '70':'f', '71':'g', '72':'h', '73':'i', '74':'j', '75':'k', '76':'l', '77':'m', '78':'n', '79':'o', '80':'p', '81':'q', '82':'r', '83':'s', '84':'t', '85':'u', '86':'v', '87':'w', '88':'x', '89':'y', '90':'z', // Alphabet
+    '37':'left', '39':'right', '38':'up', '40':'down', '13':'enter', '27':'esc', '32':'space', '107':'+', '109':'-'// Keycodes
 };
 var e2key = function(e) { if (!e) return; return event2key[(e.which || e.keyCode)]; };
 String.prototype.camelize = function() {

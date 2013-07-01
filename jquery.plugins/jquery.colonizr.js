@@ -49,11 +49,9 @@
     * ========================== */
 
     function colonizr(element, options) {
-        // Merge user options
-        this.options = $.extend(true, {}, $.fn.colonizr.defaults, typeof options == 'object' && options || {});
-        // Privates vars
+        this.options    = $.extend(true, {}, $.fn.colonizr.defaults, typeof options == 'object' && options || {}); // Merge user options
         this.$container = $(element);
-        this.wrapper = '<div class="'+this.options.css+'"/>';
+        this.wrapper    = '<div class="'+this.options.css+'"/>';
         this.cWidth, this.intentNextP, this.lineMinHeight, this.maxHeight, this.estimateHeight;
         this.refresh();
     };
@@ -63,31 +61,43 @@
         constructor: colonizr,
         
         colsExtractor: function (i, e) {  // Cannot be done with $.wrapAll() || $.nextAll() // :-(
+            
             var $element    = $(e),
                 $next       = $element.next(),
                 $collection = [],
                 jumpNext    = false,
-                totalHeight = 0;
+                totalHeight = 0,
+                intentNextE = 0;
+            
             while ($next) {
-                if (!$next.is(this.options.take)) {
-                    if (!$next.is(this.options.chapters)) jumpNext = true;
+                if ($next.is(this.options.chapters)) {
                     $next = null; // Break
                 }
-                else {
+                else if ($next.is(this.options.take)) {
                     $collection.push($next);
                     $next = $next.next();
                 }
+                else {
+                    intentNextE++;
+                    if (intentNextE > 10) $next = null; // Break
+                    else {
+                        $element = $next; // Move inserting after all skipped elements... and them to chapers or take if you want to preserve order
+                        $next = $next.next();
+                    }
+                }
             }
+            
             this.estimateHeight = 0;
             if ($collection.length) {
                 for (var j = 0, len = $collection.length; j < len; j++) {
-                    this.estimateHeight += $collection[j].outerHeight(); // Work better if "p" margin (2) == ".multiplecolumns p" margin (2*cols)
+                    this.estimateHeight += $collection[j].outerHeight(); // Work fine if "p" margin (2) == ".multiplecolumns > p" margin (2 * nb cols)
                 }
             }
+
             if ($collection.length && this.estimateHeight > this.lineMinHeight) {
                 var $wrapper = $(this.wrapper);
                 for (var j = 0, len = $collection.length; j < len; j++) {
-                    if (!(totalHeight == 0 && $collection[j].html() == '&nbsp;')) { // first col element empty <p> ?
+                    if ( !($collection[j].html() == '&nbsp;' && (totalHeight == 0 || j == len)) ) { // first col element empty <p> ?
                         totalHeight += $collection[j].outerHeight(); // P height considered nearly the same as futur Col height
                         $wrapper.append($collection[j].detach()); // Extract P
                         if ($collection[(j + 1)] && this.maxHeight <= (totalHeight + $collection[(j + 1)].outerHeight())) { // Cut Cols if > screen height
@@ -103,16 +113,16 @@
             }
             else if (jumpNext) {
                 this.intentNextP++; // Max, trois tags vides après un titre
-                if (this.intentNextP < 3 && $element.next()) this.colsExtractor(0, $element.next());
+                if (this.intentNextP < 10 && $element.next()) this.colsExtractor(0, $element.next());
             }
         },
         
         refresh: function () {
             this.cWidth         = this.$container.width();
+            this.maxHeight      = this.options.maxHeight;
             this.intentNextP    = 0;
             this.lineMinHeight  = 0;
-            this.maxHeight      = this.options.maxHeight;
-            
+
             if (this.options.maxHeight < 1)
                 this.maxHeight = Math.max(80, $(window).height() * 0.8); // (Min/) Max cols height ?
             
@@ -134,7 +144,8 @@
             }
             
             var that = this;
-            this.$container // We cannot .detach() the container before operating because we need the height of some elements inside
+            this.$container 
+                // .detach() //  We cannot detach the container before operating because we need the height of some elements inside
                 .find(this.options.chapters)
                     //.each($.proxy(this.colsExtractor, this));
                     .each(function(i, e) {

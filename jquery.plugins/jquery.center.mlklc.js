@@ -2,13 +2,13 @@
 ///// Code mixing by Molokoloco ..... 2011 ......... [EVER IN PROGRESS (it's not done yet)] ////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////// */
 /*
-	// Center element into an other
-	// Source here : http://plugins.jquery.com/project/autocenter
+    // Center element into an other
+    // Source here : http://plugins.jquery.com/project/autocenter
 
-	$('#mainDiv').center();
-	$(window).bind('resize', function() {
-		$('#mainDiv').center({transition:300});
-	});
+    $('#mainDiv').center();
+    $(window).bind('resize', function() {
+        $('#mainDiv').center({transition:300});
+    });
 */
 
 (function($){
@@ -46,23 +46,23 @@
 })(jQuery);
 
 /*
-	// SHORT VERSION
-	
-		(function($){
-			 $.fn.extend({
-				  center: function () {
-						return this.each(function() {
-								var top = ($(window).height() - $(this).outerHeight()) / 2;
-								var left = ($(window).width() - $(this).outerWidth()) / 2;
-								$(this).css({position:'absolute', margin:0, top: (top > 0 ? top : 0)+'px', left: (left > 0 ? left : 0)+'px'});
-						});
-				}
-			 });
-		})(jQuery);
-		
-		$('#myDiv').center();
-	
-	// VERY SHORT VERSION
-	
-		$('#myDiv').css({top:'50%',left:'50%',margin:'-'+($('#myDiv').height() / 2)+'px 0 0 -'+($('#myDiv').width() / 2)+'px'});
+    // SHORT VERSION
+    
+        (function($){
+             $.fn.extend({
+                  center: function () {
+                        return this.each(function() {
+                                var top = ($(window).height() - $(this).outerHeight()) / 2;
+                                var left = ($(window).width() - $(this).outerWidth()) / 2;
+                                $(this).css({position:'absolute', margin:0, top: (top > 0 ? top : 0)+'px', left: (left > 0 ? left : 0)+'px'});
+                        });
+                }
+             });
+        })(jQuery);
+        
+        $('#myDiv').center();
+    
+    // VERY SHORT VERSION
+    
+        $('#myDiv').css({top:'50%',left:'50%',margin:'-'+($('#myDiv').height() / 2)+'px 0 0 -'+($('#myDiv').width() / 2)+'px'});
 */
