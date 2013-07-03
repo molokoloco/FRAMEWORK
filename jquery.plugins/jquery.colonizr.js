@@ -1,6 +1,6 @@
 /* =============================================================
  *
- * jQuery colonizr V0.9.5 - Molokoloco 2013 - Copyleft
+ * jQuery colonizr V0.9.6 - Molokoloco 2013 - Copyleft
  * "In-between titles Multicols paragraphes" (Bootstrap-like plugin)
  *
  * Blog post : http://www.b2bweb.fr/molokoloco/jquery-colonize-plugin-in-between-titles-multicols-paragraphes-with-css3/
@@ -11,28 +11,28 @@
  *   - https://github.com/molokoloco/FRAMEWORK/blob/master/jquery.plugins/jquery.colonizr.css
  *
  * ============================================================== */
- 
+
 /* =============================================================
 
     // Usage example... (+ 10 000 chars will be very long to process)
 
     var $container = $('div#container');
-    
-    $('a#colonize').click(function() {     // Call on click 
+
+    $('a#colonize').click(function() {     // Call on click
         $container.colonizr({              // Use plugin...
             chapters:   'h2,h3',
             take:       'p,ul,quote',      // Adding UL and quote to the stream...
             css:        'multiplecolumns'  // If you want to change the CSS..
         });
     });
-    
+
     var windowTmr = null; // Timeout...
     var resizeRefreshEvent = function() {   // Trottle resize...
         windowTmr = null;
         if ($container.data('colonizr'))    // colonizr was applyed by user click ?
             $container.colonizr('refresh'); //  Refresh cols height...
     };
-    
+
     $(window).on('resize', function(event) { // Resize Event
         if (windowTmr) clearTimeout(windowTmr);
         windowTmr = setTimeout(resizeRefreshEvent, 1600); // Trottle resize
@@ -48,27 +48,27 @@
    /* colonizr CLASS DEFINITION
     * ========================== */
 
-    function colonizr(element, options) {
+    function Colonizr(element, options) {
         this.options    = $.extend(true, {}, $.fn.colonizr.defaults, typeof options == 'object' && options || {}); // Merge user options
         this.$container = $(element);
         this.wrapper    = '<div class="'+this.options.css+'"/>';
-        this.cWidth, this.intentNextP, this.lineMinHeight, this.maxHeight, this.estimateHeight;
+        this.cWidth, this.intentNextP, this.lineMinHeight, this.maxHeight;
         this.refresh();
     };
 
-    colonizr.prototype = {
-        
-        constructor: colonizr,
-        
+    Colonizr.prototype = {
+
+        constructor: Colonizr,
+
         colsExtractor: function (i, e) {  // Cannot be done with $.wrapAll() || $.nextAll() // :-(
-            
-            var $element    = $(e),
-                $next       = $element.next(),
-                $collection = [],
-                jumpNext    = false,
-                totalHeight = 0,
-                intentNextE = 0;
-            
+
+            var $element       = $(e),
+                $next          = $element.next(),
+                $collection    = [],
+                jumpNext       = false,
+                totalHeight    = 0,
+                estimateHeight = 0;
+
             while ($next) {
                 if ($next.is(this.options.chapters)) {
                     $next = null; // Break
@@ -78,54 +78,47 @@
                     $next = $next.next();
                 }
                 else {
-                    intentNextE++;
-                    if (intentNextE > 10) $next = null; // Break
-                    else {
-                        $element = $next; // Move inserting after all skipped elements... and them to chapers or take if you want to preserve order
-                        $next = $next.next();
-                    }
-                }
-            }
-            
-            this.estimateHeight = 0;
-            if ($collection.length) {
-                for (var j = 0, len = $collection.length; j < len; j++) {
-                    this.estimateHeight += $collection[j].outerHeight(); // Work fine if "p" margin (2) == ".multiplecolumns > p" margin (2 * nb cols)
+                    if ($next.length) $element = $next; // Move inserting after skipped elements...
+                    $next = $next.next();
+                    if ($next.length) jumpNext = true; // Continue wrapping ?
+                    $next = null;
                 }
             }
 
-            if ($collection.length && this.estimateHeight > this.lineMinHeight) {
+            if ($collection.length) {
+                for (var j = 0, len = $collection.length; j < len; j++) {
+                    estimateHeight += $collection[j].outerHeight(); // Work fine if "p" margin (2) == ".multiplecolumns > p" margin (2 * nb cols)
+                }
+            }
+
+            if ($collection.length && estimateHeight > this.lineMinHeight) {
                 var $wrapper = $(this.wrapper);
                 for (var j = 0, len = $collection.length; j < len; j++) {
-                    if ( !($collection[j].html() == '&nbsp;' && (totalHeight == 0 || j == len)) ) { // first col element empty <p> ?
-                        totalHeight += $collection[j].outerHeight(); // P height considered nearly the same as futur Col height
-                        $wrapper.append($collection[j].detach()); // Extract P
-                        if ($collection[(j + 1)] && this.maxHeight <= (totalHeight + $collection[(j + 1)].outerHeight())) { // Cut Cols if > screen height
-                            $wrapper.insertAfter($element);
-                            $element = $wrapper;
-                            totalHeight = 0;
-                            $wrapper = $(this.wrapper);
-                        }
+                    if (totalHeight == 0 && $collection[j].html() == '&nbsp;') continue; // first col element empty <p> ?
+                    totalHeight += $collection[j].outerHeight(); // P height considered nearly the same as futur Col height
+                    $wrapper.append($collection[j].detach()); // Extract P
+                    if ($collection[(j + 1)] && this.maxHeight <= (totalHeight + $collection[(j + 1)].outerHeight())) { // Cut Cols if > screen height
+                        $wrapper.insertAfter($element);
+                        $element    = $wrapper;
+                        totalHeight = 0;
+                        $wrapper    = $(this.wrapper);
                     }
                 }
                 $wrapper.insertAfter($element); // Append new COL div container
-                if (jumpNext) this.colsExtractor(0, $wrapper.next());
             }
-            else if (jumpNext) {
-                this.intentNextP++; // Max, trois tags vides après un titre
-                if (this.intentNextP < 10 && $element.next()) this.colsExtractor(0, $element.next());
-            }
+
+            if (jumpNext) this.colsExtractor(0, $element.next());
         },
-        
+
         refresh: function () {
-            this.cWidth         = this.$container.width();
-            this.maxHeight      = this.options.maxHeight;
-            this.intentNextP    = 0;
-            this.lineMinHeight  = 0;
+            this.cWidth        = this.$container.width();
+            this.maxHeight     = this.options.maxHeight;
+            this.intentNextP   = 0;
+            this.lineMinHeight = 0;
 
             if (this.options.maxHeight < 1)
                 this.maxHeight = Math.max(80, $(window).height() * 0.8); // (Min/) Max cols height ?
-            
+
             var $p = $('<p>A</p>').appendTo(this.$container);
             this.lineMinHeight = $p.outerHeight() * this.options.minLine;
             $p.remove();
@@ -138,13 +131,13 @@
                 $exists.each(function() {
                     var $this = $(this);
                     $($this.html()).insertBefore($this);
-                    $this.remove(); 
+                    $this.remove();
                 });
                 this.$container.insertAfter($prev);
             }
-            
+
             var that = this;
-            this.$container 
+            this.$container
                 // .detach() //  We cannot detach the container before operating because we need the height of some elements inside
                 .find(this.options.chapters)
                     //.each($.proxy(this.colsExtractor, this));
@@ -161,14 +154,14 @@
 
     $.fn.colonizr = function (options) {
         return this.each(function() { // Iterate collections
-            var $this          = $(this),
-                data           = $this.data('colonizr');
-            if (!data) $this.data('colonizr', (data = new colonizr(this, options)));
+            var $this = $(this),
+                data  = $this.data('colonizr');
+            if (!data) $this.data('colonizr', (data = new Colonizr(this, options)));
             if (typeof options == 'string') data[options]();
         });
     };
 
-    $.fn.colonizr.Constructor = colonizr;
+    $.fn.colonizr.Constructor = Colonizr;
 
     $.fn.colonizr.defaults = {
         chapters:    'h1,h2,h3,h4,h5,h6',  // Between the H1-Hx ()
