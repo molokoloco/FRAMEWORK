@@ -4,7 +4,9 @@
  * "In-between titles Multicols paragraphes" (Bootstrap-like plugin)
  *
  * Blog post : http://www.b2bweb.fr/molokoloco/jquery-colonize-plugin-in-between-titles-multicols-paragraphes-with-css3/
- * Live fiddle demo : http://jsfiddle.net/molokoloco/Ra288/
+ * jsFiddle demo : http://jsfiddle.net/molokoloco/FK7xr/
+ * Real life demo : http://www.b2bweb.fr/gueznet/27062013-gueznet-prism-javascript-networks-politics-350-links/
+ *
  * Github :
  *   - https://github.com/molokoloco/FRAMEWORK/blob/master/jquery.plugins/jquery.colonizr.js
  *   - https://github.com/molokoloco/FRAMEWORK/blob/master/jquery.plugins/jquery.colonizr.min.js
