@@ -20,7 +20,7 @@
 
     var $container = $('div#container'); // Main box
 
-    $('a#colonize').one(function() {     // Call on click
+    $('a#colonize').one('click', function() {     // Call on click
         
         $container.on('colonizrFinish', function() {
             console.log('colonizr complete');
