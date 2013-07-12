@@ -66,9 +66,9 @@
         });
 
         $('a#remove').on('click', function() {
-            $('a#link2')
-            .tooltip('destroy') // Remove Tooltip plugin !
-            .off('click');      // Remove our custom listener below
+            $('a.tooltips')
+                .tooltip('destroy') // Remove Tooltip plugin !
+                .off('click');      // Remove our custom listener below
         });
 
     });
