@@ -57,7 +57,7 @@
 
         // Appel du plugin sur les liens avec la class "tooltips"
         $('a.tooltips').tooltip({ // Call plug in on our collection with optional obj of optionals args
-            class: 'myTooltip' // Ex. : user custom CSS for the tooltip element
+            css: 'myTooltip' // Ex. : user custom CSS for the tooltip element
         });
 
         $('a.tooltips').on('click', function(event) {
@@ -84,11 +84,11 @@
             if (text.length > 23) {
                 $this
                     .addClass('myTooltipWrap')
-                    .tooltip({class:'myTooltip'});
+                    .tooltip({css:'myTooltip'});
             }
         }
         else if (text != $this.attr('href')) {
-            $this.tooltip({class:'myTooltip'});
+            $this.tooltip({css:'myTooltip'});
         }
     });
 
@@ -115,11 +115,8 @@
             if (debug) console.log(plugName+'.show()');
             var $this  = $(this), // Current link
                 data   = $this.data(plugName); // Current tooltip data
-            if (!data[plugName]) {
-                data[plugName] = $('<div />', { // Create One Tooltip Div
-                    class: data.options.class,
-                    text:  data.title
-                }).appendTo('body');
+            if (!data[plugName]) { // Create One Tooltip Div
+                data[plugName] = $('<div class="'+data.options.css+'">'+data.title+'</div>').appendTo('body');
                 $this.data(plugName, data); // Update data to keep our current tooltip
             }
             data[plugName].hide().fadeIn(600); // Start animation
@@ -244,7 +241,7 @@
 
     // Default (overridables) public options
     $.fn[plugName].defaults = {
-        class:  plugName+'Element'  // Tooltips have a defaut class of "tooltipElement"
+        css:  plugName+'Element'  // Tooltips have a defaut class of "tooltipElement"
     };
 
 })(window.jQuery);
