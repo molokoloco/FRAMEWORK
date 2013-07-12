@@ -1,14 +1,14 @@
 (function($, window, document) {
-    
+
     // jQuery scrollView V0.8.4 : Viewport scroll and screen vertical helper - @molokoloco 2013 - Copyleft
     // One view for each screen that user need to scroll to get to the bottom of the HTML view
     // Live fiddle : http://jsfiddle.net/molokoloco/XK3t5/
     // Github : https://github.com/molokoloco/FRAMEWORK/blob/master/jquery.plugins/jquery.scrollScreen.js
     //          https://github.com/molokoloco/FRAMEWORK/blob/master/jquery.plugins/jquery.scrollScreen.css
     // Infos : http://www.b2bweb.fr/molokoloco/jquery-scrollview-viewport-scroll-and-screen-vertical-helper
-    
+
     // Made another(older) plugin here : http://jsfiddle.net/molokoloco/Atj8Z/
-    
+
     /*
         // Usage example...
         $('body').scrollScreen({ // Use it...
@@ -17,9 +17,9 @@
             scrollScreenZone : 'scrollScreenZone' // CSS class, withou dot.
         });
     */
-    
+
     // ----------- SCROLLTOP + BROWSER BASE ---------------------------------------------------------------------------------- //
-    
+
     var $window             = $(window),
         $document           = $(document),
         $body               = $('body'),
@@ -27,11 +27,11 @@
         $scrollElement      = $(),
         newAnchror          = '',
         isAnimated          = false; // Tell if something is actually animating the scroll
-    
+
     // Find scrollElement
     // Inspired by http://www.zachstronaut.com/posts/2009/01/18/jquery-smooth-scroll-bugs.html
     $(scrollElements).each(function(i) {
-        // 'html, body' for setter... window for getter... 
+        // 'html, body' for setter... window for getter...
         var initScrollTop = parseInt($(this).scrollTop(), 10);
         $(this).scrollTop(initScrollTop + 1);
         if ($window.scrollTop() == initScrollTop + 1) {
@@ -40,7 +40,7 @@
         }
     });
     $scrollElement = $(scrollElements);
-    
+
     // ----------- UTILITIES ---------------------------------------------------------------------------------- //
     var getHash             = function() { return window.location.hash || ''; },
         setHash             = function(hash) { if (hash && getHash() != hash) window.location.hash = hash; },
@@ -68,7 +68,7 @@
         };
 
     // ----------- $.easing ---------------------------------------------------------------------------------- //
-    
+
     $.easing.jswing = $.easing.swing;
     $.extend($.easing, { // Extract from jQuery UI
         def: 'easeOutCubic',
@@ -76,37 +76,37 @@
         easeInQuad: function (x, t, b, c, d) { return c*(t/=d)*t + b; },
         easeOutCubic: function (x, t, b, c, d) {  return c*((t=t/d-1)*t*t + 1) + b; }
     });
-    
+
     // ----------- $.scrollToMe() ---------------------------------------------------------------------------------- //
-    
+
     $.fn.scrollToMe = function(target) { // Extend jQuery, call view scrolling to a element himself
         return this.each(function() {
             if (target) newAnchror = target; // Update hash, but after scroll anim
             myScrollTo(parseInt($(this).offset().top, 10));
         });
     };
-    
+
     // ----------- $.scrollScreen() ---------------------------------------------------------------------------------- //
-    
+
     $.fn.scrollScreen = function(options) {
 
         if ($body.data('scrollScreen') == true) return this; // Only once... and one
         $body.data('scrollScreen', true);
-        
+
         // ----------- SETTINGS ---------------------------------------------------------------------------------- //
-        
+
         // Merge user options
         options = $.extend(true, {}, $.fn.scrollScreen.defaults, typeof options == 'object' &&  options);
-        
-        var 
+
+        var
         // Public vars
             $container            = $(this),
             $scrollScreen         = $('<div class="'+options.scrollScreen+'">1</div>')
                                     .appendTo($container),
             $scrollScreenZone     = $('<div class="'+options.scrollScreenZone+'" title="Pour naviguer d\'écran en écran..."></div>')
                                     .appendTo($container);
-        
-        var 
+
+        var
         // Privates vars
             mouseIsMoveViewsInt   = null,
             windowTmr             = null,
@@ -114,11 +114,11 @@
             currentPageHeight     = getPageHeight(),
             maxScroll             = (totalViews - 1) * currentHeight,
             scrollHeight          = currentHeight * (currentHeight / currentPageHeight),
-            totalViews            = 1 + Math.floor(getPageHeight() / currentHeight),    
+            totalViews            = 1 + Math.floor(getPageHeight() / currentHeight),
             scrollScreenMarginTop = - (Math.floor($scrollScreen.height() - ($scrollScreen.height() / 3))),
             scrollScreenMaxTop    = currentHeight - $scrollScreen.height();
-        
-        var 
+
+        var
             // ----------- VIEWPORT SCREEN VIEWS
             posScrollScreenRight = function() {
                 // right:3px; > Moz Bug
@@ -193,7 +193,7 @@
                 myScrollTo(1);
                 return false;
             },
-            createViewport = function() { // Build viewport 
+            createViewport = function() { // Build viewport
                 if (options.debug) console.log('createViewport()');
                 $scrollScreenZone
                     .on('click touchend', viewportClick)
@@ -204,7 +204,7 @@
                     .on('click touchend', viewportClick); // IE
                 setCurrentViewport();
             };
-        
+
         posScrollScreenRight();
         createViewport();
 
@@ -248,7 +248,7 @@
         $window
             .on('scroll', scrollling)
             .on('resize', resizing);
-        
+
         resizeRefreshEvent();
 
         // ----------- DOCUMENT LOCATION INIT ---------------------------------------------------------------------------------- //
@@ -266,9 +266,9 @@
         };
 
         if (options.checkHash) checkHash();
-        
+
         // ----------- jQuery element plugin (body ?) ---------------------------------------------------------------------------------- //
-        
+
         // Iterate collections // Maybe later ?
         // return this.each(function() {});
         return this;
@@ -281,5 +281,5 @@
         scrollScreenZone  : 'scrollScreenZone', // CSS class, without dot.
         scrollScreen      : 'scrollScreen'
     };
-    
+
 })(jQuery, window, document); // End of the Scrolling Lab Closure...
