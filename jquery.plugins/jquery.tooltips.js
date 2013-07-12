@@ -1,7 +1,7 @@
 /*
 
     Workable / Testable jQuery Default Plugin Boilerplate
-    V1.5 - 12/07/13 - Molokoloco - Copyleft
+    V1.5.3 - 12/07/13 - Molokoloco - Copyleft
 
         Demo : http://jsfiddle.net/molokoloco/E3DbT/
         Download : https://github.com/molokoloco/FRAMEWORK/blob/master/jquery.plugins/jquery.tooltips.js
@@ -21,24 +21,75 @@
 ///////////////////////////////////////////////////////////////////////////
 
 /*
+    // Example of HTML setup ////////////////////
+
+    <a href="#" id="link1" class="tooltips" title="It's a test">Tooltip 1</a> !<br />
+    <a href="#" id="link2" class="tooltips" title="Click to update">Tooltip 2</a> !<br />
+    <a href="#" class="tooltips" data-url="http://www.b2bweb.fr/_COURS/api.php?id=link2">Tooltip AJAX</a> !<br />
+    <a href="https://github.com/molokoloco/FRAMEWORK/blob/master/jquery.plugins/jquery.tooltips.js" class="tooltips">https://github.com/molokoloco/FRAMEWORK/blob/master/jquery.plugins/jquery.tooltips.js</a> !<br />
+    <hr />
+    <a href="javascript:void(0);" id="remove">Remove Tooltip n°2</a>
+
+    // Example CSS styling ////////////////////
+
+    .myTooltip {
+        background:rgb(30, 145, 212);
+        background:rgba(30, 145, 212, 0.9);
+        color:#FFFD69;
+        position: absolute;
+        z-index: 9999999;
+        padding:4px 8px;
+        -moz-border-radius:3px;-webkit-border-radius:3px;-ms-border-radius:3px;-o-border-radius:5px;border-radius:3px;
+    }
+
+    .myTooltipWrap {
+        max-width: 180px;
+        display: inline-block;
+        vertical-align: middle;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    // Example n°1 ////////////////////
+
     $(function() {
 
         // Appel du plugin sur les liens avec la class "tooltips"
         $('a.tooltips').tooltip({ // Call plug in on our collection with optional obj of optionals args
-            class: 'myTooltipElement' // Ex. : user custom CSS for the tooltip element
+            class: 'myTooltip' // Ex. : user custom CSS for the tooltip element
         });
 
-        $('a.tooltip').on('click', function() {
-            // Call internal method
+        $('a.tooltips').on('click', function(event) {
+            event.preventDefault();
             $(this).tooltip('update', 'This is the new tooltip content! '+ Math.random()); // update tooltip ?
         });
 
         $('a#remove').on('click', function() {
             $('a#link2')
-                .tooltip('destroy') // Remove Tooltip plugin !
-                .off('click');      // Remove our custom listener below
+            .tooltip('destroy') // Remove Tooltip plugin !
+            .off('click');      // Remove our custom listener below
         });
 
+    });
+
+    // Example n°2 ////////////////////
+
+    $('.multiplecolumns p a').each(function(i, e) {
+        var $this = $(e),
+            text  = $this.text();
+        if (text.substring(0, 4) == 'http') {
+            text = text.replace(/https?\:\/\/(www\.)?/gi, '');
+            $this.text(text);
+            if (text.length > 23) {
+                $this
+                    .addClass('myTooltipWrap')
+                    .tooltip({class:'myTooltip'});
+            }
+        }
+        else if (text != $this.attr('href')) {
+            $this.tooltip({class:'myTooltip'});
+        }
     });
 
 */
@@ -49,15 +100,14 @@
 
 (function($) { // our plugin is inside a closure, it keep the NameSpace safe
 
-    var plugName = 'tooltip'; // Our plugin base name !
-        debug    = true;      // Edit here to debug ;)
+    var plugName = 'tooltip';  // Our plugin base name !
+        debug    = false;      // Edit here to debug ;)
 
-    var privatesMethods = {   // Privates plugin methods
+    var privatesMethods = {    // Privates plugin methods
 
         reposition: function(event) { // Move tooltip
             var mousex = event.pageX + 20, // Get event X mouse coordinates
                 mousey = event.pageY + 20;
-
             $(this).data(plugName)[plugName].css({top: mousey+'px', left: mousex+'px'});
         },
 
@@ -65,24 +115,27 @@
             if (debug) console.log(plugName+'.show()');
             var $this  = $(this), // Current link
                 data   = $this.data(plugName); // Current tooltip data
-
-            data[plugName] = $('<div />', { // Create One Tooltip Div
-                class: data.options.class,
-                text:  data.title
-            });
-            data[plugName].appendTo('body').hide().fadeIn(600); // Start animation
-
-            $this.data(plugName, data); // Update data to keep our current tooltip
-            $this.on('mousemove.'+plugName, privatesMethods.reposition); // Listen mousemove, updating tooltip position
+            if (!data[plugName]) {
+                data[plugName] = $('<div />', { // Create One Tooltip Div
+                    class: data.options.class,
+                    text:  data.title
+                }).appendTo('body');
+                $this.data(plugName, data); // Update data to keep our current tooltip
+            }
+            data[plugName].hide().fadeIn(600); // Start animation
+            $this.on('mousemove.'+plugName, $.proxy(privatesMethods.reposition, this)); // Listen mousemove, updating tooltip position
         },
 
         hide: function(event) {
             if (debug) console.log(plugName+'.hide()');
             var $this = $(this), // Current link
                 data  = $this.data(plugName); // Current tooltip data
-
-            $this.off('mousemove.'+plugName, privatesMethods.reposition);
-            data[plugName].stop(true, true).fadeOut(400, function() { data[plugName].remove(); }); // End animation
+            $this.off('mousemove.'+plugName);
+            if (data && data[plugName]) {
+                data[plugName]
+                    .stop(true, false)
+                    .fadeOut(400);
+            }
         }
 
     }; // End Privates plugin methods
@@ -98,7 +151,7 @@
                 {},                                    // Merge in a new object
                 $.fn[plugName].defaults,               // Minimal default options
                 typeof options == 'object' &&  options // User override ?
-           );
+            );
 
             return this.each(function() { // Iterate current(s) element(s) collection
 
@@ -106,33 +159,33 @@
                     data  = $this.data(plugName);
                 if (data) return; // If the plugin has already been initialized for this element ?
 
-                var title    = $this.attr('title'), // Fetch tooltip static content...
-                    titleUrl = $this.data('url'); // Fetch tooltip content url...
-                if (!title && !titleUrl) return;    // Nothing to print ?
+                // Fetch tooltip static content...
+                var title    = $this.data('tooltip') || $this.attr('title') || $this.attr('href'),
+                    fetchUrl = $this.data('url');
 
-                if (titleUrl) { // Do some Ajax request to fetch tooltip content ?
-                    // http://api.jquery.com/jQuery.ajax/
-                    // http://api.jquery.com/jQuery.proxy/
-                    $.ajax({
+                if (fetchUrl) { // Do some Ajax request to fetch tooltip content ?
+                    // http://api.jquery.com/jQuery.ajax/ - http://api.jquery.com/jQuery.proxy/
+                    if (fetchUrl) $.ajax({
                         dataType:'jsonp',
-                        url: titleUrl,
+                        url: fetchUrl,
                         context: $this, // Keep the actual context in the success callback
                         success: function(data) {
-                            console.log(this);
+                            if (debug) console.log('fetchUrl success', data);
                             if (data && data.key1) {
                                 $.proxy(publicMethods.update, this)(data.key1);
                                 // publicMethods.update.apply(this, [data.key1]);
                             }
                         },
                         error: function(XMLHttpRequest, textStatus, errorThrown) {
-                            console.log('JSON error', textStatus, errorThrown);
+                            console.log('JSON error : ', textStatus);
                         }
                   });
                 }
+                else if (!title) return; // Nothing to print ?
 
                 var data = { // Create a data stock per element
-                    options:   options,  // Stock individual plugin options (if needed)
-                    title:     title     // Original title
+                    options: options,  // Stock individual plugin options (if needed)
+                    title:   title     // Original title
                 };
 
                 $this
@@ -152,37 +205,37 @@
 
         update: function(content) { // Update tooltip content
             if (debug) console.log(plugName+'.update(content)', content);
-
             return this.each(function() {
                 var $this = $(this), // One link
                     data  = $this.data(plugName); // Fetch data relative to our element
                 if (!data) return; // Nothing here
-                data.title = content;
-                $this.data(plugName, data);
-            });
+                if (data[plugName]) {
+                    data[plugName].html(content);
+                }
+                else {
+                    data.title = content;
+                    $this.data(plugName, data);
+                }
+             });
         },
 
         destroy: function() { // Remove plugin
             if (debug) console.log(plugName+'.destroy()');
-
             return this.each(function() {
+                $('.'+plugName).remove(); // Remove all tooltips elements
                 var $this = $(this),
                     data  = $this.data(plugName);
                 if (!data) return; // Nothing here
-
                 $this
                     .attr('title', data['title'])
-                    .off('.'+plugName)     // Remove this tooltip event(s) using .namespace
+                    .off('.'+plugName)     // Remove this tooltip event(s) using .namespaceg
                     .removeData(plugName); // Clear data
-
-                data[plugName].remove();  // Clear tooltip element ?
             });
         }
 
     }; // End Publics plugin methods
 
     // Here we map our plugin publics methods to jQuery : $.fn.tooltip = function()...
-
     $.fn[plugName] = function(method) {
         if (publicMethods[method]) return publicMethods[method].apply(this, Array.prototype.slice.call(arguments, 1));
         else if (typeof method === 'object' || !method) return publicMethods.init.apply(this, arguments);
@@ -190,7 +243,6 @@
     };
 
     // Default (overridables) public options
-
     $.fn[plugName].defaults = {
         class:  plugName+'Element'  // Tooltips have a defaut class of "tooltipElement"
     };
