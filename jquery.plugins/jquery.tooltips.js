@@ -1,7 +1,7 @@
 /*
 
     Workable / Testable jQuery Default Plugin Boilerplate
-    V1.5.3 - 12/07/13 - Molokoloco - Copyleft
+    V1.5.4 - 12/07/13 - Molokoloco - Copyleft
 
         Demo : http://jsfiddle.net/molokoloco/E3DbT/
         Download : https://github.com/molokoloco/FRAMEWORK/blob/master/jquery.plugins/jquery.tooltips.js
@@ -116,7 +116,7 @@
             var $this  = $(this), // Current link
                 data   = $this.data(plugName); // Current tooltip data
             if (!data[plugName]) { // Create One Tooltip Div
-                data[plugName] = $('<div class="'+data.options.css+'">'+data.title+'</div>').appendTo('body');
+                data[plugName] = $('<div class="'+data.options.css+'">'+data.title+'</div>').hide().appendTo('body');
                 $this.data(plugName, data); // Update data to keep our current tooltip
             }
             data[plugName].hide().fadeIn(600); // Start animation
