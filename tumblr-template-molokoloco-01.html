@@ -1,17 +1,15 @@
 <!--
-    Tumblr template release V0.0.1 - molokoloco 2013
+    Tumblr template release V0.0.2 - molokoloco 2013
     Source : https://github.com/molokoloco/FRAMEWORK/blob/master/tumblr-template-molokoloco-01.html
     Demo : http://molokoloco.tumblr.com/
 -->
 <head>
-    <title>{Title}</title>
+    <title>{Title}{block:PostTitle} - {PostTitle}{/block:PostTitle}{block:PostSummary} - {PostSummary}{/block:PostSummary}</title>
     <meta name="autor" content="Julien G - @molokoloco 2013" />
-    {block:Description}
-    <meta name="description" content="{MetaDescription}" />
-    {/block:Description}
-    <link rel="shortcut icon" href="{Favicon}">
-    <link rel="alternate" type="application/rss+xml" href="{RSS}">
-
+    {block:Description}<meta name="description" content="{MetaDescription}" />{/block:Description}
+    <link rel="shortcut icon" href="{Favicon}"/>
+    <link rel="alternate" type="application/rss+xml" href="{RSS}"/>
+    <meta name="viewport" content="width=800"/>
     <meta name="if:Enable Endless Scrolling" content="1" />
     <meta name="color:Background" content="#fff" />
     <meta name="color:Sid" content="#000" />
@@ -41,7 +39,7 @@
     <meta name="text:Custom Link Two" content="" />
     <meta name="text:Custom Link Two Title" content="" />
 
-    <link rel="stylesheet" href="http://www.b2bweb.fr/js/swipebox/swipebox.css">
+    <link rel="stylesheet" href="http://www.b2bweb.fr/js/swipebox/swipebox.css"/>
 
     <style type="text/css">
     ::-webkit-scrollbar{width:4px;height:auto;}
@@ -65,15 +63,15 @@
     }
 
     body{
-    background:{color:Background};
-    font-family:{font:body};
-    {block:IfCalibriFont}
-    font-family:calibri, helvetica;
-    {/block:IfCalibriFont}
-    font-size:{text:Body font size}px;
-    line-height:{text:Body font size}px;
-    text-align:justify;
-    color:{color:Text};
+        background:{color:Background};
+        font-family:{font:body};
+        {block:IfCalibriFont}
+        font-family:calibri, helvetica;
+        {/block:IfCalibriFont}
+        font-size:{text:Body font size}px;
+        line-height:{text:Body font size}px;
+        text-align:justify;
+        color:{color:Text};
     }
 
     /**** POSTS container & ENTRY items ****/
@@ -84,7 +82,7 @@
         zoom:1;
         width:90%;
         min-width:380px;
-        margin:30px auto;
+        margin:40px auto;
     }
 
     .entry {
@@ -162,9 +160,9 @@
         -moz-animation-name:appear;
         animation-name:appear;
         opacity: 0.69;
-        -webkit-transition:opacity 600ms linear;
-        -moz-transition:opacity 600ms linear;
-        transition:opacity 600ms linear;
+        -webkit-transition:opacity 600ms ease-in-out;
+        -moz-transition:opacity 600ms ease-in-out;
+        transition:opacity 600ms ease-in-out;
     }
     .entry:hover {
         opacity: 1;
@@ -175,9 +173,9 @@
         -moz-backface-visibility:hidden;
         -o-backface-visibility:hidden;
         backface-visibility:hidden;
-        -webkit-transition:-webkit-transform 800ms linear 2400ms;
-        -moz-transition:-moz-transform 800ms linear 2400ms;
-        transition:transform 800ms linear 2400ms;
+        -webkit-transition:-webkit-transform 800ms ease-in-out 2400ms;
+        -moz-transition:-moz-transform 800ms ease-in-out 2400ms;
+        transition:transform 800ms ease-in-out 2400ms;
     }
     .info {
         z-index:1;
@@ -224,6 +222,7 @@
     .title{
     font-weight:bold;
     position:left;
+    text-shadow: 0px 1px 1px #AF003F;
     {block:ifUppercaseTitle}
     text-transform:uppercase;
     {/block:ifUppercaseTitle}
@@ -304,29 +303,47 @@
     margin-bottom:5px;
     }
 
-    .nav{
-    position:fixed;
-    font-size:11px;
-    color:{color:TextSid};
-    background-color:{color:Sid};
-    background-color:rgba(255, 255, 255, 0.25);
-    text-transform:none;
-    text-align:left ;
-    bottom:0;
-    left:0;
-    right:0;
-    width:100%;
-    height:35px;
-    line-height:33px;
-    z-index:503;
-    position:fixed;
-    {block:ifShadowSid}
-    -moz-box-shadow:0 0 8px #DF0050;
-    -webkit-box-shadow:0 0 8px #DF0050;
-    box-shadow:0 0 8px #DF0050;
-    {/block:ifShadowSid}
+    .foot,
+    .nav {
+        position:fixed;
+        font-size:11px;
+        color:{color:TextSid};
+        background-color:{color:Sid};
+        background-color:rgba(255, 255, 255, 0.25);
+        text-transform:none;
+        text-align:center;
+        left:0;
+        right:0;
+        width:100%;
+        z-index:503;
+        {block:ifShadowSid}
+        -moz-box-shadow: 0 0 12px #7C002D;
+        -webkit-box-shadow: 0 0 12px #7C002D;
+        box-shadow: 0 0 12px #7C002D;
+        {/block:ifShadowSid}
     }
-
+    .nav {
+        top:0;
+        height:36px;
+        line-height:36px;
+        -webkit-border-bottom-left-radius: 50% 100%;
+        -webkit-border-bottom-right-radius: 50% 100%;
+        -moz-border-bottom-left-radius: 50% 100%;
+        -moz-border-bottom-right-radius: 50% 100%;
+        border-bottom-left-radius: 50% 100%;
+        border-bottom-right-radius: 50% 100%;
+    }
+    .foot {
+        bottom:0;
+        height:22px;
+        line-height:22px;
+        -webkit-border-top-left-radius: 50% 100%;
+        -webkit-border-top-right-radius: 50% 100%;
+        -moz-border-top-left-radius: 50% 100%;
+        -moz-border-top-right-radius: 50% 100%;
+        border-top-left-radius: 50% 100%;
+        border-top-right-radius: 50% 100%;
+    }
     .nav a{
     color:{color:SidLinks};
     }
@@ -343,6 +360,7 @@
     .h1 {color:{color:Text};font-size:32px;line-height:25px;text-align:left;margin-bottom:-0;cursor:arrow;font-family:'EB Garamond', serif;}
 
     .ask {float:right;margin-right:20px;}
+    .twt {float:left;margin-left:20px;}
 
     #scrollToTop:link,
     #scrollToTop:visited {color:transparent;background-color:transparent;display:none;position:fixed;top:640;right:5px;}
@@ -452,7 +470,12 @@
     }
     #swipebox-overlay {
         background:#0D0D0D;
-        background:rgba(255, 0, 92, 0.9);
+        background:rgba(211, 0, 76, 0.81);
+        box-shadow:inset 0 0 12px #7C002D;
+    }
+    #swipebox-overlay img {
+        border: none!important;
+        box-shadow: 0 0 12px #7C002D;
     }
     </style>
 </head>
@@ -464,9 +487,7 @@
     </a>
     {/block:ifTopButton}
     <div class="nav">
-        {block:AskEnabled}<a href="/ask" class="ask">@molokoloco</a>{/block:AskEnabled}
-        <span class="title"><a href="/">{Title}</a></span>
-        &nbsp;
+        <a href="/"><span class="title">{Title}</span></a>
         {block:HasPages}{block:Pages}<a href="{URL}">{Label}</a>&nbsp;{/block:Pages}{/block:HasPages}
         {block:ifCustomLinkOneTitle}<a href="{text:Custom Link One}">{text:Custom Link One Title}</a>&nbsp;{/block:ifCustomLinkOneTitle}
         {block:ifCustomLinkTwoTitle}<a href="{text:Custom Link Two}">{text:Custom Link Two Title}</a>&nbsp;{/block:ifCustomLinkTwoTitle}
@@ -500,7 +521,8 @@
             {block:Photo}
                 <div class="share">
                     <div class="pad">
-                        {block:Caption}{Caption}{/block:Caption}
+                        {block:Date}Posted: {TimeAgo}, {Month} {DayOfMonthWithZero}, {Year}<br />{/block:Date}
+                        {block:Caption}{Caption}{/block:Caption}<br />
                         <a href="{Permalink}" title="Permalink">{Permalink}</a><br/>
                         <a href="{PhotoURL-HighRes}" title="PhotoURL : HighRes">{PhotoURL-HighRes}</a>
                         {block:Exif}
@@ -512,6 +534,7 @@
                         </ul>
                         {/block:Exif}
                         <div class="photoperma">
+                            <a href="http://twitter.com/home?status={block:PostSummary}{PostSummary} - {/block:PostSummary}{ShortURL}" target="_blank">Tweet</a>
                             <a href="{ReblogURL}"><img src="http://static.tumblr.com/i8axhtw/zGombktxi/rebloggg.png" title="reblog"title="reblog"></a>
                             <a href="javascript:;" onclick="LikePost('{PostID}','{ReblogURL}', this)" id="like_image_{PostID}"><img height="20" src="http://static.tumblr.com/i8axhtw/50mmbktzc/likeee.png" border="0" alt="like" title="like" /></a>
                         </div>
@@ -519,12 +542,8 @@
                 </div>
                 <div class="info">
                     <div class="pad">
-                        {block:IndexPage}
-                            <a href="{PhotoURL-HighRes}" class="swipebox"><img src="{PhotoURL-400}" alt="{PhotoAlt}" width="370" /></a>
-                        {/block:IndexPage}
-                        {block:PermalinkPage}
-                            <a href="{PhotoURL-HighRes}" class="swipebox"><img src="{PhotoURL-500}" alt="{PhotoAlt}" /></a>
-                        {/block:PermalinkPage}
+                        {block:IndexPage}<a href="{PhotoURL-HighRes}" class="swipebox"><img src="{PhotoURL-400}" alt="{PhotoAlt}" width="370" /></a>{/block:IndexPage}
+                        {block:PermalinkPage}<a href="{PhotoURL-HighRes}" class="swipebox"><img src="{PhotoURL-500}" alt="{PhotoAlt}" /></a>{/block:PermalinkPage}
                     </div>
                 </div>
             {/block:Photo}
@@ -660,6 +679,10 @@
         </div>
     {/block:IndexPage}
 
+    <div class="foot">
+        {block:Description}{MetaDescription} | {/block:Description}{block:AskEnabled}<a href="/ask">Ask me</a> | {/block:AskEnabled}<a href="https://twitter.com/molokoloco" title="https://twitter.com/molokoloco">@molokoloco</a>
+    </div>
+
     <iframe id="likes_frame" style="height:1px;width:1px;position:absolute;left:-500;"></iframe>
 
     <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
@@ -707,7 +730,7 @@
             };
         };
 
-        $(document).ready(function() {
+        $(function() {
 
             var $swipebox = $('.swipebox').swipebox();
 
