@@ -1,5 +1,5 @@
-<!-- 
-    Tumblr template : molokoloco 2013
+<!--
+    Tumblr template release V0.0.1 - molokoloco 2013
     Source : https://github.com/molokoloco/FRAMEWORK/blob/master/tumblr-template-molokoloco-01.html
     Demo : http://molokoloco.tumblr.com/
 -->
@@ -91,7 +91,7 @@
         float: left;
         position:relative;
         z-index:2;
-        width:380px;
+        width:388px;
         text-align:justify;
         {block:PermalinkPage}
         width:800px;
@@ -152,15 +152,12 @@
         -webkit-animation-duration:4s;
         -moz-animation-duration:4s;
         animation-duration:4s;
-
         -webkit-animation-direction: alternate;
         -moz-animation-direction: alternate;
         animation-direction: alternate;
-
         -webkit-animation-fill-mode: forwards;
         -moz-animation-fill-mode: forwards;
         animation-fill-mode: forwards;
-
         -webkit-animation-name:appear;
         -moz-animation-name:appear;
         animation-name:appear;
@@ -174,7 +171,6 @@
     }
     .share,
     .info {
-        overflow:hidden;
         -webkit-backface-visibility:hidden;
         -moz-backface-visibility:hidden;
         -o-backface-visibility:hidden;
@@ -193,11 +189,12 @@
         transform:perspective(1300px);
     }
     .share {
+        overflow: hidden;;
         position:absolute;
-        top:6px;
-        left:6px;
-        right:6px;
-        bottom:6px;
+        top: 6px;
+        left: 8px;
+        right: 10px;
+        bottom: 8px;
         z-index:0;
         background:#b5dee4;
         font-size:16px;
@@ -207,7 +204,6 @@
         -o-transform:perspective(1300px) rotateY(-180deg);
         transform:perspective(1300px) rotateY(-180deg);
     }
-
         .entry:hover .info {
             -webkit-transform:perspective(1300px) rotateY(180deg);
             -moz-transform:perspective(1300px) rotateY(180deg);
@@ -222,7 +218,7 @@
     /**** THE REST.. ****/
 
     .pad {
-        padding:6px;
+        padding:6px 8px;
     }
 
     .title{
@@ -313,7 +309,7 @@
     font-size:11px;
     color:{color:TextSid};
     background-color:{color:Sid};
-    background-color: rgba(0, 0, 0, 0.25);
+    background-color:rgba(255, 255, 255, 0.25);
     text-transform:none;
     text-align:left ;
     bottom:0;
@@ -325,20 +321,31 @@
     z-index:503;
     position:fixed;
     {block:ifShadowSid}
-    -moz-box-shadow:0 0 1em #000;
-    -webkit-box-shadow:0 0 1em #000;
-    box-shadow:0 0 1em #000;
+    -moz-box-shadow:0 0 8px #DF0050;
+    -webkit-box-shadow:0 0 8px #DF0050;
+    box-shadow:0 0 8px #DF0050;
     {/block:ifShadowSid}
     }
 
     .nav a{
     color:{color:SidLinks};
     }
+        .nav a:hover{
+        color:{color:SidLinksHover};
+        }
 
-    .nav a:hover{
-    color:{color:SidLinksHover};
+    .navigation {
+        margin: 20px;
+        text-align: center;
+        padding: 0 0 50px 0;
     }
 
+    .h1 {color:{color:Text};font-size:32px;line-height:25px;text-align:left;margin-bottom:-0;cursor:arrow;font-family:'EB Garamond', serif;}
+
+    .ask {float:right;margin-right:20px;}
+
+    #scrollToTop:link,
+    #scrollToTop:visited {color:transparent;background-color:transparent;display:none;position:fixed;top:640;right:5px;}
 
     .permalink{
     text-transform:none;
@@ -438,12 +445,6 @@
     margin-bottom:5px;
     }
 
-    .h1 {color:{color:Text};font-size:32px;line-height:25px;text-align:left;margin-bottom:-0;cursor:arrow;font-family:'EB Garamond', serif;}
-
-    .ask {float:right;margin-right:20px;}
-
-    #scrollToTop:link,
-    #scrollToTop:visited {color:transparent;background-color:transparent;display:none;position:fixed;top:640;right:5px;}
 
     #swipebox-action, #swipebox-caption {
         background: none;
@@ -519,7 +520,7 @@
                 <div class="info">
                     <div class="pad">
                         {block:IndexPage}
-                            <a href="{PhotoURL-HighRes}" class="swipebox"><img src="{PhotoURL-400}" alt="{PhotoAlt}" width="368" /></a>
+                            <a href="{PhotoURL-HighRes}" class="swipebox"><img src="{PhotoURL-400}" alt="{PhotoAlt}" width="370" /></a>
                         {/block:IndexPage}
                         {block:PermalinkPage}
                             <a href="{PhotoURL-HighRes}" class="swipebox"><img src="{PhotoURL-500}" alt="{PhotoAlt}" /></a>
@@ -674,52 +675,34 @@
         $.Isotope.prototype._getCenteredMasonryColumns = function () {
             this.width = this.element.width();
             var parentWidth = this.element.parent().width();
-            // i.e. options.masonry && options.masonry.columnWidth
             var colW = this.options.masonry && this.options.masonry.columnWidth ||
-            // or use the size of the first item
-            this.$filteredAtoms.outerWidth(true) ||
-            // if there's no items, use size of container
-            parentWidth;
+            this.$filteredAtoms.outerWidth(true) || parentWidth;
             var cols = Math.floor(parentWidth / colW);
             cols = Math.max(cols, 1);
-            // i.e. this.masonry.cols = ....
             this.masonry.cols = cols;
-            // i.e. this.masonry.columnWidth = ...
             this.masonry.columnWidth = colW;
         };
-
         $.Isotope.prototype._masonryReset = function () {
-            // layout-specific props
             this.masonry = {};
-            // FIXME shouldn't have to call this again
             this._getCenteredMasonryColumns();
             var i = this.masonry.cols;
             this.masonry.colYs = [];
-            while (i--) {
-                this.masonry.colYs.push(0);
-            }
+            while (i--) this.masonry.colYs.push(0);
         };
-
         $.Isotope.prototype._masonryResizeChanged = function () {
             var prevColCount = this.masonry.cols;
-            // get updated colCount
             this._getCenteredMasonryColumns();
             return (this.masonry.cols !== prevColCount);
         };
-
         $.Isotope.prototype._masonryGetContainerSize = function () {
             var unusedCols = 0,
                 i = this.masonry.cols;
-            // count unused columns
             while (--i) {
-                if (this.masonry.colYs[i] !== 0) {
-                    break;
-                }
+                if (this.masonry.colYs[i] !== 0) break;
                 unusedCols++;
             }
             return {
                 height: Math.max.apply(Math, this.masonry.colYs),
-                // fit container to columns that have been used;
                 width: (this.masonry.cols - unusedCols) * this.masonry.columnWidth
             };
         };
@@ -727,13 +710,12 @@
         $(document).ready(function() {
 
             var $swipebox = $('.swipebox').swipebox();
-            //$.swipebox($('.swipebox'));
 
             var $container = $('.posts').isotope({
                 itemSelector:'.entry',
                 hiddenStyle: { visibility: 'hidden', scale: 0.001 },
                 visibleStyle: { visibility: '', scale: 1 },
-                masonry: {columnWidth: 380}
+                masonry: {columnWidth: 388}
             });
 
             $container.infinitescroll({
@@ -744,17 +726,11 @@
                 extraScrollPx: 11000,
                 loadingImg: "",
                 loadingText: "<em>Loading...</em>",
-                loading: {
-                    finishedMsg: 'No more pages to load.',
-                    img: 'http://i.imgur.com/qkKy8.gif'
-                }},
+                loading: {finishedMsg: 'No more pages to load.'}},
                 function(newElements) { // call Isotope as a callback
                     setTimeout(function(ne) {
                         $container.isotope('appended', $(ne));
                         setTimeout($swipebox.refresh, 1000);
-                        // setTimeout(function(ne) {
-                        //     $.fn.swipebox($('.swipebox'));
-                        // }, 600);
                     }, 600, newElements);
                 }
             );
