@@ -5,10 +5,9 @@
 
     Uses :
 
-        - jquery-1.10.2.js : http://jquery.com/download/
-        - jquery.scrolltotop.js : https://github.com/geniuscarrier/scrollToTop
+        - jquery-1.10.2.js : http://jquery.com
         - jquery.infinitescroll.js : https://github.com/paulirish/infinite-scroll
-        - jquery.isotope.js : http://isotope.metafizzy.co/
+        - jquery.isotope.js : http://isotope.metafizzy.co
         - jquery.swipebox2.js : http://brutaldesign.github.io/swipebox/
 -->
 <head>
@@ -691,13 +690,15 @@
     <iframe id="likes_frame" style="height:1px;width:1px;position:absolute;left:-500;"></iframe>
 
     <script src="http://static.tumblr.com/okgfqfw/LyYmvwxat/jquery-1.10.2.min.js"></script>
-    <script src="http://static.tumblr.com/ikeq9mi/DfYl6o46t/scrolltotop.min.js"></script>
     <script src="http://static.tumblr.com/okgfqfw/Uyumvue19/jquery.infinitescroll.min.js"></script>
     <script src="http://static.tumblr.com/okgfqfw/z34mvue26/jquery.isotope.min.js"></script>
     <script src="http://static.tumblr.com/okgfqfw/1Tsmvx3u0/jquery.swipebox2.min.js"></script>
     <!-- <script src="http://www.b2bweb.fr/js/swipebox/jquery.swipebox2.js"></script> -->
 
     <script type="text/javascript">
+
+        // From :
+        // http://isotope.metafizzy.co/custom-layout-modes/centered-masonry.html
 
         $.Isotope.prototype._getCenteredMasonryColumns = function () {
             this.width = this.element.width();
@@ -734,6 +735,8 @@
             };
         };
 
+
+
         $(function() {
             var i          = 0,
                 $swipebox  = $('.swipebox').swipebox({hideBarsDelay:0});
@@ -759,6 +762,15 @@
                 }
             );
 
+            $window = $(window);
+            $link = $("#scrollToTop");
+            $link.click(function() {
+                $("html, body").animate({scrollTop: 0}, 1500);
+            });
+            $window.scroll(function() {
+                if ($window.scrollTop() <= 10) $link.fadeOut("fast")
+                else $link.fadeIn("fast")
+            });
         });
 
     </script>
