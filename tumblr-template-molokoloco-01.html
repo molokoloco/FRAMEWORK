@@ -1,7 +1,15 @@
 <!--
-    Tumblr template release V0.0.3 - molokoloco 2013
+    Tumblr template release V0.0.4 - molokoloco 2013
     Source : https://github.com/molokoloco/FRAMEWORK/blob/master/tumblr-template-molokoloco-01.html
-    Demo : http://molokoloco.tumblr.com/
+    Demo : http://sky-dumped.tumblr.com
+
+    Uses :
+
+        - jquery-1.10.2.js : http://jquery.com/download/
+        - jquery.scrolltotop.js : https://github.com/geniuscarrier/scrollToTop
+        - jquery.infinitescroll.js : https://github.com/paulirish/infinite-scroll
+        - jquery.isotope.js : http://isotope.metafizzy.co/
+        - jquery.swipebox2.js : http://brutaldesign.github.io/swipebox/
 -->
 <head>
     <meta charset="utf-8" />
@@ -14,8 +22,10 @@
 
     <meta name="apple-mobile-web-app-capable" content="yes"/>
     <meta name="apple-touch-fullscreen" content="yes"/>
-    <meta name="viewport" content="width=420,user-scalable=no"/>
+    <meta name="viewport" content="width=420"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+
+    <meta name="google-site-verification" content="fvN_zeBihKCYxW5wH9j93UIlk8E1tTRo-XEUV5TXrPU" />
 
     <meta name="if:Enable Endless Scrolling" content="1" />
     <meta name="color:Background" content="#d3004c" />
@@ -46,6 +56,7 @@
     <link rel="stylesheet" href="http://www.b2bweb.fr/js/swipebox/swipebox.css"/>
 
     <style type="text/css">
+
     ::-webkit-scrollbar{width:4px;height:auto;}
     ::-webkit-scrollbar-button:start:decrement
     ::-webkit-scrollbar-button:end:increment{display:block;height:0;background-color:transparent;}
@@ -87,7 +98,8 @@
         position:relative;
         zoom:1;
         width:90%;
-        min-width:380px;
+        min-width:280px;
+        max-width: 100%;
         margin:0 auto;
         padding:80px 0;
         min-height:1280px;
@@ -99,6 +111,7 @@
         text-align:justify;
         left: 9999px;
         min-height: 221px;
+        max-width:100%;
         {block:IndexPage}
         width:382px;
         {/block:IndexPage}
@@ -108,6 +121,10 @@
         -moz-filter: drop-shadow(0 0 5px #7C002D);
         filter: drop-shadow(0 0 5px #7C002D);
         {/block:PermalinkPage}
+    }
+
+    .entry img, .entry video {
+        max-width:100%;
     }
 
     /**** CSS3 APPEAR ****/
@@ -177,7 +194,7 @@
     }
         .info .pad,
         .share {
-            border-radius: 30px;
+            border-radius: 7px;
             overflow: hidden;
         }
     .share {
@@ -207,54 +224,51 @@
            transform:perspective(1300px) rotateY(0deg);
         }
 
-    /**** THE REST.. ****/
-
     .pad {
         margin:6px;
     }
 
+    /**** THE REST.. ****/
+
     .title {
         font-size:33px;
         text-shadow: 0px 1px 1px {color:TextShadow};
-        {block:ifUppercaseTitle}
-        text-transform:uppercase;
-        {/block:ifUppercaseTitle}
-        {block:ifnotUppercaseTitle}
-        {/block:ifnotUppercaseTitle}
+        {block:ifUppercaseTitle} text-transform:uppercase; {/block:ifUppercaseTitle}
+        {block:ifnotUppercaseTitle} {/block:ifnotUppercaseTitle}
     }
 
     a:link, a:active, a:visited{
-    color:{color:Text};
-    text-decoration:none;
-    -o-transition-duration:2000ms;
-    -webkit-transition-duration:2000ms;
-    -moz-transition-duration:2000ms;
+        color:{color:Text};
+        text-decoration:none;
+        -o-transition-duration:2000ms;
+        -webkit-transition-duration:2000ms;
+        -moz-transition-duration:2000ms;
     }
 
     a:hover {
-    color:{color:Hover};
-    -webkit-transition-duration:0.5s;
-    -moz-transition-duration:0.5s;
-    -o-transition-duration:0.5s;
-    -moz-transition-duration:0.5s;
-    text-decoration:none;
+        color:{color:Hover};
+        -webkit-transition-duration:0.5s;
+        -moz-transition-duration:0.5s;
+        -o-transition-duration:0.5s;
+        -moz-transition-duration:0.5s;
+        text-decoration:none;
     }
 
-    p{
-    margin:0;
-    padding:0;
+    p {
+        margin:0;
+        padding:0;
     }
 
-    ul{
-    margin:10px;
-    padding:8px;
+    ul {
+        margin:10px;
+        padding:8px;
     }
 
-    #tumblr_controls{
-    top:1px !important;
-    margin:0 0 0 0;
-    right:0px !important;
-    position:fixed !important;
+    #tumblr_controls {
+        top:1px !important;
+        margin:0 0 0 0;
+        right:0px !important;
+        position:fixed !important;
     }
 
     .photoperma {
@@ -274,14 +288,12 @@
     }
 
     .post_title{
-    font-family:{font:body};
-    {block:IfCalibriFont}
-    font-family:calibri, helvetica;
-    {/block:IfCalibriFont}
-    display:block;
-    font-size:13px;
-    line-height:20px;
-    text-transform:none;
+        font-family:{font:body};
+        {block:IfCalibriFont} font-family:calibri, helvetica; {/block:IfCalibriFont}
+        display:block;
+        font-size:13px;
+        line-height:20px;
+        text-transform:none;
     }
 
     .link_title{
@@ -289,9 +301,7 @@
     line-height:20px;
     text-transform:none;
     font-family:{font:body};
-    {block:IfCalibriFont}
-    font-family:calibri, helvetica;
-    {/block:IfCalibriFont}
+    {block:IfCalibriFont} font-family:calibri, helvetica; {/block:IfCalibriFont}
     margin-bottom:5px;
     }
 
@@ -318,29 +328,19 @@
         top:0;
         height: 50px;
         line-height:49px;
-        -webkit-border-bottom-left-radius:30px;
-        -webkit-border-bottom-right-radius:30px;
-        -moz-border-bottom-left-radius:30px;
-        -moz-border-bottom-right-radius:30px;
-        border-bottom-left-radius:30px;
-        border-bottom-right-radius:30px;
+        border-bottom-left-radius: 50% 100%;
+        border-bottom-right-radius: 50% 100%;
     }
     .foot {
         bottom:0;
         height:30px;
         line-height:31px;
-        -webkit-border-top-left-radius:30px;
-        -webkit-border-top-right-radius:30px;
-        -moz-border-top-left-radius:30px;
-        -moz-border-top-right-radius:30px;
-        border-top-left-radius:30px;
-        border-top-right-radius:30px;
     }
     .nav a{
-    color:{color:SidLinks};
+        color:{color:SidLinks};
     }
         .nav a:hover{
-        color:{color:SidLinksHover};
+            color:{color:SidLinksHover};
         }
 
     .navigation {
@@ -355,7 +355,14 @@
     .twt {float:left;margin-left:20px;}
 
     #scrollToTop:link,
-    #scrollToTop:visited {color:transparent;background-color:transparent;display:none;position:fixed;top:640;right:5px;}
+    #scrollToTop:visited {
+        display: none;;
+        position: fixed;
+        top: 88%;
+        right: 5px;
+        -webkit-filter: invert(100%);
+        filter: invert(100%);
+    }
 
     .permalink{
     text-transform:none;
@@ -453,13 +460,14 @@
     margin-top:5px;
     margin-bottom:5px;
     }
+
     #swipebox-action, #swipebox-caption {
         background: none;
         border:none;
     }
     #swipebox-overlay {
-        background:#0D0D0D;
-        background:rgba(211, 0, 76, 0.81);
+        background:#3d5d86;
+        background:rgba(14, 41, 77, 0.9);
         box-shadow:inset 0 0 12px {color:TextShadow};
     }
     #swipebox-overlay img {
@@ -673,18 +681,20 @@
         </div>
     {/block:IndexPage}
 
+    {block:ifTopButton}<a href="javascript:;" id="scrollToTop" title="scroll to top">{block:ifTopButtonOne}<img src="http://static.tumblr.com/i8axhtw/hBmma2nol/topbuttom.png" border="0">{/block:ifTopButtonOne}
+    {block:ifTopButtonTwo}<img src="http://static.tumblr.com/i8axhtw/7g2meyile/top2.png" border="0">{/block:ifTopButtonTwo}</a>{/block:ifTopButton}
+
     <div class="foot">
         {block:Description}{MetaDescription} | {/block:Description}{block:AskEnabled}<a href="/ask">Ask me</a> | {/block:AskEnabled}<a href="https://twitter.com/molokoloco" title="https://twitter.com/molokoloco">@molokoloco</a>
     </div>
 
     <iframe id="likes_frame" style="height:1px;width:1px;position:absolute;left:-500;"></iframe>
 
-    <script src="http://static.tumblr.com/okgfqfw/1mDmvudzk/jquery-1.10.1.min.js"></script>
-    <script src="http://static.tumblr.com/okgfqfw/sYUmvue02/jquery-migrate-1.2.1.min.js"></script>
-    <script src="http://static.tumblr.com/okgfqfw/ep6mvue0l/jquery.scrolltotop.min.js"></script>
+    <script src="http://static.tumblr.com/okgfqfw/LyYmvwxat/jquery-1.10.2.min.js"></script>
+    <script src="http://static.tumblr.com/ikeq9mi/DfYl6o46t/scrolltotop.min.js"></script>
     <script src="http://static.tumblr.com/okgfqfw/Uyumvue19/jquery.infinitescroll.min.js"></script>
     <script src="http://static.tumblr.com/okgfqfw/z34mvue26/jquery.isotope.min.js"></script>
-    <script src="http://static.tumblr.com/okgfqfw/I9zmvue94/jquery.swipebox2.min.js"></script>
+    <script src="http://static.tumblr.com/okgfqfw/1Tsmvx3u0/jquery.swipebox2.min.js"></script>
     <!-- <script src="http://www.b2bweb.fr/js/swipebox/jquery.swipebox2.js"></script> -->
 
     <script type="text/javascript">
