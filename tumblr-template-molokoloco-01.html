@@ -2,13 +2,6 @@
     Tumblr template release V0.0.4 - molokoloco 2013
     Source : https://github.com/molokoloco/FRAMEWORK/blob/master/tumblr-template-molokoloco-01.html
     Demo : http://sky-dumped.tumblr.com
-
-    Uses :
-
-        - jquery-1.10.2.js : http://jquery.com
-        - jquery.infinitescroll.js : https://github.com/paulirish/infinite-scroll
-        - jquery.isotope.js : http://isotope.metafizzy.co
-        - jquery.swipebox2.js : http://brutaldesign.github.io/swipebox/
 -->
 <head>
     <meta charset="utf-8" />
@@ -56,7 +49,7 @@
 
     <style type="text/css">
 
-    ::-webkit-scrollbar{width:4px;height:auto;}
+    ::-webkit-scrollbar{width:12px;height:auto;}
     ::-webkit-scrollbar-button:start:decrement
     ::-webkit-scrollbar-button:end:increment{display:block;height:0;background-color:transparent;}
     ::-webkit-scrollbar-track-piece{background-color:{color:background};-webkit-border-radius:0;-webkit-border-bottom-right-radius:3px;-webkit-border-bottom-left-radius:3px;}
@@ -130,15 +123,15 @@
 
     @-webkit-keyframes appear {
         from {opacity:0;}
-        to {opacity:0.69;}
+        to {opacity:1;}
     }
     @-moz-keyframes appear {
         from {opacity:0;}
-        to {opacity:0.69;}
+        to {opacity:1;}
     }
     @keyframes appear {
         from {opacity:0;}
-        to {opacity:0.69;}
+        to {opacity:1;}
     }
 
     /**** CSS3 3D ****/
@@ -164,13 +157,24 @@
         -webkit-animation-name:appear;
         -moz-animation-name:appear;
         animation-name:appear;
-        opacity: 0.69;
-        -webkit-transition:opacity 600ms ease-in-out;
-        -moz-transition:opacity 600ms ease-in-out;
-        transition:opacity 600ms ease-in-out;
+
+        -webkit-transition:-webkit-filter 600ms ease-in-out;
+        -moz-transition:-moz-filter 600ms ease-in-out;
+        -ms-transition:-ms-filter 600ms ease-in-out;
+        -o-transition:-o-filter 600ms ease-in-out;
+        transition:filter 600ms ease-in-out;
+        -webkit-filter: drop-shadow(0 1px 2px rgba(0,0,0,.5));
+        -moz-filter: drop-shadow(0 1px 2px rgba(0,0,0,.5));
+        -ms-filter: drop-shadow(0 1px 2px rgba(0,0,0,.5));
+        -o-filter: drop-shadow(0 1px 2px rgba(0,0,0,.5));
+        filter: drop-shadow(0 1px 2px rgba(0,0,0,.5));
     }
     .entry:hover {
-        opacity: 1;
+        -webkit-filter: drop-shadow(0 0 0 rgba(0,0,0,.5));
+        -moz-filter: drop-shadow(0 0 0 rgba(0,0,0,.5));
+        -ms-filter: drop-shadow(0 0 0 rgba(0,0,0,.5));
+        -o-filter: drop-shadow(0 0 0 rgba(0,0,0,.5));
+        filter: drop-shadow(0 0 0 rgba(0,0,0,.5));
     }
     .share,
     .info {
@@ -296,12 +300,12 @@
     }
 
     .link_title{
-    font-size:13px;
-    line-height:20px;
-    text-transform:none;
-    font-family:{font:body};
-    {block:IfCalibriFont} font-family:calibri, helvetica; {/block:IfCalibriFont}
-    margin-bottom:5px;
+        font-size:13px;
+        line-height:20px;
+        text-transform:none;
+        font-family:{font:body};
+        {block:IfCalibriFont} font-family:calibri, helvetica; {/block:IfCalibriFont}
+        margin-bottom:5px;
     }
 
     .foot,
@@ -355,7 +359,7 @@
 
     #scrollToTop:link,
     #scrollToTop:visited {
-        display: none;;
+        display: none;
         position: fixed;
         top: 88%;
         right: 5px;
@@ -364,15 +368,13 @@
     }
 
     .permalink{
-    text-transform:none;
-    text-align:center;
     color:gray;
     font-family:calibri, helvetica;
     position:relative;
     margin-top:-10px;
     font-size:11px;
-    opacity:0;
-    filter:alpha(opacity = 0);
+    /*opacity:0;
+    filter:alpha(opacity = 0);*/
     -moz-transition:all 0.4s;
     -webkit-transition:all 0.4s;
     -o-transition:all 0.4s;
@@ -383,10 +385,6 @@
     margin-top:-5px;
     opacity:1;
     filter:alpha(opacity = 100);
-    -moz-transition:all 0.4s;
-    -webkit-transition:all 0.4s;
-    -o-transition:all 0.4s;
-    transition:all 0.4;
     }
 
     .quote {
@@ -437,23 +435,23 @@
 
     div.video embed,
     div.post div.video object {
-    {block:IndexPage}
-    width:250px !important;
-    height:150px !important;
-    {/block:IndexPage}
-    {block:PermalinkPage}
-    width:500px !important;
-    height:400px !important;
-    {/block:PermalinkPage}
+        {block:IndexPage}
+        width:250px !important;
+        height:150px !important;
+        {/block:IndexPage}
+        {block:PermalinkPage}
+        width:500px !important;
+        height:400px !important;
+        {/block:PermalinkPage}
     }
 
     .question{
-    font-weight:normal;
-    margin-bottom:5px;
-    font-size:{text:Body font size}px;
-    line-height:15px;
-    display:block;
-    text-transform:lowercase;
+        font-weight:normal;
+        margin-bottom:5px;
+        font-size:{text:Body font size}px;
+        line-height:15px;
+        display:block;
+        text-transform:lowercase;
     }
     .caption{
     margin-top:5px;
@@ -497,7 +495,8 @@
         {block:ifCustomLinkTwoTitle}<a href="{text:Custom Link Two}">{text:Custom Link Two Title}</a>&nbsp;{/block:ifCustomLinkTwoTitle}
         {block:ifCustomOnlineUsersCode}{text:Custom Online Users Code}{/block:ifCustomOnlineUsersCode}
     </div>
-    <div class="posts">
+
+    <div class="posts" class="post {PostType} {TagsAsClasses} {block:Photoset}photoset{/block:Photoset}" {block:ContentSource}data-source="{PlaintextSourceURL}"{/block:ContentSource} data-permalink="{Permalink}">
         {block:Posts}
         <div class="entry">
             {block:Text}
@@ -525,18 +524,22 @@
             {block:Photo}
                 <div class="share">
                     <div class="pad">
-                        {block:Date}Posted: {TimeAgo}, {Month} {DayOfMonthWithZero}, {Year}<br />{/block:Date}
-                        {block:Caption}{Caption}{/block:Caption}<br />
-                        <a href="{Permalink}" title="Permalink">{Permalink}</a><br/>
+                        {block:Date}Posted: {TimeAgo}, {Month} {DayOfMonthWithZero}, {Year}, <a href="{Permalink}">{NoteCount}</a>&nbsp;<a href="{ReblogURL}" target="_blank">reblog</a><br />{/block:Date}
+                        {block:Caption}{Caption}<br />{/block:Caption}
+                        {block:HasTags}<div class="tags">
+                            {block:Tags}
+                                <a class="tag" href="{TagUrl}" data-tag="{PlaintextTag}">#{Tag}</a>
+                            {/block:Tags}
+                        </div>
+                        <br />{/block:HasTags}
+                        <a href="{Permalink}" title="Photo permalink"><strong>{Permalink}</strong></a><br />
                         <a href="{PhotoURL-HighRes}" title="PhotoURL : HighRes">{PhotoURL-HighRes}</a>
-                        {block:Exif}
-                        <ul>
+                        {block:Exif}<ul>
                             {block:Camera}<li>Camera: {Camera}</li>{/block:Camera}
                             {block:Aperture}<li>Aperture: {Aperture}</li>{/block:Aperture}
                             {block:Exposure}<li>Exposure: {Exposure}</li>{/block:Exposure}
                             {block:FocalLength}<li>Focal Length: {FocalLength}</li>{/block:FocalLength}
-                        </ul>
-                        {/block:Exif}
+                        </ul>{/block:Exif}
                         <div class="photoperma">
                             <a href="http://twitter.com/home?status=Sky+Dumper+:+{block:PostSummary}{PostSummary}+-+{/block:PostSummary}{ShortURL}" target="_blank">Tweet</a>
                             {ReblogButton size="20" color="black"}
@@ -547,8 +550,8 @@
                 <div class="info">
                     <div class="pad">
                         {block:IndexPage}<a href="{PhotoURL-HighRes}" class="swipebox"><img src="{PhotoURL-400}" alt="{PhotoAlt}" width="370" /></a>{/block:IndexPage}
-                        {block:PermalinkPage}<a href="{PhotoURL-HighRes}" class="swipebox"><img src="{PhotoURL-HighRes}" alt="{PhotoAlt}" width="800" /></a>{/block:PermalinkPage}
-                        {block:PermalinkPage}<br />{block:PostNotes}{PostNotes}{/block:PostNotes}{/block:PermalinkPage}
+                        {block:PermalinkPage}<a href="{PhotoURL-HighRes}" class="swipebox"><img src="{PhotoURL-HighRes}" alt="{PhotoAlt}" width="800" /></a><br />
+                        {block:PostNotes}{PostNotes}{/block:PostNotes}{/block:PermalinkPage}
                     </div>
                 </div>
             {/block:Photo}
@@ -690,97 +693,87 @@
     <iframe id="likes_frame" style="height:1px;width:1px;position:absolute;left:-500;"></iframe>
 
     <script src="http://static.tumblr.com/okgfqfw/LyYmvwxat/jquery-1.10.2.min.js"></script>
-    <script src="http://static.tumblr.com/okgfqfw/Uyumvue19/jquery.infinitescroll.min.js"></script>
-    <script src="http://static.tumblr.com/okgfqfw/z34mvue26/jquery.isotope.min.js"></script>
-    <script src="http://static.tumblr.com/okgfqfw/1Tsmvx3u0/jquery.swipebox2.min.js"></script>
-    <!-- <script src="http://www.b2bweb.fr/js/swipebox/jquery.swipebox2.js"></script> -->
-
+    <script src="http://static.tumblr.com/okgfqfw/lZpn433sl/jquery.infinitescroll.min.js"></script>
+    <script src="http://static.tumblr.com/okgfqfw/vAPn434xc/isotope-custom-01.js"></script>
+    <script src="http://static.tumblr.com/okgfqfw/NDCn433vm/swipebox-custom-01.js"></script>
+    
     <script type="text/javascript">
 
-        // From :
-        // http://isotope.metafizzy.co/custom-layout-modes/centered-masonry.html
+    $(function() {
 
-        $.Isotope.prototype._getCenteredMasonryColumns = function () {
-            this.width = this.element.width();
-            var parentWidth = this.element.parent().width();
-            var colW = this.options.masonry && this.options.masonry.columnWidth ||
-            this.$filteredAtoms.outerWidth(true) || parentWidth;
-            var cols = Math.floor(parentWidth / colW);
-            cols = Math.max(cols, 1);
-            this.masonry.cols = cols;
-            this.masonry.columnWidth = colW;
-        };
-        $.Isotope.prototype._masonryReset = function () {
-            this.masonry = {};
-            this._getCenteredMasonryColumns();
-            var i = this.masonry.cols;
-            this.masonry.colYs = [];
-            while (i--) this.masonry.colYs.push(0);
-        };
-        $.Isotope.prototype._masonryResizeChanged = function () {
-            var prevColCount = this.masonry.cols;
-            this._getCenteredMasonryColumns();
-            return (this.masonry.cols !== prevColCount);
-        };
-        $.Isotope.prototype._masonryGetContainerSize = function () {
-            var unusedCols = 0,
-                i = this.masonry.cols;
-            while (--i) {
-                if (this.masonry.colYs[i] !== 0) break;
-                unusedCols++;
-            }
-            return {
-                height: Math.max.apply(Math, this.masonry.colYs),
-                width: (this.masonry.cols - unusedCols) * this.masonry.columnWidth
-            };
-        };
+        /* /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        
+            Tumblr template release V0.0.5 - molokoloco 2014
+            Source : https://github.com/molokoloco/FRAMEWORK/blob/master/tumblr-template-molokoloco-01.html
+            Demo : http://sky-dumped.tumblr.com
 
+            Uses :
 
+                - jquery-1.10.2.js : http://jquery.com
+                - jquery.infinitescroll.js : https://github.com/paulirish/infinite-scroll
+                - jquery.isotope.js : http://isotope.metafizzy.co
+                - jquery.swipebox2.js : http://brutaldesign.github.io/swipebox/
+            
+            ASSETS ARE CUSTOMIZED 
 
-        $(function() {
-            var i          = 0,
-                $swipebox  = $('.swipebox').swipebox({hideBarsDelay:0});
-                $container = $('.posts').isotope({
-                    itemSelector:'.entry',
-                    hiddenStyle: {visibility:'hidden', scale:0.001},
-                    visibleStyle: {visibility:'', scale:1},
-                    masonry: {columnWidth: 382}
-                });
-            $container.infinitescroll({
-                    navSelector  : '#navigation',    // selector for the paged navigation
-                    nextSelector : '#navigation a#nextPage',  // selector for the NEXT link (to page 2)
-                    itemSelector : '.entry',     // selector for all items you'll retrieve
-                    bufferPx: 10000,
-                    extraScrollPx: 11000
-                },
-                function(newElements) { // call Isotope as a callback
-                    setTimeout(function(ne) {
-                        $container.isotope('appended', $(ne));
-                        setTimeout($swipebox.refresh, 1000);
-                    }, 1000 + (i * 100), newElements);
-                    i++;
-                }
-            );
+                - http://static.tumblr.com/okgfqfw/LyYmvwxat/jquery-1.10.2.min.js
+                - http://static.tumblr.com/okgfqfw/lZpn433sl/jquery.infinitescroll.min.js
+                - http://static.tumblr.com/okgfqfw/vAPn434xc/isotope-custom-01.js
+               -  http://static.tumblr.com/okgfqfw/NDCn433vm/swipebox-custom-01.js
 
-            $window = $(window);
-            $link = $("#scrollToTop");
-            $link.click(function() {
-                $("html, body").animate({scrollTop: 0}, 1500);
-            });
-            $window.scroll(function() {
-                if ($window.scrollTop() <= 10) $link.fadeOut("fast")
-                else $link.fadeIn("fast")
-            });
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////// */
+
+        var $container = $('.posts'),
+            $swipebox  = $('.swipebox');
+
+        $container.isotope({
+            masonry     : {columnWidth: 382, isFitWidth: true},
+            itemSelector: '.entry',
+            hiddenStyle : {visibility:'hidden', scale:0.001},
+            visibleStyle: {visibility:'', scale:1}
         });
 
-    </script>
-    <script>
+        $swipebox.swipebox({hideBarsDelay:0});
+
+        $container.isotope('on', 'layoutComplete', function() {
+            try { $swipebox.refresh(); } // to check :-/
+            catch(e) { console.log(e); }
+        });
+
+        $container.infinitescroll({
+                navSelector  : '#navigation',    // selector for the paged navigation
+                nextSelector : '#navigation a#nextPage',  // selector for the NEXT link (to page 2)
+                itemSelector : '.entry',     // selector for all items you'll retrieve
+                bufferPx     : 10000,
+                extraScrollPx: 7000
+            },
+            function(newElements) { // call Isotope as a callback
+                setTimeout(function(ne) {
+                    $container.isotope('appended', $(ne));
+                    $container.imagesLoaded(function() {
+                        $container.isotope('layout');
+                    });  
+                }, 500, newElements);
+            }
+        );
+
+        $window = $(window);
+        $link = $("#scrollToTop").click(function() {
+            $("html, body").animate({scrollTop: 0}, 900);
+        });
+        $window.scroll(function() {
+            if ($window.scrollTop() <= 10) $link.fadeOut(400);
+            else $link.fadeIn(400);
+        });
+    });
+
     (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
     (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
     m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
     })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
     ga('create', 'UA-1944677-9', 'tumblr.com');
     ga('send', 'pageview');
+
     </script>
 </body>
 </html>
